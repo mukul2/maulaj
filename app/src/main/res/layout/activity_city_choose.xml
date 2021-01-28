@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grayVeryLite"
+    tools:context=".Activity.CityChooseActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:elevation="10dp"
+        app:elevation="10dp"
+        android:layout_height="100dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="60dp"
+                android:padding="21dp"
+                android:onClick="back"
+                android:src="@drawable/left_white_"
+                android:layout_height="60dp"
+                app:tint="@color/white" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:text="England"
+                    android:id="@+id/spinner"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:hint="Search"
+                    android:id="@+id/ed_search"
+                    android:backgroundTint="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textSize="14dp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="40dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+   <androidx.recyclerview.widget.RecyclerView
+       android:layout_width="match_parent"
+       android:id="@+id/recycler_view"
+       android:layout_height="wrap_content"/>
+
+</LinearLayout>

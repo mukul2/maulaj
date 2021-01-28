@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.NonPrescriptionFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/dimen_card_radious"
+        android:layout_margin="@dimen/dimen_card_isolation_main"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:text="Medicines"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:id="@+id/tv_one"
+                android:padding="10dp"
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grayLite"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:text="Personal Care"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:padding="10dp"
+                android:id="@+id/tv_two"
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grayLite"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:text="Wellbeing And Fitness"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:id="@+id/tv_three"
+                android:padding="10dp"
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grayLite"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:text="Medical Devices"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:id="@+id/tv_four"
+                android:padding="10dp"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:layout_width="match_parent"
+      android:id="@+id/recycler"
+      android:layout_height="wrap_content"/>
+</LinearLayout>

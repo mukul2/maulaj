@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.HomeCareRequestActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="60dp"
+                android:padding="21dp"
+                android:onClick="back"
+                android:src="@drawable/left_white_"
+                android:layout_height="60dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:text="Home Visit Request"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/dimen_card_isolation_main"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/dimen_card_isolation_main"
+            app:cardCornerRadius="@dimen/dimen_card_radious"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:layout_height="match_parent">
+
+
+
+
+                <Spinner
+                    android:id="@+id/spinnerUserType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:visibility="visible"
+                    android:id="@+id/linearHideContent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/ed_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Patient name"
+                        android:lines="1"
+
+                        android:paddingLeft="05dp"
+                        android:paddingTop="@dimen/dimen_for_ed_padding"
+                        android:paddingBottom="@dimen/dimen_for_ed_padding"
+                        android:textSize="@dimen/dimen_for_ed_font_size" />
+
+                    <EditText
+                        android:id="@+id/ed_age"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Date Of Birth"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:paddingLeft="05dp"
+                        android:paddingTop="@dimen/dimen_for_ed_padding"
+                        android:paddingBottom="@dimen/dimen_for_ed_padding"
+                        android:textSize="@dimen/dimen_for_ed_font_size" />
+
+
+
+
+                </LinearLayout>
+
+
+
+
+                <EditText
+                    android:id="@+id/ed_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone"
+                    android:lines="1"
+                    android:paddingLeft="05dp"
+                    android:paddingTop="@dimen/dimen_for_ed_padding"
+                    android:paddingBottom="@dimen/dimen_for_ed_padding"
+                    android:textSize="@dimen/dimen_for_ed_font_size" />
+
+                <EditText
+                    android:id="@+id/ed_preffereddate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Preffered Date for Visit"
+                    android:inputType="number"
+                    android:lines="1"
+                    android:paddingLeft="05dp"
+                    android:paddingTop="@dimen/dimen_for_ed_padding"
+                    android:paddingBottom="@dimen/dimen_for_ed_padding"
+                    android:textSize="@dimen/dimen_for_ed_font_size" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:hint="Email"
+                    android:id="@+id/ed_email"
+                    android:paddingLeft="5dp"
+                    android:lines="1"
+                    android:paddingTop="@dimen/dimen_for_ed_padding"
+                    android:paddingBottom="@dimen/dimen_for_ed_padding"
+                    android:textSize="@dimen/dimen_for_ed_font_size"
+                    android:layout_height="wrap_content"
+                    />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:hint="Reason For Visit"
+                    android:paddingLeft="5dp"
+                    android:id="@+id/ed_reason"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:paddingTop="@dimen/dimen_for_ed_padding"
+                    android:paddingBottom="@dimen/dimen_for_ed_padding"
+                    android:textSize="@dimen/dimen_for_ed_font_size"
+                    android:layout_height="wrap_content"
+                    />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:hint="Home Address"
+                    android:paddingLeft="5dp"
+                    android:id="@+id/ed_address"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:paddingTop="@dimen/dimen_for_ed_padding"
+                    android:paddingBottom="@dimen/dimen_for_ed_padding"
+                    android:textSize="@dimen/dimen_for_ed_font_size"
+                    android:layout_height="wrap_content"
+                    />
+              <EditText
+                    android:layout_width="match_parent"
+                    android:hint="Any Allergy History"
+                    android:paddingLeft="5dp"
+                    android:id="@+id/ed_allergy"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:paddingTop="@dimen/dimen_for_ed_padding"
+                    android:paddingBottom="@dimen/dimen_for_ed_padding"
+                    android:textSize="@dimen/dimen_for_ed_font_size"
+                    android:layout_height="wrap_content"
+                    />
+
+
+
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/dimen_card_isolation_main"
+            app:cardCornerRadius="@dimen/dimen_card_radious"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:text="Medical History" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:onClick="submit"
+                android:layout_marginRight="7dp"
+                android:layout_marginLeft="7dp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="Book Now"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/white"
+                    android:layout_height="wrap_content"/>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

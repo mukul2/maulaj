@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="patient_bottom_navigation_icon_size">23dp</dimen>
+    <dimen name="card_rad">4dp</dimen>
+    <dimen name="menu_text_sixe">12sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="dimen_for_curved">2dp</dimen>
+    <dimen name="dimen_for_ed_padding">10dp</dimen>
+    <dimen name="dimen_for_ed_font_size">15dp</dimen>
+    <dimen name="dimen_card_isolation_main">8dp</dimen>
+    <dimen name="dimen_card_radious">0dp</dimen>
+    <!--
+    Because the window insets on round devices are larger than 15dp, this padding only applies
+    to square screens.
+    -->
+    <dimen name="box_inset_layout_padding">0dp</dimen>
+
+    <!--
+    This padding applies to both square and round screens. The total padding between the buttons
+    and the window insets is box_inset_layout_padding (above variable) on square screens and
+    inner_frame_layout_padding (below variable) on round screens.
+    -->
+    <dimen name="inner_frame_layout_padding">5dp</dimen>
+
+
+</resources>

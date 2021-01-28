@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grayVeryLite"
+    tools:context=".Activity.DocumentAddAcitvityForPatient">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="60dp"
+                android:padding="21dp"
+                android:onClick="back"
+                android:src="@drawable/left_white_"
+                android:layout_height="60dp"/>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="0dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:id="@+id/img"
+                android:src="@drawable/nnn"
+                android:padding="20dp"
+                android:onClick="openGallary"
+
+                android:layout_height="300dp"
+
+               />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:layout_marginBottom="15dp"
+                android:id="@+id/ed_title"
+                android:hint="Title"
+                />
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:onClick="submit"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_height="45dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Save into Profile"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

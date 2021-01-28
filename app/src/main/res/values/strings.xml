@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Maulaji</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text">has recomended you to do these following test(s) before you ask for an appointment </string>
+    <string name="title_activity_prescription_review_sending">PrescriptionReviewSendingActivity
+    </string>
+    <string name="title_activity_medical_history_patient">MedicalHistoryActivityPatient</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="title_activity_full_screen_call_incomming">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+</resources>

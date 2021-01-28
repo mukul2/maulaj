@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.UserChooseActivity">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:src="@drawable/mother_child_bg"
+        android:scaleType="centerCrop"
+        android:id="@+id/imgNurse"
+        android:layout_height="match_parent"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:background="#94FFFFFF"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="250dp"
+            android:padding="10dp"
+
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="50dp"
+
+            android:layout_centerHorizontal="true"
+
+
+
+            android:adjustViewBounds="true"
+            android:src="@drawable/wide_logo"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:onClick="PatientLogin"
+            app:cardBackgroundColor="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            tools:ignore="OnClick">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:src="@drawable/tick"
+                    android:visibility="gone"
+                    android:layout_marginLeft="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="20dp"
+                    app:tint="@color/white" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="Login as a Patient"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:onClick="DocLogin"
+            app:cardBackgroundColor="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            tools:ignore="OnClick">
+            <TextView
+                android:layout_width="match_parent"
+                android:text="Login as  a Doctor"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+        </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:onClick="GuestLogin"
+            android:background="@drawable/trans_border_curved"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:text="Login as a Guest"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textColor="@color/red"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

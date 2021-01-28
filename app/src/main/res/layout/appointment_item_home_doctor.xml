@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_margin="0dp"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="60dp"
+        android:layout_centerVertical="true"
+        android:layout_height="60dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="45dp"
+            android:src="@color/grayLite"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/img"
+
+
+            android:layout_height="45dp"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:cardCornerRadius="10dp"
+            android:id="@+id/cardGuest"
+            app:cardBackgroundColor="@color/grayVeryLite"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Guest"
+                android:layout_gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content"/>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            app:cardCornerRadius="10dp"
+            android:id="@+id/cardOther"
+            app:cardBackgroundColor="@color/grayVeryLite"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Other"
+                android:layout_gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content"/>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="60dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:lines="1"
+                android:text="Dr Name"
+                android:id="@+id/tv_name"
+                android:textColor="@color/colorPrimary"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Time"
+                    android:lines="1"
+                    android:id="@+id/tv_time"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:lines="1"
+                    android:id="@+id/tv_date"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:background="@android:color/white"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:id="@+id/cardVcall"
+                android:padding="17dp"
+                android:visibility="gone"
+
+                android:layout_gravity="center"
+                android:src="@drawable/video_camera"
+                android:layout_height="50dp"
+                app:tint="@color/white" />
+
+
+            <ImageView
+                android:id="@+id/cardAcall"
+                android:visibility="gone"
+                android:layout_width="50dp"
+                android:padding="17dp"
+                android:layout_gravity="center"
+                android:src="@drawable/call_answer"
+                android:layout_height="50dp"
+                app:tint="@color/white" />
+
+
+            <ImageView
+                android:id="@+id/cardChat"
+                android:visibility="gone"
+                android:layout_width="50dp"
+                android:layout_gravity="center"
+                android:padding="14dp"
+                android:src="@drawable/chat_white"
+                android:layout_height="50dp"
+                app:tint="@color/white" />
+            <ImageView
+                android:layout_width="50dp"
+                android:id="@+id/cardMore"
+                android:padding="17dp"
+
+                android:layout_gravity="center"
+                android:src="@drawable/right_white"
+                android:layout_height="50dp"
+                app:tint="@color/colorPrimary" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

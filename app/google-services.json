@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "644330715635",
+    "firebase_url": "https://callgpnow.firebaseio.com",
+    "project_id": "callgpnow",
+    "storage_bucket": "callgpnow.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644330715635:android:cefe4ec92e5265314fba86",
+        "android_client_info": {
+          "package_name": "com.telemedicine.maulaji"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644330715635-ishhpd20fpp7pt92cqiahtbj64dh9at9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDePe0we_Ha0oOpgQhHf4Lolr1kqERtOVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644330715635-ishhpd20fpp7pt92cqiahtbj64dh9at9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

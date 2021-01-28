@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#DB1212</color>
+    <color name="colorPrimaryLite">#1aDB1212</color>
+    <color name="colorPrimaryVeryLite">#1ADB1212</color>
+    <color name="colorPrimaryDark">#DB1212</color>
+    <color name="colorAccent">#DB1212</color>
+    <color name="textColor">#636363</color>
+    <color name="textText">#636363</color>
+    <color name="black">@android:color/black</color>
+    <color name="tab_active">@android:color/white</color>
+    <color name="tab_inactive">#36cccccc</color>
+    <color name="red">#CB4335</color>
+    <color name="red_lite">#2ecb4335</color>
+    <color name="white">@android:color/white</color>
+    <color name="grayLite">#B3B3B3</color>
+    <color name="grayVeryLite">#F4F4F4</color>
+    <color name="proj_blue">#184AD9</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
+</resources>

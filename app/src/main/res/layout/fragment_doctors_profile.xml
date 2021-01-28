@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="15dp"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/shadow_curved"
     tools:context=".Fragments.DoctorsProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:id="@+id/cardBook"
+        app:cardBackgroundColor="@color/colorPrimary"
+        android:layout_alignParentBottom="false"
 
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Book Appointment"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_height="match_parent"/>
+
+
+
+    </androidx.cardview.widget.CardView>
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
+
         android:layout_height="180dp">
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
@@ -33,7 +53,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
 
             android:layout_gravity=""
@@ -64,24 +84,7 @@
         </LinearLayout>
 
     </LinearLayout>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:id="@+id/cardBook"
-        app:cardBackgroundColor="@color/colorPrimary"
-        android:layout_alignParentBottom="true"
-        android:layout_height="50dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:text="Book Appointment"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:layout_height="match_parent"/>
 
 
 
-    </androidx.cardview.widget.CardView>
-
-
-</RelativeLayout>
+</LinearLayout>

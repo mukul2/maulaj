@@ -38,6 +38,7 @@ import com.telemedicine.maulaji.api.ApiListener;
 import com.telemedicine.maulaji.model.MedicineModel;
 import com.telemedicine.maulaji.model.MedicineModel2;
 import com.telemedicine.maulaji.model.MedicineModel3;
+import com.telemedicine.maulaji.model.MedicineModel4;
 import com.telemedicine.maulaji.model.MedicineVaritiModel;
 import com.telemedicine.maulaji.model.PrescriptionMedicineModel;
 import com.telemedicine.maulaji.model.StatusMessage;
@@ -46,6 +47,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +63,7 @@ import static com.telemedicine.maulaji.Data.DataStore.selectedSearchAppointmentM
 
 public class PrescriptionGivingActivity extends AppCompatActivity implements ApiListener.DownloadMedicinesListInfoListener,
         ApiListener.PrescriptionAddListener, ApiListener.ReplyPrescriptionRequestListener, ApiListener.MedDownloadListener {
-    List<MedicineModel3> ALL_MEDICINE = new ArrayList<>();
+    List<MedicineModel4> ALL_MEDICINE = new ArrayList<>();
     @BindView(R.id.image)
     CircleImageView image;
     @BindView(R.id.ed_diseases)
@@ -102,7 +104,8 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
     String TYPE;
     String medVarities = "";
 
-    SessionManager sessionManager ;
+    SessionManager sessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,7 +139,20 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
 //
 //        }
 
-       // Api.getInstance().all_medicines(this);
+        Api.getInstance().all_medicines("", new ApiListener.MedDownloadListener() {
+            @Override
+            public void onMedDownloadSuccess(List<MedicineModel4> response) {
+                Toast.makeText(context, "size " + response.size(), Toast.LENGTH_SHORT).show();
+                ALL_MEDICINE = response;
+                initMedicineRecycler();
+            }
+
+            @Override
+            public void onMedDownloadFailed(String msg) {
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
 
     }
@@ -417,7 +433,7 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
 
         TextView tv_add = (TextView) dialog.findViewById(R.id.tv_add);
 
-         medVarities = "";
+        medVarities = "";
         tv_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -426,7 +442,7 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
                     if (morning == 1 || noon == 1 || night == 1) {
                         if (selectedDuration != null && (selectedDuration.length() > 0)) {
                             String dose = "" + MORNING_DOSE_COUNT + "-" + NOON_DOSE_COUNT + "-" + NIGHT_DOSE_COUNT;
-                            medicineList.add(new PrescriptionMedicineModel(Integer.valueOf(ALL_MEDICINE.get(selected_med - 1).getId()), SELECTED_DURATION, ALL_MEDICINE.get(selected_med - 1).getName(), medVarities,"" + DURATION_COUNT, dose, NIGHT_STATUS));
+                            medicineList.add(new PrescriptionMedicineModel(Integer.valueOf(ALL_MEDICINE.get(selected_med - 1).getId()), SELECTED_DURATION, ALL_MEDICINE.get(selected_med - 1).getName(), medVarities, "" + DURATION_COUNT, dose, NIGHT_STATUS));
                             mAdapter.notifyItemInserted(medicineList.size() - 1);
                             spinnerMedicineName.setSelection(0);
                             dialog.dismiss();
@@ -455,48 +471,63 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
                 if (i > 0) {
                     selected_med = i;
                     //  Toast.makeText(PrescriptionGivingActivity.this, "" +ALL_MEDICINE.get(i-1).getId(), Toast.LENGTH_LONG).show();
-//
-                    Api.getInstance().get_medicine_varities("" + ALL_MEDICINE.get(i - 1).getId(), new ApiListener.MedVaritiListDownloadListener() {
-                        @Override
-                        public void onMedVaritiListListDownloadSuccess(List<MedicineVaritiModel> responseV) {
-                            Toast.makeText(PrescriptionGivingActivity.this, "Varities found " + responseV.size(), Toast.LENGTH_SHORT).show();
+                    String[] splitArray;
+                    String title = ALL_MEDICINE.get(i - 1).getName();
+                    EditText ed_varities = (EditText) dialog.findViewById(R.id.ed_varities);
+                    try {
+                         splitArray = title.split("\\s+");
+                        ed_varities.setText(splitArray[splitArray.length-1]);
+                    } catch (PatternSyntaxException ex) {
+                        //
+                    }
 
-                            List<String> varities = new ArrayList<>();
-                            varities.add("Choose");
-                            for(int j = 0 ; j<responseV.size();j++){
-                                varities.add(responseV.get(j).getBody());
+
+                    if (false) {
+
+//
+                        Api.getInstance().get_medicine_varities("" + ALL_MEDICINE.get(i - 1).getId(), new ApiListener.MedVaritiListDownloadListener() {
+                            @Override
+                            public void onMedVaritiListListDownloadSuccess(List<MedicineVaritiModel> responseV) {
+                                Toast.makeText(PrescriptionGivingActivity.this, "Varities found " + responseV.size(), Toast.LENGTH_SHORT).show();
+
+                                List<String> varities = new ArrayList<>();
+                                varities.add("Choose");
+                                for (int j = 0; j < responseV.size(); j++) {
+                                    varities.add(responseV.get(j).getBody());
+                                }
+
+
+                              //  spinnerVarities = (Spinner) dialog.findViewById(R.id.spinnerVerities);
+                                spinnerVarities = new Spinner(context);
+                                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, varities);
+                                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerVarities.setAdapter(dataAdapter);
+                                spinnerVarities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        if (i > 0) {
+                                            medVarities = varities.get(i);
+                                            // selected_med = i;
+                                            // Toast.makeText(PrescriptionGivingActivity.this, "" + selected_med, Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                    }
+                                });
+
+
                             }
 
+                            @Override
+                            public void onMedVaritiListListDownloadFailed(String msg) {
+                                Toast.makeText(PrescriptionGivingActivity.this, "error while varities", Toast.LENGTH_SHORT).show();
 
-                            spinnerVarities = (Spinner) dialog.findViewById(R.id.spinnerVerities);
-                            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, varities);
-                            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            spinnerVarities.setAdapter(dataAdapter);
-                            spinnerVarities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                    if (i>0) {
-                                        medVarities = varities.get(i);
-                                       // selected_med = i;
-                                       // Toast.makeText(PrescriptionGivingActivity.this, "" + selected_med, Toast.LENGTH_LONG).show();
-                                    }
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                                }
-                            });
-
-
-                        }
-
-                        @Override
-                        public void onMedVaritiListListDownloadFailed(String msg) {
-                            Toast.makeText(PrescriptionGivingActivity.this, "error while varities", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
+                            }
+                        });
+                    }
 
 
                 }
@@ -541,7 +572,7 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
 
     @Override
     public void onDownloadMedicinesListInfoSuccess(List<MedicineModel> status) {
-        Toast.makeText(context, "downloaded med size "+status.size(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "downloaded med size " + status.size(), Toast.LENGTH_SHORT).show();
 
 
     }
@@ -550,7 +581,7 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
     @Override
     public void onDownloadMedicinesListFailed(String msg) {
         ALL_MEDICINE.clear();
-        Toast.makeText(this, "med wonload error "+msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "med wonload error " + msg, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -560,20 +591,20 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
         String note = ed_note.getText().toString().trim();
         String PRESCRIPTION_SERVICE_ID = "5";
         Gson gson = new Gson();
-        Log.i("pres",gson.toJson(medicineList));
+        Log.i("pres", gson.toJson(medicineList));
         String producedLine = "";
         String localBreak = "***";
         Toast.makeText(context, NOW_SHOWING_PATIENT_ID, Toast.LENGTH_SHORT).show();
-        for(int i = 0 ; i< medicineList.size();i++){
-            producedLine+=medicineList.get(i).getMedicineId()+localBreak+medicineList.get(i).getVarient()+localBreak+medicineList.get(i).getDose()+localBreak+medicineList.get(i).getDurationLength()+medicineList.get(i).getDurationType();
-            if(i< medicineList.size()-1) producedLine+="###";
+        for (int i = 0; i < medicineList.size(); i++) {
+            producedLine += medicineList.get(i).getMedicineId() + localBreak + medicineList.get(i).getVarient() + localBreak + medicineList.get(i).getDose() + localBreak + medicineList.get(i).getDurationLength() + medicineList.get(i).getDurationType();
+            if (i < medicineList.size() - 1) producedLine += "###";
         }
-        Log.i("pres",producedLine);
-        if (diseases.length() > 0 && advice.length()>0 && note.length()>0) {
+        Log.i("pres", producedLine);
+        if (diseases.length() > 0 && advice.length() > 0 && note.length() > 0) {
             if (true) {
                 MyProgressBar.with(context);
                 HashMap<String, String> request = new HashMap<String, String>();
-               request.put("patient", NOW_SHOWING_PATIENT_ID);
+                request.put("patient", NOW_SHOWING_PATIENT_ID);
                 request.put("doctor", sessionManager.getUserId());
                 request.put("symptom", diseases);
                 request.put("advice", advice);
@@ -597,7 +628,7 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
                     @Override
                     public void onPrescriptionPushFailed(String msg) {
                         MyProgressBar.dismiss();
-                        Toast.makeText(context,msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -610,7 +641,7 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
     public void onrescriptionAddSuccess(StatusMessage data) {
         MyProgressBar.dismiss();
         Toast.makeText(context, data.getMessage(), Toast.LENGTH_SHORT).show();
-       // onBackPressed();
+        // onBackPressed();
     }
 
     @Override
@@ -637,8 +668,8 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
     @Override
     public void onMedDownloadSuccess(List response) {
         ALL_MEDICINE.clear();
-        Toast.makeText(context, "downloaded "+response.size(), Toast.LENGTH_SHORT).show();
-        if (false  ) {//response != null
+        Toast.makeText(context, "downloaded " + response.size(), Toast.LENGTH_SHORT).show();
+        if (false) {//response != null
             ALL_MEDICINE.addAll(response);
             initMedicineRecycler();
         } else {
@@ -649,7 +680,7 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
 
     @Override
     public void onMedDownloadFailed(String msg) {
-        Toast.makeText(context, "pres dn err"+msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "pres dn err" + msg, Toast.LENGTH_SHORT).show();
 
     }
 }

@@ -18,6 +18,12 @@ import static com.telemedicine.maulaji.Data.Data.NOW_SHOWING_PRODUCT;
 import static com.telemedicine.maulaji.Data.Data.PHOTO_BASE_PHARMACY;
 
 public class ProductBodyDetailActivity extends AppCompatActivity {
+    @BindView(R.id.subcategory)
+    TextView subcategory;
+    @BindView(R.id.tv_description)
+    TextView tv_description;
+    @BindView(R.id.category)
+    TextView category;
     @BindView(R.id.img)
     ImageView img;
     @BindView(R.id.tv_name)
@@ -40,6 +46,9 @@ public class ProductBodyDetailActivity extends AppCompatActivity {
         tv_name2.setText(NOW_SHOWING_PRODUCT.getName());
         tv_price.setText(NOW_SHOWING_PRODUCT.getPrice());
         tv_cartStatus.setText("ADD TO CART");
+        category.setText(NOW_SHOWING_PRODUCT.getCategory());
+        subcategory.setText(NOW_SHOWING_PRODUCT.getSubcategory());
+        tv_description.setText(NOW_SHOWING_PRODUCT.getDescription());
     }
 
     public void back(View view) {

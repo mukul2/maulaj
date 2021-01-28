@@ -159,6 +159,46 @@ public class DateAndTimeSlotActivity extends AppCompatActivity {
 
 
                        // Toast.makeText(context, data.get("s_time").toString().toLowerCase() + " vs "+newFormat, Toast.LENGTH_SHORT).show();
+                        }else       if(justSelected == SelectedDayType.future){
+
+                            Calendar calendarReal = Calendar.getInstance();
+
+
+                            Calendar calendarTodayOnlyDay= Calendar.getInstance();
+                            calendarTodayOnlyDay.set(Calendar.HOUR_OF_DAY,0);
+                            calendarTodayOnlyDay.set(Calendar.MINUTE,0);
+                            calendarTodayOnlyDay.set(Calendar.SECOND,0);
+
+
+
+                            //calendar.getTime().
+                            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+                            Date testDate = null;
+                            try {
+                                testDate = sdf.parse(data.get("s_time").toString().toLowerCase());
+                                //  testDate = sdf.parse("22:51 pm");
+                            }catch(Exception ex){
+                                ex.printStackTrace();
+                            }
+
+                            long sumedTime = calendarTodayOnlyDay.getTime().getTime()+testDate.getTime();
+                            startActivity(intent);
+                            if(calendarReal.getTime().getTime()<sumedTime){
+                                Log.i("mkl","passed "+calendarReal.getTime().getTime()+" vs  "+sumedTime);
+                                Log.i("mkl","diff in sec  "+(-calendarReal.getTime().getTime()+sumedTime));
+                                Log.i("mkl","diff in min  "+(-calendarReal.getTime().getTime()+sumedTime)/60000);
+                                Toast.makeText(context, "passed "+calendarReal.getTime().getTime()+" vs  "+testDate.getTime(), Toast.LENGTH_SHORT).show();
+                                //startActivity(intent);
+                            }else {
+                                Log.i("mkl","failed "+calendarReal.getTime().getTime()+" vs  "+sumedTime);
+                                Log.i("mkl","diff in sec  "+(-calendarReal.getTime().getTime()+sumedTime));
+                                Log.i("mkl","diff in min  "+(-calendarReal.getTime().getTime()+sumedTime)/60000);
+
+                                Toast.makeText(context, "failed "+calendarReal.getTime().getTime()+" vs  "+testDate.getTime(), Toast.LENGTH_SHORT).show();
+                            }
+
+
+                            // Toast.makeText(context, data.get("s_time").toString().toLowerCase() + " vs "+newFormat, Toast.LENGTH_SHORT).show();
                         }
                     }
                 };

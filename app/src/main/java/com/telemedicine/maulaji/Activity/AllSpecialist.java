@@ -158,8 +158,10 @@ public class AllSpecialist extends AppCompatActivity {
                         DoctorModelRaw data = response.get(pos);
                       // NOW_SHOWING_DYNAMIC = data;
                         NOW_SHOWING_DOC = data ;
-                        startActivity(intent);
+                       // startActivity(intent);
 
+                        DoctorsProfileFragment addPhotoBottomDialogFragment = DoctorsProfileFragment.newInstance(data);
+                        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), "add_photo_dialog_fragment");
 
                     }
                 };

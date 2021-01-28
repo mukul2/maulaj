@@ -20,20 +20,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bartoszlipinski.flippablestackview.FlippableStackView;
 import com.bartoszlipinski.flippablestackview.StackPageTransformer;
 import com.google.gson.Gson;
+import com.telemedicine.maulaji.Fragments.DoctorProfileBottomsheet;
 import com.telemedicine.maulaji.Fragments.DoctorsProfileFragment;
-import com.telemedicine.maulaji.Fragments.PrescriptionsFragment;
-import com.telemedicine.maulaji.Fragments.SingleprescriptionFragment;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.api.Api;
 import com.telemedicine.maulaji.api.ApiListener;
-import com.telemedicine.maulaji.model.CountryModel;
 import com.telemedicine.maulaji.model.DoctorModelRaw;
 import com.telemedicine.maulaji.model.HospitalModel;
 import com.telemedicine.maulaji.viewEngine.engineGridViews;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -228,9 +225,10 @@ public class GPSearchActivity extends AppCompatActivity {
                 DoctorModelRaw data__ =  data.get(pos);
                 NOW_SHOWING_DOC =  data.get(pos);
              //   NOW_SHOWING_DYNAMIC = data__;
-                startActivity(intent);
+               // startActivity(intent);
 
-
+                DoctorsProfileFragment addPhotoBottomDialogFragment = DoctorsProfileFragment.newInstance(data__);
+                addPhotoBottomDialogFragment.show(getSupportFragmentManager(), "add_photo_dialog_fragment");
 
             }
         };

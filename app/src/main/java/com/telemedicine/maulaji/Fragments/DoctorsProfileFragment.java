@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.telemedicine.maulaji.Activity.DateAndTimeSlotActivity;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.model.DoctorModelRaw;
@@ -31,7 +32,7 @@ import static com.telemedicine.maulaji.Data.Data.PHOTO_BASE;
  * Use the {@link DoctorsProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DoctorsProfileFragment extends Fragment {
+public class DoctorsProfileFragment extends BottomSheetDialogFragment {
     DoctorModelRaw docData;
     View view;
     Context context;

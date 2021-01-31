@@ -139,16 +139,9 @@ public class GPSearchActivity extends AppCompatActivity {
 
 
 
-                createViewPagerFragments(response);
+                //createViewPagerFragments(response);
 
-                mPageAdapter = new ColorFragmentAdapter(getSupportFragmentManager(), mViewPagerFragments);
-                mFlippableStack. initStack(response.size()>3?4:response.size(),
-                        StackPageTransformer.Orientation.VERTICAL,
-                        0.95f,
-                        0.7f,
-                        0.5f,
-                        StackPageTransformer.Gravity.CENTER);
-                mFlippableStack.setAdapter(mPageAdapter);
+
 
 
                 tv_list.setOnClickListener(new View.OnClickListener() {
@@ -196,7 +189,7 @@ public class GPSearchActivity extends AppCompatActivity {
 
         for (int i = 0; i < response.size(); i++) {
             DoctorModelRaw data =  response.get(i);
-            mViewPagerFragments.add(DoctorsProfileFragment.newInstance(data));
+          //  mViewPagerFragments.add(DoctorsProfileFragment.newInstance(data));
         }
     }
     private class ColorFragmentAdapter extends FragmentPagerAdapter {
@@ -227,7 +220,7 @@ public class GPSearchActivity extends AppCompatActivity {
              //   NOW_SHOWING_DYNAMIC = data__;
                // startActivity(intent);
 
-                DoctorsProfileFragment addPhotoBottomDialogFragment = DoctorsProfileFragment.newInstance(data__);
+                DoctorsProfileFragment addPhotoBottomDialogFragment = DoctorsProfileFragment.newInstance(data__,"typeOne");
                 addPhotoBottomDialogFragment.show(getSupportFragmentManager(), "add_photo_dialog_fragment");
 
             }

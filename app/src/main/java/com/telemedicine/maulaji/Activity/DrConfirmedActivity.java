@@ -91,7 +91,7 @@ public class DrConfirmedActivity extends AppCompatActivity implements ApiListene
 
     @Override
     public void onAppointmentDownloadFailed(String msg) {
-        Toast.makeText(context, "Error occured", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(context, "Error occured", Toast.LENGTH_SHORT).show();
 
     }
 }

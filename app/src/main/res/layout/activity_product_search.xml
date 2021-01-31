@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F4F4"
+    tools:context=".Activity.ProductSearchActivity">
+<com.google.android.material.appbar.AppBarLayout
+    android:layout_width="match_parent"
+    app:elevation="10dp"
+    android:elevation="10dp"
+    android:background="@android:color/white"
+    android:layout_height="60dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="60dp"
+            android:onClick="back"
+            android:padding="20dp"
+
+            android:src="@drawable/left_white_"
+            android:layout_height="60dp"
+            app:tint="@color/colorPrimary" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <EditText
+                android:layout_width="match_parent"
+                android:background="#F1F1F1"
+                android:textSize="16dp"
+                android:id="@+id/ed_key"
+                android:hint="Search Here"
+                android:paddingLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:layout_width="60dp"
+                android:padding="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+
+                android:src="@drawable/search_grey"
+                android:layout_height="60dp"
+                app:tint="@color/black" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.appbar.AppBarLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:paddingTop="3dp"
+        android:id="@+id/tv_count"
+        android:layout_gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/recycler"
+
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>

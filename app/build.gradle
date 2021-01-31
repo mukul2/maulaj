@@ -11,8 +11,8 @@ android {
         applicationId "com.telemedicine.maulaji"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 4
-        versionName "0.2"
+        versionCode 5
+        versionName "0.3"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

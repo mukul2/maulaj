@@ -32,6 +32,9 @@ import java.util.Map;
  */
 
 public class Data {
+    public static String TEMP_SAVE_GUEST_NAME = "";
+    public static String TEMP_SAVE_GUEST_EMAIL = "";
+    public static String TEMP_SAVE_GUEST_PHONE = "";
     public static boolean isBadgeShowing = false;
     public static Map<String, Object> NOW_SHOWING_DYNAMIC ;
     public static DoctorModelRaw NOW_SHOWING_DOC ;

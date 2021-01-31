@@ -198,7 +198,7 @@ public class MyDialog {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                activity.onBackPressed();
+               // activity.onBackPressed();
 
             }
         });

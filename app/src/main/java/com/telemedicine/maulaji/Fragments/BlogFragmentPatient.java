@@ -122,7 +122,7 @@ public class BlogFragmentPatient extends Fragment implements ApiListener.BlogCat
 
                 @Override
                 public void onBlogDownloaSuccessFailed(String msg) {
-                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
                 }
             };
@@ -144,7 +144,7 @@ public class BlogFragmentPatient extends Fragment implements ApiListener.BlogCat
 
     @Override
     public void onBlogCategoryDownloadFailed(String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
     }
 }

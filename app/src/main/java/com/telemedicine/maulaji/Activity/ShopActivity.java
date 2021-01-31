@@ -7,12 +7,17 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import com.telemedicine.maulaji.Data.sharedPhotoListener;
 import com.telemedicine.maulaji.Fragments.NonPrescriptionFragment;
 import com.telemedicine.maulaji.Fragments.PrescriptionUploadFragment;
 import com.telemedicine.maulaji.R;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +50,18 @@ public class ShopActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
+    public void back(View view) {
+        onBackPressed();
+    }
+
+    public void openSearch(View view) {
+        startActivity(new Intent(context,ProductSearchActivity.class));
+    }
+
+    public void openCart(View view) {
+        startActivity(new Intent(context,CartListActivity.class));
+    }
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
@@ -73,5 +90,19 @@ public class ShopActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(context, "One Image is picked", Toast.LENGTH_SHORT).show();
+              //  resultUri = result.getUri();
+              //  image.setImageURI(resultUri);
+                sharedPhotoListener.pListenerUri.onPicSelected(result.getUri());
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
+    }
 }

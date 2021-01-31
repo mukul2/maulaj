@@ -160,7 +160,7 @@ public class AllSpecialist extends AppCompatActivity {
                         NOW_SHOWING_DOC = data ;
                        // startActivity(intent);
 
-                        DoctorsProfileFragment addPhotoBottomDialogFragment = DoctorsProfileFragment.newInstance(data);
+                        DoctorsProfileFragment addPhotoBottomDialogFragment = DoctorsProfileFragment.newInstance(data,"typeTwo");
                         addPhotoBottomDialogFragment.show(getSupportFragmentManager(), "add_photo_dialog_fragment");
 
                     }
@@ -239,7 +239,7 @@ public class AllSpecialist extends AppCompatActivity {
 
         for (int i = 0; i < response.size(); i++) {
             DoctorModelRaw data =  response.get(i);
-            mViewPagerFragments.add(DoctorsProfileFragment.newInstance(data));
+          //  mViewPagerFragments.add(DoctorsProfileFragment.newInstance(data));
         }
     }
     private class ColorFragmentAdapter extends FragmentPagerAdapter {

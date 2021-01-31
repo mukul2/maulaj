@@ -23,7 +23,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.telemedicine.maulaji.Data.DataStore;
+import com.telemedicine.maulaji.Fragments.DoctorsProfileFragment;
 import com.telemedicine.maulaji.Fragments.LoginFragment;
+import com.telemedicine.maulaji.Fragments.PhonVerificationBottomSheet;
 import com.telemedicine.maulaji.Fragments.SignupFragment;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.Utils.MyDialog;
@@ -48,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements  ApiListener.tes
     private TabLayout tabLayout;
     private ViewPager viewPager;
     String userType ;
-
+    OpenOtherFragmentListener listener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,17 +71,46 @@ public class LoginActivity extends AppCompatActivity implements  ApiListener.tes
         if(b!=null)
         {
             userType =(String) b.get("loginUserType");
-            setupViewPager(viewPager);
+            //setupViewPager(viewPager);
         }
 
+        listener =   new OpenOtherFragmentListener() {
+            @Override
+            public void open(String type) {
+                openPhonVerificationFragmemnt(type);
+            }
+        };
+
+
 
     }
+
+    public void setListener(OpenOtherFragmentListener l) {
+        this.listener = l;
+    }
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment( LoginFragment.newInstance(userType), "Login");
-        adapter.addFragment(new SignupFragment(), "Signup");
+      //  adapter.addFragment( LoginFragment.newInstance(userType), "Login");
+      //  adapter.addFragment(new SignupFragment(), "Signup");
         viewPager.setAdapter(adapter);
     }
+    public  interface OpenOtherFragmentListener{
+        void open(String type);
+
+    }
+    public void openLogin(View view) {
+
+        LoginFragment addPhotoBottomDialogFragment = LoginFragment.newInstance(userType,listener);
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), "add_photo_dialog_fragment");
+
+    }
+    public void openPhonVerificationFragmemnt(String type__) {
+        PhonVerificationBottomSheet frag = PhonVerificationBottomSheet.newInstance(type__,"");
+        frag.show(getSupportFragmentManager(), "add_photo_dialog_fragment");
+
+    }
+
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();

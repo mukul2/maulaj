@@ -96,7 +96,7 @@ public class AllWidthdrawFragment extends Fragment {
                                 @Override
                                 public void onBasicSuccess(StatusMessage response) {
                                     MyProgressBar.dismiss();
-                                    Toast.makeText(context, response.getMessage(), Toast.LENGTH_LONG).show();
+                                   // Toast.makeText(context, response.getMessage(), Toast.LENGTH_LONG).show();
                                     dialog.dismiss();
                                     startActivity(new Intent(context,PaymentsHistoryActivity.class));
                                     ((Activity)context).finish();
@@ -105,7 +105,7 @@ public class AllWidthdrawFragment extends Fragment {
                                 @Override
                                 public void onBasicApiFailed(String msg) {
                                     MyProgressBar.dismiss();
-                                    Toast.makeText(context,msg, Toast.LENGTH_LONG).show();
+                                 //   Toast.makeText(context,msg, Toast.LENGTH_LONG).show();
 
                                 }
                             });

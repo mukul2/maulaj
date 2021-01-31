@@ -240,7 +240,7 @@ public class PrescriptionActivityPatient extends AppCompatActivity implements Ap
 
     @Override
     public void onPrescriptionDownloadFailed(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
     }
 }

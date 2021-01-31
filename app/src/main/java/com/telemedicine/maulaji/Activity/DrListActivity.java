@@ -51,7 +51,7 @@ public class DrListActivity extends AppCompatActivity implements ApiListener.Doc
 
         if(bundle != null){
            int depID = bundle.getInt("depID");
-            Toast.makeText(context, ""+depID, Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(context, ""+depID, Toast.LENGTH_SHORT).show();
             Api.getInstance().searchDoctors(TOKEN,null,""+depID,this );
         }
 
@@ -118,6 +118,6 @@ public class DrListActivity extends AppCompatActivity implements ApiListener.Doc
 
     @Override
     public void onDocSearchFailed(String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 }

@@ -229,6 +229,17 @@ public class ApiListener {
 
         void onAppointmentDownloadFailed(String msg);
     }
+    public interface PhoneUniqueCheckListener {
+        void onPhoneUniqueCheckSuccess(String response);
+
+        void onPhoneUniqueCheckFailed(String msg);
+    }
+
+    public interface SignupListener {
+        void onSignupSuccess(String response);
+
+        void onSignupFailed(String msg);
+    }
     public interface AvailableInfoDownloadListener {
         void onAvailableInfoDownloadSuccess(JsonElement data);
 
@@ -406,6 +417,11 @@ public class ApiListener {
         void onAppointmentPOStSuccess(AppointmentAddResponse data);
 
         void onAppointmentPOStFailed(String msg);
+    }
+    public interface PrescriptionOrderPostListener {
+        void onPrescriptionOrderPostSuccess(StatusMessage data);
+
+        void onPrescriptionOrderPosttFailed(String msg);
     }
     public interface SlotSearchListener {
         void onSlotSearchSuccess(List<StatusMessage> data);

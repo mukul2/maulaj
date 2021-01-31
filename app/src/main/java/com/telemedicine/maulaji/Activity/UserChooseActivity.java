@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.telemedicine.maulaji.Fragments.LoginFragment;
+import com.telemedicine.maulaji.Fragments.PhonVerificationBottomSheet;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.Utils.SessionManager;
 
@@ -21,6 +23,7 @@ public class UserChooseActivity extends BaseActivity {
     @BindView(R.id.imgNurse)
     ImageView imgNurse;
     SessionManager sessionManager ;
+    LoginActivity.OpenOtherFragmentListener listener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,18 +31,33 @@ public class UserChooseActivity extends BaseActivity {
         ButterKnife.bind(this);
         i = new Intent(this,LoginActivity.class);
        // Glide.with(this).load(R.drawable.mother_child_bg).apply(RequestOptions.bitmapTransform(new BlurTransformation(15,3))).into(imgNurse);
+        listener =   new LoginActivity.OpenOtherFragmentListener() {
+            @Override
+            public void open(String type) {
+                openPhonVerificationFragmemnt(type);
+            }
+        };
 
 
     }
 
+    public void openPhonVerificationFragmemnt(String t) {
+        PhonVerificationBottomSheet frag = PhonVerificationBottomSheet.newInstance(t,"");
+        frag.show(getSupportFragmentManager(), "add_photo_dialog_fragment");
+
+    }
     public  void PatientLogin(View view){
         i.putExtra("loginUserType","p");
-        startActivity(i);
+      //  startActivity(i);
+        LoginFragment addPhotoBottomDialogFragment = LoginFragment.newInstance("p",listener);
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), "add_photo_dialog_fragment");
 
     }
     public  void DocLogin(View view){
         i.putExtra("loginUserType","d");
-        startActivity(i);
+      //  startActivity(i);
+        LoginFragment addPhotoBottomDialogFragment = LoginFragment.newInstance("d",listener);
+        addPhotoBottomDialogFragment.show(getSupportFragmentManager(), "add_photo_dialog_fragment");
 
     }
 

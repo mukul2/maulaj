@@ -122,10 +122,10 @@ public class AddNewChamberActivity extends BaseActivity implements ApiListener.d
     public void ondrSchedulePostSuccess(StatusMessage data) {
         MyProgressBar.dismiss();
         if (data != null && data.getStatus() != null && data.getStatus() == true) {
-            Toast.makeText(context, data.getMessage(), Toast.LENGTH_LONG).show();
+          //  Toast.makeText(context, data.getMessage(), Toast.LENGTH_LONG).show();
             onBackPressed();
         } else {
-            Toast.makeText(context, "Error occured", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Error occured", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -134,7 +134,7 @@ public class AddNewChamberActivity extends BaseActivity implements ApiListener.d
     public void ondrSchedulePostFailed(String msg) {
         MyProgressBar.dismiss();
 
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
     }
 

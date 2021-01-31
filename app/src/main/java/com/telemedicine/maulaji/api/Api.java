@@ -93,13 +93,13 @@ import static com.telemedicine.maulaji.Data.Data.SELECTEDED_SLOT_DATE;
 import static com.telemedicine.maulaji.Data.Data.SELECTEDED_SLOT_TIME;
 
 /**
-
+ *
  */
 public class Api {
     // String fcmKey = "key=AAAA2oWVj0U:APA91bGsqOhHgOWsDUvEMnVSMVeWBy0b0roNJp6WZ7F-jGjsZzSaJtM8_vw5qkcjnRRN9EkkloHk1krFbaiCqKF3phstTFDU_-qxSJMudUS138huXGhugAyO0NXvSJT0y4Ldf9eIQUjQ";
-   // String fcmKey = "key=AAAA0EpRwPY:APA91bHBbBup11jcpJ65yZKqUqkUK5IPDUN9O51ade_qcoFKZdqyUuiK07v3mFSUmrA2ZAEP1M0zV09a794SZPOlmvbvDAOHN5cNdKNst0aCMq4WJIKbhDMWPK0ks-obO7rUd_vgTGIn";
+    // String fcmKey = "key=AAAA0EpRwPY:APA91bHBbBup11jcpJ65yZKqUqkUK5IPDUN9O51ade_qcoFKZdqyUuiK07v3mFSUmrA2ZAEP1M0zV09a794SZPOlmvbvDAOHN5cNdKNst0aCMq4WJIKbhDMWPK0ks-obO7rUd_vgTGIn";
     //String fcmKey = "key=AAAACS8SI2g:APA91bEu30-Q5X5SiFaAq7H4ZTlkbG-8L3piQfZsY-6DoAC9gR5jjejeIIaHa264PY_j_QSiaN3KyY1ck0TD4XNK-BmIT6UCWt_LT4pHkzs-lwfbyisnZo1abSUj4UO9UyDu3kaGUOvN";
-   // String fcmKey = "key=AAAA0EpRwPY:APA91bHBbBup11jcpJ65yZKqUqkUK5IPDUN9O51ade_qcoFKZdqyUuiK07v3mFSUmrA2ZAEP1M0zV09a794SZPOlmvbvDAOHN5cNdKNst0aCMq4WJIKbhDMWPK0ks-obO7rUd_vgTGIn";
+    // String fcmKey = "key=AAAA0EpRwPY:APA91bHBbBup11jcpJ65yZKqUqkUK5IPDUN9O51ade_qcoFKZdqyUuiK07v3mFSUmrA2ZAEP1M0zV09a794SZPOlmvbvDAOHN5cNdKNst0aCMq4WJIKbhDMWPK0ks-obO7rUd_vgTGIn";
     String fcmKey = "key=AAAAlgUaefM:APA91bFiD5Cn5g5S6dvM0DVi7tqsyZ1gNxLKt-dUhAZmYv29_MOLCVBlvCf-2ATFf9eRtmto3qA-afaWXFctwufxc9K-hjHPG2YmZk2_yUtR_ssqI1PxP7qaWJLO8AFr3Dpx79avHQju";
 
     private static Api dataManager = null;
@@ -114,11 +114,11 @@ public class Api {
         return dataManager;
     }
 
-    public void appNotification(String targetuser, String type, String room, String title, String body,String extraData) {
+    public void appNotification(String targetuser, String type, String room, String title, String body, String extraData) {
         String recepent = "/topics/" + targetuser;
 
 
-        Data data = new Data(type, room, title, body,extraData);
+        Data data = new Data(type, room, title, body, extraData);
         NotiModel notificationModel = new NotiModel(recepent, data);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://fcm.googleapis.com/fcm/")
@@ -129,21 +129,21 @@ public class Api {
         apiInterface.newmsg(fcmKey, notificationModel).enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
-                Log.i("mklnoti",response.body().toString());
+                Log.i("mklnoti", response.body().toString());
                 Gson gson = new Gson();
-                Log.i("mklnoti",gson.toJson(data).toString());
-                Log.i("mklnoti",recepent);
-                if (response.body()!=null){
-                  //  listener.onNotificationSentSuccess(response.body());
-                }else {
-                   // listener.onNotificationSentFailed("Api Error "+response.code());
+                Log.i("mklnoti", gson.toJson(data).toString());
+                Log.i("mklnoti", recepent);
+                if (response.body() != null) {
+                    //  listener.onNotificationSentSuccess(response.body());
+                } else {
+                    // listener.onNotificationSentFailed("Api Error "+response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<JsonElement> call, Throwable t) {
-                Log.i("mkl",t.getLocalizedMessage());
-               // listener.onNotificationSentFailed("Api Error "+t.getLocalizedMessage());
+                Log.i("mkl", t.getLocalizedMessage());
+                // listener.onNotificationSentFailed("Api Error "+t.getLocalizedMessage());
 
                 // MyDialog.getInstance().with(findLawyerActivity).message("error msg "+t.getMessage()).show();
 
@@ -158,29 +158,32 @@ public class Api {
         ApiClient.getApiInterface().login(request).enqueue(new Callback<PatientLoginModel>() {
             @Override
             public void onResponse(@NonNull Call<PatientLoginModel> call, @NonNull Response<PatientLoginModel> response) {
-                if (response.isSuccessful() && response.code()==200&& response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     loginUserListener.onUserLoginSuccess(response.body());
-                }else{
+                } else {
                     loginUserListener.onUserLoginFailed("Try again");
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<PatientLoginModel> call, @NonNull Throwable t) {
                 loginUserListener.onUserLoginFailed(t.getLocalizedMessage());
             }
         });
     }
+
     public void push_prescription(HashMap request, final ApiListener.PrescriptionPushListener listener) {
 
         ApiClientRawApi.getApiInterface().push_prescription(request).enqueue(new Callback<StatusMessage>() {
             @Override
             public void onResponse(@NonNull Call<StatusMessage> call, @NonNull Response<StatusMessage> response) {
-                if (response.isSuccessful() && response.code()==200&& response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onPrescriptionPushSuccess(response.body());
-                }else{
+                } else {
                     listener.onPrescriptionPushFailed("Try again");
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<StatusMessage> call, @NonNull Throwable t) {
                 listener.onPrescriptionPushFailed(t.getLocalizedMessage());
@@ -193,12 +196,13 @@ public class Api {
         ApiClient.getApiInterface().getCityList(country).enqueue(new Callback<List<CityModel>>() {
             @Override
             public void onResponse(@NonNull Call<List<CityModel>> call, @NonNull Response<List<CityModel>> response) {
-                if (response.isSuccessful() && response.code()==200&& response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     loginUserListener.onCountryDownloadSuccess(response.body());
-                }else{
+                } else {
                     loginUserListener.onCountryDownloadFailed("Try again");
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<CityModel>> call, @NonNull Throwable t) {
                 loginUserListener.onCountryDownloadFailed(t.getLocalizedMessage());
@@ -206,17 +210,18 @@ public class Api {
         });
     }
 
-    public void country_list( final ApiListener.CountryCountryDownloadListener listener) {
+    public void country_list(final ApiListener.CountryCountryDownloadListener listener) {
 
         ApiClient.getApiInterface().country_list().enqueue(new Callback<List<CountryModel>>() {
             @Override
             public void onResponse(@NonNull Call<List<CountryModel>> call, @NonNull Response<List<CountryModel>> response) {
-                if (response.isSuccessful() && response.code()==200&& response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onCountryCountryDownloadSuccess(response.body());
-                }else{
+                } else {
                     listener.onCountryCountryDownloadFailed("Try again");
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<CountryModel>> call, @NonNull Throwable t) {
                 listener.onCountryCountryDownloadFailed(t.getLocalizedMessage());
@@ -224,17 +229,18 @@ public class Api {
         });
     }
 
-    public void hospital_list( final ApiListener.HospitalDownloadListener listener) {
+    public void hospital_list(final ApiListener.HospitalDownloadListener listener) {
 
         ApiClient.getApiInterface().hospital_list().enqueue(new Callback<List<HospitalModel>>() {
             @Override
             public void onResponse(@NonNull Call<List<HospitalModel>> call, @NonNull Response<List<HospitalModel>> response) {
-                if (response.isSuccessful() && response.code()==200&& response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onHospitalDownloadSuccess(response.body());
-                }else{
+                } else {
                     listener.onHospitalDownloadFailed("Try again");
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<HospitalModel>> call, @NonNull Throwable t) {
                 listener.onHospitalDownloadFailed(t.getLocalizedMessage());
@@ -247,29 +253,32 @@ public class Api {
         ApiClientRawApi.getApiInterface().find_patient_id(request).enqueue(new Callback<PatientprofileOtpModel>() {
             @Override
             public void onResponse(@NonNull Call<PatientprofileOtpModel> call, @NonNull Response<PatientprofileOtpModel> response) {
-                if (response.isSuccessful() && response.code()==200 && response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onpatientAccountFindSuccess(response.body());
-                }else{
+                } else {
                     listener.onpatientAccountFindFailed("Try again");
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<PatientprofileOtpModel> call, @NonNull Throwable t) {
                 listener.onpatientAccountFindFailed(t.getLocalizedMessage());
             }
         });
     }
+
     public void loginDoctor(HashMap request, final ApiListener.DocLoginListener loginUserListener) {
 
         ApiClient.getApiInterface().loginDoctor(request).enqueue(new Callback<DoctorLoginModel>() {
             @Override
             public void onResponse(@NonNull Call<DoctorLoginModel> call, @NonNull Response<DoctorLoginModel> response) {
-                if (response.isSuccessful() && response.code()==200 &&  response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     loginUserListener.onDocLoginSuccess(response.body());
-                }else{
+                } else {
                     loginUserListener.onDocLoginFailed("Try again");
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<DoctorLoginModel> call, @NonNull Throwable t) {
                 loginUserListener.onDocLoginFailed(t.getLocalizedMessage());
@@ -286,6 +295,7 @@ public class Api {
                     listener.onAppointmentInsertSuccess(response.body());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<JsonElement> call, @NonNull Throwable t) {
                 listener.onAppointmentInsertFailed(t.getLocalizedMessage());
@@ -293,60 +303,84 @@ public class Api {
         });
     }
 
-    public void all_medicines( String key ,final ApiListener.MedDownloadListener listener) {
+    public void all_medicines(String key, final ApiListener.MedDownloadListener listener) {
 
         ApiClientRawApi.getApiInterface().all_medicines(key).enqueue(new Callback<List<MedicineModel4>>() {
             @Override
             public void onResponse(@NonNull Call<List<MedicineModel4>> call, @NonNull Response<List<MedicineModel4>> response) {
-                if (response.isSuccessful() && response.code()  == 200 &&  response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onMedDownloadSuccess(response.body());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<MedicineModel4>> call, @NonNull Throwable t) {
                 listener.onMedDownloadFailed(t.getLocalizedMessage());
             }
         });
     }
-    public void all_medicinesbyBrand( String key ,final ApiListener.MedDownloadListener listener) {
+
+    public void search_medicine(String key, final ApiListener.MedDownloadListener listener) {
+
+        ApiClientRawApi.getApiInterface().search_medicine(key).enqueue(new Callback<List<MedicineModel4>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<MedicineModel4>> call, @NonNull Response<List<MedicineModel4>> response) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
+                    listener.onMedDownloadSuccess(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<MedicineModel4>> call, @NonNull Throwable t) {
+                listener.onMedDownloadFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public void all_medicinesbyBrand(String key, final ApiListener.MedDownloadListener listener) {
 
         ApiClientRawApi.getApiInterface().all_medicinesbyBrand(key).enqueue(new Callback<List<MedicineModel4>>() {
             @Override
             public void onResponse(@NonNull Call<List<MedicineModel4>> call, @NonNull Response<List<MedicineModel4>> response) {
-                if (response.isSuccessful() && response.code()  == 200 &&  response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onMedDownloadSuccess(response.body());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<MedicineModel4>> call, @NonNull Throwable t) {
                 listener.onMedDownloadFailed(t.getLocalizedMessage());
             }
         });
     }
-    public void all_medicinesCategory( final ApiListener.MedCatDownloadListener listener) {
+
+    public void all_medicinesCategory(final ApiListener.MedCatDownloadListener listener) {
 
         ApiClientRawApi.getApiInterface().all_medicinesCategory().enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(@NonNull Call<List<String>> call, @NonNull Response<List<String>> response) {
-                if (response.isSuccessful() && response.code()  == 200 &&  response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onMedCatDownloadSuccess(response.body());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<String>> call, @NonNull Throwable t) {
                 listener.onMedCatDownloadFailed(t.getLocalizedMessage());
             }
         });
     }
-    public void getBrands( final ApiListener.MedBrandDownloadListener listener) {
+
+    public void getBrands(final ApiListener.MedBrandDownloadListener listener) {
 
         ApiClientRawApi.getApiInterface().getBrands().enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(@NonNull Call<List<String>> call, @NonNull Response<List<String>> response) {
-                if (response.isSuccessful() && response.code()  == 200 &&  response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onMedBrandDownloadSuccess(response.body());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<String>> call, @NonNull Throwable t) {
                 listener.onMedBrandDownloadFailed(t.getLocalizedMessage());
@@ -359,12 +393,13 @@ public class Api {
         ApiClientRawApi.getApiInterface().scheduled_appointment_request_list(request).enqueue(new Callback<List>() {
             @Override
             public void onResponse(@NonNull Call<List> call, @NonNull Response<List> response) {
-                if (response.isSuccessful() && response.code() ==200 && response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onScheduledListDownloadSuccess(response.body());
-                }else {
-                    listener.onScheduledListDownloadFailed(""+response.code());
+                } else {
+                    listener.onScheduledListDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List> call, @NonNull Throwable t) {
                 listener.onScheduledListDownloadFailed(t.getLocalizedMessage());
@@ -377,12 +412,13 @@ public class Api {
         ApiClientRawApi.getApiInterface().get_medicine_varities(request).enqueue(new Callback<List<MedicineVaritiModel>>() {
             @Override
             public void onResponse(@NonNull Call<List<MedicineVaritiModel>> call, @NonNull Response<List<MedicineVaritiModel>> response) {
-                if (response.isSuccessful() && response.code() ==200 && response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onMedVaritiListListDownloadSuccess(response.body());
-                }else {
-                    listener.onMedVaritiListListDownloadFailed(""+response.code());
+                } else {
+                    listener.onMedVaritiListListDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<MedicineVaritiModel>> call, @NonNull Throwable t) {
                 listener.onMedVaritiListListDownloadFailed(t.getLocalizedMessage());
@@ -395,12 +431,13 @@ public class Api {
         ApiClientRawApi.getApiInterface().get_lab_reports(request).enqueue(new Callback<List>() {
             @Override
             public void onResponse(@NonNull Call<List> call, @NonNull Response<List> response) {
-                if (response.isSuccessful() && response.code() ==200 && response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onLabReportListDownloadSuccess(response.body());
-                }else {
-                    listener.onLabReportListDownloadFailed(""+response.code());
+                } else {
+                    listener.onLabReportListDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List> call, @NonNull Throwable t) {
                 listener.onLabReportListDownloadFailed(t.getLocalizedMessage());
@@ -413,12 +450,13 @@ public class Api {
         ApiClientRawApi.getApiInterface().getDocumentsForPatient(request).enqueue(new Callback<List>() {
             @Override
             public void onResponse(@NonNull Call<List> call, @NonNull Response<List> response) {
-                if (response.isSuccessful() && response.code() ==200 && response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onPatientDpcumentListDownloadSuccess(response.body());
-                }else {
-                    listener.onPatientDpcumentListDownloadFailed(""+response.code());
+                } else {
+                    listener.onPatientDpcumentListDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List> call, @NonNull Throwable t) {
                 listener.onPatientDpcumentListDownloadFailed(t.getLocalizedMessage());
@@ -431,12 +469,13 @@ public class Api {
         ApiClientRawApi.getApiInterface().get_prescriptions(request).enqueue(new Callback<List>() {
             @Override
             public void onResponse(@NonNull Call<List> call, @NonNull Response<List> response) {
-                if (response.isSuccessful() && response.code() ==200 && response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onPrescriptionsListDownloadSuccess(response.body());
-                }else {
-                    listener.onPrescriptionsListDownloadFailed(""+response.code());
+                } else {
+                    listener.onPrescriptionsListDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List> call, @NonNull Throwable t) {
                 listener.onPrescriptionsListDownloadFailed(t.getLocalizedMessage());
@@ -449,29 +488,32 @@ public class Api {
         ApiClientRawApi.getApiInterface().urgent_appointment_list(request).enqueue(new Callback<List>() {
             @Override
             public void onResponse(@NonNull Call<List> call, @NonNull Response<List> response) {
-                if (response.isSuccessful() && response.code() ==200 && response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onUrgentListDownloadSuccess(response.body());
-                }else {
-                    listener.onUrgentListDownloadFailed(""+response.code());
+                } else {
+                    listener.onUrgentListDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List> call, @NonNull Throwable t) {
                 listener.onUrgentListDownloadFailed(t.getLocalizedMessage());
             }
         });
     }
+
     public void home_visit_appointment_request_list(HashMap request, final ApiListener.HomeVisitListDownloadListener listener) {
 
         ApiClientRawApi.getApiInterface().home_visit_appointment_request_list(request).enqueue(new Callback<List>() {
             @Override
             public void onResponse(@NonNull Call<List> call, @NonNull Response<List> response) {
-                if (response.isSuccessful() && response.code() ==200 && response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onHomeVisitDownloadSuccess(response.body());
-                }else {
-                    listener.onHomeVisitDownloadFailed(""+response.code());
+                } else {
+                    listener.onHomeVisitDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List> call, @NonNull Throwable t) {
                 listener.onHomeVisitDownloadFailed(t.getLocalizedMessage());
@@ -485,12 +527,13 @@ public class Api {
         ApiClientHeroku.getApiInterface().urgent_care_request(request).enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(@NonNull Call<JsonElement> call, @NonNull Response<JsonElement> response) {
-                if (response.isSuccessful() && response.code()==200 && response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onAppointmentInsertSuccess(response.body());
-                }else{
-                    listener.onAppointmentInsertFailed(""+response.code());
+                } else {
+                    listener.onAppointmentInsertFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<JsonElement> call, @NonNull Throwable t) {
                 listener.onAppointmentInsertFailed(t.getLocalizedMessage());
@@ -503,12 +546,13 @@ public class Api {
         ApiClientRawApi.getApiInterface().insert_home_care_req_raw(request).enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(@NonNull Call<JsonElement> call, @NonNull Response<JsonElement> response) {
-                if (response.isSuccessful() && response.code()==200 && response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onAppointmentInsertSuccess(response.body());
-                }else{
-                    listener.onAppointmentInsertFailed(""+response.code());
+                } else {
+                    listener.onAppointmentInsertFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<JsonElement> call, @NonNull Throwable t) {
                 listener.onAppointmentInsertFailed(t.getLocalizedMessage());
@@ -521,29 +565,32 @@ public class Api {
         ApiClientRawApi.getApiInterface().urgent_care_request_raw(request).enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(@NonNull Call<JsonElement> call, @NonNull Response<JsonElement> response) {
-                if (response.isSuccessful() && response.code()==200 && response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onAppointmentInsertSuccess(response.body());
-                }else{
-                    listener.onAppointmentInsertFailed(""+response.code());
+                } else {
+                    listener.onAppointmentInsertFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<JsonElement> call, @NonNull Throwable t) {
                 listener.onAppointmentInsertFailed(t.getLocalizedMessage());
             }
         });
     }
-    public void all_gp( final ApiListener.AllGPDownloadListener listener) {
+
+    public void all_gp(final ApiListener.AllGPDownloadListener listener) {
 
         ApiClientHeroku.getApiInterface().all_gp().enqueue(new Callback<List>() {
             @Override
             public void onResponse(@NonNull Call<List> call, @NonNull Response<List> response) {
-                if (response != null&&response.body()!=null) {
+                if (response != null && response.body() != null) {
                     listener.onAllGPDownloadSuccess(response.body());
-                }else {
-                    listener.onAllGPDownloadFailed(""+response.code());
+                } else {
+                    listener.onAllGPDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List> call, @NonNull Throwable t) {
                 listener.onAllGPDownloadFailed(t.getLocalizedMessage());
@@ -556,12 +603,13 @@ public class Api {
         ApiClientRawApi.getApiInterface().all_gp_raw(hospital).enqueue(new Callback<List<DoctorModelRaw>>() {
             @Override
             public void onResponse(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Response<List<DoctorModelRaw>> response) {
-                if (response != null&&response.body()!=null) {
+                if (response != null && response.body() != null) {
                     listener.onAllGPDownloadSuccess(response.body());
-                }else {
-                    listener.onAllGPDownloadFailed(""+response.code());
+                } else {
+                    listener.onAllGPDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Throwable t) {
                 listener.onAllGPDownloadFailed(t.getLocalizedMessage());
@@ -569,17 +617,18 @@ public class Api {
         });
     }
 
-    public void urgent_doctors_list(String hospital,final ApiListener.RawDocDownloadListener listener) {
+    public void urgent_doctors_list(String hospital, final ApiListener.RawDocDownloadListener listener) {
 
         ApiClientRawApi.getApiInterface().urgent_doctors_list(hospital).enqueue(new Callback<List<DoctorModelRaw>>() {
             @Override
             public void onResponse(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Response<List<DoctorModelRaw>> response) {
-                if (response != null&&response.body()!=null) {
+                if (response != null && response.body() != null) {
                     listener.onAllDocDownloadSuccess(response.body());
-                }else {
-                    listener.onAllDocDownloadFailed(""+response.code());
+                } else {
+                    listener.onAllDocDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Throwable t) {
                 listener.onAllDocDownloadFailed(t.getLocalizedMessage());
@@ -587,17 +636,18 @@ public class Api {
         });
     }
 
-    public void get_home_visit_doctors(String hospital,final ApiListener.RawDocDownloadListener listener) {
+    public void get_home_visit_doctors(String hospital, final ApiListener.RawDocDownloadListener listener) {
 
         ApiClientRawApi.getApiInterface().get_home_visit_doctors(hospital).enqueue(new Callback<List<DoctorModelRaw>>() {
             @Override
             public void onResponse(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Response<List<DoctorModelRaw>> response) {
-                if (response != null&&response.body()!=null) {
+                if (response != null && response.body() != null) {
                     listener.onAllDocDownloadSuccess(response.body());
-                }else {
-                    listener.onAllDocDownloadFailed(""+response.code());
+                } else {
+                    listener.onAllDocDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Throwable t) {
                 listener.onAllDocDownloadFailed(t.getLocalizedMessage());
@@ -605,34 +655,37 @@ public class Api {
         });
     }
 
-    public void specialist_doctor(String id ,final ApiListener.AllGPDownloadListener listener) {
+    public void specialist_doctor(String id, final ApiListener.AllGPDownloadListener listener) {
 
         ApiClientHeroku.getApiInterface().specialist_doctor(id).enqueue(new Callback<List<DoctorModelRaw>>() {
             @Override
             public void onResponse(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Response<List<DoctorModelRaw>> response) {
-                if (response != null&&response.body()!=null) {
+                if (response != null && response.body() != null) {
                     listener.onAllGPDownloadSuccess(response.body());
-                }else {
-                    listener.onAllGPDownloadFailed(""+response.code());
+                } else {
+                    listener.onAllGPDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Throwable t) {
                 listener.onAllGPDownloadFailed(t.getLocalizedMessage());
             }
         });
     }
-    public void specialist_doctor_raw(String id ,String hospitalId,final ApiListener.AllGPDownloadListener listener) {
 
-        ApiClientRawApi.getApiInterface().specialist_doctor_raw(id,hospitalId).enqueue(new Callback<List<DoctorModelRaw>>() {
+    public void specialist_doctor_raw(String id, String hospitalId, final ApiListener.AllGPDownloadListener listener) {
+
+        ApiClientRawApi.getApiInterface().specialist_doctor_raw(id, hospitalId).enqueue(new Callback<List<DoctorModelRaw>>() {
             @Override
             public void onResponse(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Response<List<DoctorModelRaw>> response) {
-                if (response != null&&response.body()!=null) {
+                if (response != null && response.body() != null) {
                     listener.onAllGPDownloadSuccess(response.body());
-                }else {
-                    listener.onAllGPDownloadFailed(""+response.code());
+                } else {
+                    listener.onAllGPDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Throwable t) {
                 listener.onAllGPDownloadFailed(t.getLocalizedMessage());
@@ -640,17 +693,18 @@ public class Api {
         });
     }
 
-    public void free_slots_doctors_call_gp(String day,String date,String doctorID,final ApiListener.AllSloatloadListener listener) {
+    public void free_slots_doctors_call_gp(String day, String date, String doctorID, final ApiListener.AllSloatloadListener listener) {
 
-        ApiClient.getApiInterface().free_slots_doctors_call_gp(day,date,doctorID).enqueue(new Callback<List>() {
+        ApiClient.getApiInterface().free_slots_doctors_call_gp(day, date, doctorID).enqueue(new Callback<List>() {
             @Override
             public void onResponse(@NonNull Call<List> call, @NonNull Response<List> response) {
-                if (response != null&&response.body()!=null) {
+                if (response != null && response.body() != null) {
                     listener.onAllSloatDownloadSuccess(response.body());
-                }else {
-                    listener.onAllSloatDownloadFailed(""+response.code());
+                } else {
+                    listener.onAllSloatDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List> call, @NonNull Throwable t) {
                 listener.onAllSloatDownloadFailed(t.getLocalizedMessage());
@@ -658,17 +712,18 @@ public class Api {
         });
     }
 
-    public void department_list( final ApiListener.DeptListDownload listener) {
+    public void department_list(final ApiListener.DeptListDownload listener) {
 
         ApiClient.getApiInterface().department_list().enqueue(new Callback<List<DepartmentModel2>>() {
             @Override
             public void onResponse(@NonNull Call<List<DepartmentModel2>> call, @NonNull Response<List<DepartmentModel2>> response) {
-                if (response != null&&response.body()!=null) {
+                if (response != null && response.body() != null) {
                     listener.onDeptListDownloadSuccess(response.body());
-                }else {
-                    listener.onDeptListDownloadFailed(""+response.code());
+                } else {
+                    listener.onDeptListDownloadFailed("" + response.code());
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<List<DepartmentModel2>> call, @NonNull Throwable t) {
                 listener.onDeptListDownloadFailed(t.getLocalizedMessage());
@@ -694,7 +749,8 @@ public class Api {
             }
         });
     }
-    public void get_payment_methods_list( final ApiListener.PaymentMethodsDownloadListener listener) {
+
+    public void get_payment_methods_list(final ApiListener.PaymentMethodsDownloadListener listener) {
 
         ApiClient.getApiInterface().get_payment_methods_list().enqueue(new Callback<List<PaymentMethodsModel>>() {
             @Override
@@ -999,7 +1055,8 @@ public class Api {
             }
         });
     }
-    public void addDocumentBypatient(RequestBody id, RequestBody hospital_id, RequestBody title,  MultipartBody.Part photo, final ApiListener.PatientDocUPListener listener) {
+
+    public void addDocumentBypatient(RequestBody id, RequestBody hospital_id, RequestBody title, MultipartBody.Part photo, final ApiListener.PatientDocUPListener listener) {
 
         ApiClientRawApi.getApiInterface().addDocumentBypatient(id, hospital_id, title, photo).enqueue(new Callback<StatusMessage>() {
             @Override
@@ -1170,6 +1227,63 @@ public class Api {
         });
     }
 
+    public void apiuniquephonenumber(String phone, final ApiListener.PhoneUniqueCheckListener listener) {
+
+        ApiClientCodIgntrApi.getApiInterface().apiuniquephonenumber(phone).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                if (response != null) {
+                    listener.onPhoneUniqueCheckSuccess(response.body());
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                listener.onPhoneUniqueCheckFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public void patient_register(String name, String phone, String email, String password, String phonecode, String support_input, final ApiListener.SignupListener listener) {
+
+        ApiClientCodIgntrApi.getApiInterface().patient_register(name, phone, email, password, phonecode, support_input).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                if (response != null) {
+                    listener.onSignupSuccess(response.body());
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                listener.onSignupFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public void apiuniqueemail(String phone, final ApiListener.PhoneUniqueCheckListener listener) {
+
+        ApiClientCodIgntrApi.getApiInterface().apiuniqueemail(phone).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                if (response != null) {
+                    listener.onPhoneUniqueCheckSuccess(response.body());
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                listener.onPhoneUniqueCheckFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
     public void downlaodPaConfirmed(String id, final ApiListener.CommonappointmentDownloadListener listener) {
 
         ApiClient.getApiInterface().getPatientAllConfirmed(id).enqueue(new Callback<List<AppointmentModel>>() {
@@ -1189,9 +1303,9 @@ public class Api {
         });
     }
 
-    public void get_video_call_available_time(String token,String id, final ApiListener.AvailableInfoDownloadListener listener) {
+    public void get_video_call_available_time(String token, String id, final ApiListener.AvailableInfoDownloadListener listener) {
 
-        ApiClient.getApiInterface().get_video_call_available_time(token,id).enqueue(new Callback<JsonElement>() {
+        ApiClient.getApiInterface().get_video_call_available_time(token, id).enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(@NonNull Call<JsonElement> call, @NonNull Response<JsonElement> response) {
                 if (response != null) {
@@ -1289,7 +1403,7 @@ public class Api {
         ApiClientRawApi.getApiInterface().getMyMedicalistory(id).enqueue(new Callback<List<String>>() {
             @Override
             public void onResponse(@NonNull Call<List<String>> call, @NonNull Response<List<String>> response) {
-                if (response.isSuccessful() && response.code()==200 && response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.onMedicalHistoryDownloadSuccess(response.body());
 
                 }
@@ -1327,7 +1441,7 @@ public class Api {
         ApiClientRawApi.getApiInterface().symptoms_list_get().enqueue(new Callback<List<MedHModel>>() {
             @Override
             public void onResponse(@NonNull Call<List<MedHModel>> call, @NonNull Response<List<MedHModel>> response) {
-                if ( response != null) {
+                if (response != null) {
                     listener.onSymptomsDownloadSuccess(response.body());
 
                 }
@@ -1454,8 +1568,8 @@ public class Api {
 
     }
 
-    public void update_video_call_available_time(String token,String id,String time, final ApiListener.basicApiListener listener) {
-        ApiClient.getApiInterface().update_video_call_available_time(token,id,time).enqueue(new Callback<StatusMessage>() {
+    public void update_video_call_available_time(String token, String id, String time, final ApiListener.basicApiListener listener) {
+        ApiClient.getApiInterface().update_video_call_available_time(token, id, time).enqueue(new Callback<StatusMessage>() {
             @Override
             public void onResponse(Call<StatusMessage> call, Response<StatusMessage> response) {
                 listener.onBasicSuccess(response.body());
@@ -1557,15 +1671,15 @@ public class Api {
     }
 
     public void get_vdo_appointment_slot(String token, String dr_id, String patient_id, String date, String day, final ApiListener.SlotSearchListener listener) {
-        ApiClient.getApiInterface().get_vdo_appointment_slot(token, dr_id, patient_id, date,day).enqueue(new Callback<List<StatusMessage>>() {
+        ApiClient.getApiInterface().get_vdo_appointment_slot(token, dr_id, patient_id, date, day).enqueue(new Callback<List<StatusMessage>>() {
             @Override
             public void onResponse(Call<List<StatusMessage>> call, Response<List<StatusMessage>> response) {
-               if (response.isSuccessful() && response.body() !=null) {
-                   listener.onSlotSearchSuccess(response.body());
-               }else {
-                   listener.onSlotSearchFailed("API ERROR");
+                if (response.isSuccessful() && response.body() != null) {
+                    listener.onSlotSearchSuccess(response.body());
+                } else {
+                    listener.onSlotSearchFailed("API ERROR");
 
-               }
+                }
 
             }
 
@@ -1577,13 +1691,15 @@ public class Api {
         });
 
     }
+
     private RequestBody c_m_b(String aThis) {
         return
                 RequestBody.create(
                         MediaType.parse("multipart/form-data"), aThis);
     }
-    public void addVideoAppointmentInfo(String token, RequestBody p_id, RequestBody dr_id, RequestBody payment_details, RequestBody payment_status, RequestBody amount, MultipartBody.Part image,final ApiListener.AppointmentPOstListener listener) {
-        ApiClient.getApiInterface().addVideoAppointmentInfo(token, p_id, dr_id, payment_details, payment_status, amount,image,c_m_b(SELECTEDED_SLOT_DATE),c_m_b(SELECTEDED_SLOT_TIME)).enqueue(new Callback<AppointmentAddResponse>() {
+
+    public void addVideoAppointmentInfo(String token, RequestBody p_id, RequestBody dr_id, RequestBody payment_details, RequestBody payment_status, RequestBody amount, MultipartBody.Part image, final ApiListener.AppointmentPOstListener listener) {
+        ApiClient.getApiInterface().addVideoAppointmentInfo(token, p_id, dr_id, payment_details, payment_status, amount, image, c_m_b(SELECTEDED_SLOT_DATE), c_m_b(SELECTEDED_SLOT_TIME)).enqueue(new Callback<AppointmentAddResponse>() {
             @Override
             public void onResponse(Call<AppointmentAddResponse> call, Response<AppointmentAddResponse> response) {
                 listener.onAppointmentPOStSuccess(response.body());
@@ -1593,6 +1709,40 @@ public class Api {
             @Override
             public void onFailure(Call<AppointmentAddResponse> call, Throwable t) {
                 listener.onAppointmentPOStFailed(t.getLocalizedMessage());
+
+            }
+        });
+
+    }
+
+    public void prescription_order_phaarmacey(RequestBody id, RequestBody pic, RequestBody shippinaddress,RequestBody post,RequestBody road,RequestBody name,RequestBody phone, MultipartBody.Part image, final ApiListener.PrescriptionOrderPostListener listener) {
+        ApiClientRawApi.getApiInterface().prescription_order_phaarmacey(id, pic, shippinaddress,road,post, name,phone,image).enqueue(new Callback<StatusMessage>() {
+            @Override
+            public void onResponse(Call<StatusMessage> call, Response<StatusMessage> response) {
+                listener.onPrescriptionOrderPostSuccess(response.body());
+
+            }
+
+            @Override
+            public void onFailure(Call<StatusMessage> call, Throwable t) {
+                listener.onPrescriptionOrderPosttFailed(t.getLocalizedMessage());
+
+            }
+        });
+
+    }
+
+    public void non_prescription_order(String id, String pic, String shippinaddress,String post,String road,String name,String phone,String cart, final ApiListener.PrescriptionOrderPostListener listener) {
+        ApiClientRawApi.getApiInterface().non_prescription_order(id, pic, shippinaddress,road,post, name,phone,cart).enqueue(new Callback<StatusMessage>() {
+            @Override
+            public void onResponse(Call<StatusMessage> call, Response<StatusMessage> response) {
+                listener.onPrescriptionOrderPostSuccess(response.body());
+
+            }
+
+            @Override
+            public void onFailure(Call<StatusMessage> call, Throwable t) {
+                listener.onPrescriptionOrderPosttFailed(t.getLocalizedMessage());
 
             }
         });
@@ -1690,9 +1840,9 @@ public class Api {
         });
     }
 
-    public void postReview(String token, String p_id, String d_id, String old_presID, String comment, String payment_details, String payment_status, String amount,String paypal_id,final ApiListener.prescriptionPostListener listener) {
+    public void postReview(String token, String p_id, String d_id, String old_presID, String comment, String payment_details, String payment_status, String amount, String paypal_id, final ApiListener.prescriptionPostListener listener) {
 
-        ApiClient.getApiInterface().addRecheckReques(token, p_id, d_id, old_presID, comment, payment_details, payment_status,amount,paypal_id).enqueue(new Callback<StatusMessage>() {
+        ApiClient.getApiInterface().addRecheckReques(token, p_id, d_id, old_presID, comment, payment_details, payment_status, amount, paypal_id).enqueue(new Callback<StatusMessage>() {
             @Override
             public void onResponse(@NonNull Call<StatusMessage> call, @NonNull Response<StatusMessage> response) {
                 if (response != null) {
@@ -1709,9 +1859,9 @@ public class Api {
         });
     }
 
-    public void add_payment_info_only(String token, RequestBody p_id, RequestBody d_id, RequestBody amount, RequestBody status,RequestBody reason, RequestBody transID, MultipartBody.Part attachbody,final ApiListener.basicApiListener listener) {
+    public void add_payment_info_only(String token, RequestBody p_id, RequestBody d_id, RequestBody amount, RequestBody status, RequestBody reason, RequestBody transID, MultipartBody.Part attachbody, final ApiListener.basicApiListener listener) {
 
-        ApiClient.getApiInterface().add_payment_info_only(token, p_id, d_id, amount, status,reason,transID,attachbody).enqueue(new Callback<StatusMessage>() {
+        ApiClient.getApiInterface().add_payment_info_only(token, p_id, d_id, amount, status, reason, transID, attachbody).enqueue(new Callback<StatusMessage>() {
             @Override
             public void onResponse(@NonNull Call<StatusMessage> call, @NonNull Response<StatusMessage> response) {
                 if (response != null) {
@@ -1727,9 +1877,10 @@ public class Api {
             }
         });
     }
-    public void add_payment_info_only_for_chamber_appoiontment(String token, RequestBody p_id, RequestBody d_id, RequestBody amount, RequestBody status,RequestBody reason, RequestBody transID,RequestBody table_id, MultipartBody.Part attachbody,final ApiListener.basicApiListener listener) {
 
-        ApiClient.getApiInterface().add_payment_info_only_for_chamber_appoiontment(token, p_id, d_id, amount, status,reason,transID,table_id,attachbody).enqueue(new Callback<StatusMessage>() {
+    public void add_payment_info_only_for_chamber_appoiontment(String token, RequestBody p_id, RequestBody d_id, RequestBody amount, RequestBody status, RequestBody reason, RequestBody transID, RequestBody table_id, MultipartBody.Part attachbody, final ApiListener.basicApiListener listener) {
+
+        ApiClient.getApiInterface().add_payment_info_only_for_chamber_appoiontment(token, p_id, d_id, amount, status, reason, transID, table_id, attachbody).enqueue(new Callback<StatusMessage>() {
             @Override
             public void onResponse(@NonNull Call<StatusMessage> call, @NonNull Response<StatusMessage> response) {
                 if (response != null) {
@@ -1764,8 +1915,8 @@ public class Api {
         });
     }
 
-    public void add_withdrawal_request(String token, String dr_id, String amount, String bnk,final ApiListener.basicApiListener listener) {
-        ApiClient.getApiInterface().add_withdrawal_request(token, dr_id, amount,bnk).enqueue(new Callback<StatusMessage>() {
+    public void add_withdrawal_request(String token, String dr_id, String amount, String bnk, final ApiListener.basicApiListener listener) {
+        ApiClient.getApiInterface().add_withdrawal_request(token, dr_id, amount, bnk).enqueue(new Callback<StatusMessage>() {
             @Override
             public void onResponse(@NonNull Call<StatusMessage> call, @NonNull Response<StatusMessage> response) {
                 if (response != null) {
@@ -1782,9 +1933,9 @@ public class Api {
         });
     }
 
-    public void add_subscription_info(String token, RequestBody p_id, RequestBody d_id, RequestBody payment_details, RequestBody number_of_months, RequestBody starts, RequestBody ends, RequestBody status,RequestBody amount,  MultipartBody.Part attachbody,final ApiListener.basicApiListener listener) {
+    public void add_subscription_info(String token, RequestBody p_id, RequestBody d_id, RequestBody payment_details, RequestBody number_of_months, RequestBody starts, RequestBody ends, RequestBody status, RequestBody amount, MultipartBody.Part attachbody, final ApiListener.basicApiListener listener) {
 
-        ApiClient.getApiInterface().add_subscription_info(token, p_id, d_id, payment_details, number_of_months, starts, ends,status, amount,attachbody).enqueue(new Callback<StatusMessage>() {
+        ApiClient.getApiInterface().add_subscription_info(token, p_id, d_id, payment_details, number_of_months, starts, ends, status, amount, attachbody).enqueue(new Callback<StatusMessage>() {
             @Override
             public void onResponse(@NonNull Call<StatusMessage> call, @NonNull Response<StatusMessage> response) {
                 if (response != null) {
@@ -1801,9 +1952,9 @@ public class Api {
         });
     }
 
-    public void addChatRequest(String token, String p_id, String d_id, String payment_details, String status,String amount, final ApiListener.AppointmentPOstListener listener) {
+    public void addChatRequest(String token, String p_id, String d_id, String payment_details, String status, String amount, final ApiListener.AppointmentPOstListener listener) {
 
-        ApiClient.getApiInterface().addChatReques(token, p_id, d_id, payment_details,status, amount).enqueue(new Callback<AppointmentAddResponse>() {
+        ApiClient.getApiInterface().addChatReques(token, p_id, d_id, payment_details, status, amount).enqueue(new Callback<AppointmentAddResponse>() {
             @Override
             public void onResponse(@NonNull Call<AppointmentAddResponse> call, @NonNull Response<AppointmentAddResponse> response) {
                 if (response != null) {
@@ -1858,9 +2009,9 @@ public class Api {
         });
     }
 
-    public void get_video_appointment_list(String token, String user_type, String uid,String date, final ApiListener.VideoCallReqListDownlaodListener listener) {
+    public void get_video_appointment_list(String token, String user_type, String uid, String date, final ApiListener.VideoCallReqListDownlaodListener listener) {
 
-        ApiClient.getApiInterface().get_video_appointment_list(token, user_type, uid,date).enqueue(new Callback<List<VideoAppointmentModel>>() {
+        ApiClient.getApiInterface().get_video_appointment_list(token, user_type, uid, date).enqueue(new Callback<List<VideoAppointmentModel>>() {
             @Override
             public void onResponse(@NonNull Call<List<VideoAppointmentModel>> call, @NonNull Response<List<VideoAppointmentModel>> response) {
                 if (response != null) {
@@ -2105,9 +2256,9 @@ public class Api {
         });
     }
 
-    public void addPrescriptionRequest(String token, String patient_id, String dr_id, String problem, String payment_status, String payment_details,String amount,String paypalID,final ApiListener.PrescriptionRequestListener listener) {
+    public void addPrescriptionRequest(String token, String patient_id, String dr_id, String problem, String payment_status, String payment_details, String amount, String paypalID, final ApiListener.PrescriptionRequestListener listener) {
 
-        ApiClient.getApiInterface().addPrescriptionRequest(token, patient_id, dr_id, problem, payment_status, payment_details,amount,paypalID).enqueue(new Callback<StatusMessage>() {
+        ApiClient.getApiInterface().addPrescriptionRequest(token, patient_id, dr_id, problem, payment_status, payment_details, amount, paypalID).enqueue(new Callback<StatusMessage>() {
             @Override
             public void onResponse(@NonNull Call<StatusMessage> call, @NonNull Response<StatusMessage> response) {
                 if (response != null) {
@@ -2583,7 +2734,7 @@ public class Api {
         ApiClientRawApi.getApiInterface().setMedicalHistory(id, data).enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
-                if (response.isSuccessful() && response.code()==200&& response != null) {
+                if (response.isSuccessful() && response.code() == 200 && response != null) {
                     listener.OnmedicalHistoryUpdateFailed(response.body());
 
                 }

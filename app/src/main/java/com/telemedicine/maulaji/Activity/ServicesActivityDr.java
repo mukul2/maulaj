@@ -87,13 +87,13 @@ public class ServicesActivityDr extends AppCompatActivity implements ApiListener
     @Override
     public void ondrServicePostSuccess(StatusMessage response) {
         if (response!=null){
-            Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void ondrServicePostFailed(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
     }
 }

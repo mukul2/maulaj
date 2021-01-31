@@ -117,7 +117,7 @@ public class AllUrgentDoctorsActivity extends AppCompatActivity {
         Api.getInstance().urgent_doctors_list(hospital,new ApiListener.RawDocDownloadListener() {
             @Override
             public void onAllDocDownloadSuccess(List<DoctorModelRaw> response) {
-                Toast.makeText(context, ""+response.size(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, ""+response.size(), Toast.LENGTH_SHORT).show();
 
 
                 Gson gson= new Gson();
@@ -144,7 +144,7 @@ public class AllUrgentDoctorsActivity extends AppCompatActivity {
 
             @Override
             public void onAllDocDownloadFailed(String msg) {
-                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+           //     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -157,7 +157,7 @@ public class AllUrgentDoctorsActivity extends AppCompatActivity {
 
         for (int i = 0; i < response.size(); i++) {
             DoctorModelRaw data =  response.get(i);
-            mViewPagerFragments.add(DoctorsProfileFragment.newInstance(data));
+           // mViewPagerFragments.add(DoctorsProfileFragment.newInstance(data));
         }
     }
     private class ColorFragmentAdapter extends FragmentPagerAdapter {
@@ -188,9 +188,15 @@ public class AllUrgentDoctorsActivity extends AppCompatActivity {
              //   NOW_SHOWING_DOC = data.get(pos);
 
                 NOW_SHOWING_DOC =  data.get(pos);
-                startActivity(intent);
+            //    startActivity(intent);
 
+                DoctorModelRaw data__ =  data.get(pos);
+                NOW_SHOWING_DOC =  data.get(pos);
+                //   NOW_SHOWING_DYNAMIC = data__;
+                // startActivity(intent);
 
+                DoctorsProfileFragment addPhotoBottomDialogFragment = DoctorsProfileFragment.newInstance(data__,"typeThree");
+                addPhotoBottomDialogFragment.show(getSupportFragmentManager(), "add_photo_dialog_fragment");
 
 
 

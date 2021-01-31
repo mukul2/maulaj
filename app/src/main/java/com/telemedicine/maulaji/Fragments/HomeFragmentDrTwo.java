@@ -125,7 +125,7 @@ public class HomeFragmentDrTwo extends Fragment implements ApiListener.drChamber
 
     @Override
     public void onChamberEduSkillDownloadFailed(String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+     //   Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
     }
 

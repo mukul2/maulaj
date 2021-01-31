@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.telemedicine.maulaji.R;
+import com.telemedicine.maulaji.model.CartItemsModel;
 import com.telemedicine.maulaji.model.CityModel;
 import com.telemedicine.maulaji.model.DoctorModelRaw;
 import com.telemedicine.maulaji.model.MedHModel;
@@ -97,15 +98,15 @@ public class engineGridViews {
                 tv_time.setText(data.get("reason").toString() + "\n" + data.get("phone").toString() + "\n" + data.get("home_address").toString());
                 CardView cardGuest = (CardView) holder.itemView.findViewById(R.id.cardGuest);
                 CardView cardOther = (CardView) holder.itemView.findViewById(R.id.cardOther);
-                if(data.get("appointment_for").toString().equals("2")){
+                if (data.get("appointment_for").toString().equals("2")) {
                     img.setVisibility(View.GONE);
                     cardGuest.setVisibility(View.VISIBLE);
                     cardOther.setVisibility(View.GONE);
-                }else if (data.get("appointment_for").toString().equals("1")){
+                } else if (data.get("appointment_for").toString().equals("1")) {
                     img.setVisibility(View.GONE);
                     cardGuest.setVisibility(View.GONE);
                     cardOther.setVisibility(View.VISIBLE);
-                }else if (data.get("appointment_for").toString().equals("0")){
+                } else if (data.get("appointment_for").toString().equals("0")) {
                     img.setVisibility(View.VISIBLE);
                     cardGuest.setVisibility(View.GONE);
                     cardOther.setVisibility(View.GONE);
@@ -206,33 +207,33 @@ public class engineGridViews {
                 CircleImageView img = (CircleImageView) holder.itemView.findViewById(R.id.img);
                 CardView cardGuest = (CardView) holder.itemView.findViewById(R.id.cardGuest);
                 CardView cardOther = (CardView) holder.itemView.findViewById(R.id.cardOther);
-                tv_name.setText(data.get("patient_name")!=null?data.get("patient_name").toString():"No Name");
+                tv_name.setText(data.get("patient_name") != null ? data.get("patient_name").toString() : "No Name");
                 tv_time.setText(data.get("reason").toString() + "\n" + data.get("phone").toString() + "\n" + data.get("created_at").toString());
                 try {
                     Glide.with(context).load(PHOTO_BASE + data.get("img_url").toString()).into(img);
                 } catch (Exception e) {
 
                 }
-                if(data.get("appointment_for").toString().equals("2")){
+                if (data.get("appointment_for").toString().equals("2")) {
                     img.setVisibility(View.GONE);
                     cardGuest.setVisibility(View.VISIBLE);
                     cardOther.setVisibility(View.GONE);
-                }else if (data.get("appointment_for").toString().equals("1")){
+                } else if (data.get("appointment_for").toString().equals("1")) {
                     img.setVisibility(View.GONE);
                     cardGuest.setVisibility(View.GONE);
                     cardOther.setVisibility(View.VISIBLE);
-                }else if (data.get("appointment_for").toString().equals("0")){
+                } else if (data.get("appointment_for").toString().equals("0")) {
                     img.setVisibility(View.VISIBLE);
                     cardGuest.setVisibility(View.GONE);
                     cardOther.setVisibility(View.GONE);
                 }
                 holder.itemView.setOnClickListener((View view) -> {
-                   // Log.i("23deb",data.toString());
-                    if(data.get("appointment_for").toString().equals("2")){
+                    // Log.i("23deb",data.toString());
+                    if (data.get("appointment_for").toString().equals("2")) {
                         sL.onSelected(position, 0);//0 = patinet , 1 = guest
-                    }else   if(data.get("appointment_for").toString().equals("1")){
+                    } else if (data.get("appointment_for").toString().equals("1")) {
                         sL.onSelected(position, 0);//0 = patinet , 1 = guest
-                    }else   if(data.get("appointment_for").toString().equals("0")){
+                    } else if (data.get("appointment_for").toString().equals("0")) {
                         sL.onSelected(position, 0);//0 = patinet , 1 = guest
                     }
 
@@ -423,6 +424,43 @@ public class engineGridViews {
 
     }
 
+    public void showCartList(List<CartItemsModel> data, RecyclerView recyclerView, Context context, int vie, TapSelectListener sL) {
+        DynamicListView mAdapter = new DynamicListView(data, vie) {
+            @Override
+            public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+                Log.i("mkl", list.get(position).toString());
+                final CartItemsModel medicineModel4 = data.get(position);
+                context = holder.itemView.getContext();
+
+                ImageView img = (ImageView) holder.itemView.findViewById(R.id.img);
+                TextView tv_name = (TextView) holder.itemView.findViewById(R.id.tv_name);
+                TextView tv_price = (TextView) holder.itemView.findViewById(R.id.tv_price);
+                TextView tv_quantity = (TextView) holder.itemView.findViewById(R.id.tv_quantity);
+
+                tv_name.setText(medicineModel4.getName());
+                tv_quantity.setText("QTY " + medicineModel4.getQuantity());
+                tv_price.setText("MRP. " + medicineModel4.getPrice());
+
+                Glide.with(context).load(PHOTO_BASE_PHARMACY + medicineModel4.getImage() + ".jpg").into(img);
+
+//PHOTO_BASE_PHARMACY
+
+                holder.itemView.setOnClickListener((View view) -> {
+                    sL.onSelected(position, 0);
+
+                });
+
+
+            }
+        };
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(context, 1);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), recyclerView.VERTICAL, false);recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setAdapter(mAdapter);
+
+    }
+
     public void showShopMedicineList(List<MedicineModel4> data, RecyclerView recyclerView, Context context, int vie, TapSelectListener sL) {
         DynamicListView mAdapter = new DynamicListView(data, vie) {
             @Override
@@ -431,7 +469,7 @@ public class engineGridViews {
                 final MedicineModel4 medicineModel4 = data.get(position);
                 context = holder.itemView.getContext();
                 TextView tv_name = (TextView) holder.itemView.findViewById(R.id.tv_name);
-                ((TextView) holder.itemView.findViewById(R.id.tv_price)).setText(medicineModel4.getPrice());
+                ((TextView) holder.itemView.findViewById(R.id.tv_price)).setText("MRP " + medicineModel4.getPrice());
                 ImageView img = (ImageView) holder.itemView.findViewById(R.id.img);
                 tv_name.setText(medicineModel4.getName());
 
@@ -473,8 +511,13 @@ public class engineGridViews {
                 tv_name.setText(data.get("doctor_name") != null ? data.get("doctor_name").toString() : "No Name in database");
                 tv_time.setText(data.get("time_slot") != null ? data.get("time_slot").toString() : "");
                 tv_date.setText(data.get("date") != null ? data.get("date").toString() : "");
-                if(data.get("img_url")!=null) {img.setVisibility(View.VISIBLE);Glide.with(context).load(PHOTO_BASE +data.get("img_url")).into(img);}else {img.setVisibility(View.GONE);}
-               // Glide.with(context).load(PHOTO_BASE +data.get("img_url")!=null?  data.get("img_url").toString():"").into(img);
+                if (data.get("img_url") != null) {
+                    img.setVisibility(View.VISIBLE);
+                    Glide.with(context).load(PHOTO_BASE + data.get("img_url")).into(img);
+                } else {
+                    img.setVisibility(View.GONE);
+                }
+                // Glide.with(context).load(PHOTO_BASE +data.get("img_url")!=null?  data.get("img_url").toString():"").into(img);
 
                 cardPatientJoin.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -484,11 +527,19 @@ public class engineGridViews {
                         sL.onSelected(position, 5);
                     }
                 });
+                cardChat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        //Toast.makeText(context, "wait, from master", Toast.LENGTH_SHORT).show();
+                        sL.onSelected(position, 4);
+                    }
+                });
 
 
                 cardVcall.setVisibility(View.GONE);
                 cardAcall.setVisibility(View.GONE);
-                cardChat.setVisibility(View.GONE);
+              //  cardChat.setVisibility(View.GONE);
 
 
             }
@@ -696,7 +747,7 @@ public class engineGridViews {
 
 
                 } catch (Exception e) {
-                    Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
 
 

@@ -68,7 +68,7 @@ public class ProductListByCategoryActivity extends AppCompatActivity {
 
                     @Override
                     public void onMedDownloadFailed(String msg) {
-                        Toast.makeText(ProductListByCategoryActivity.this, msg, Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(ProductListByCategoryActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -96,7 +96,7 @@ public class ProductListByCategoryActivity extends AppCompatActivity {
 
                     @Override
                     public void onMedDownloadFailed(String msg) {
-                        Toast.makeText(ProductListByCategoryActivity.this, msg, Toast.LENGTH_SHORT).show();
+                   //     Toast.makeText(ProductListByCategoryActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                     }
                 });

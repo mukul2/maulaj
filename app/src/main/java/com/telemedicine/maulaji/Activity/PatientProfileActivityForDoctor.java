@@ -188,7 +188,7 @@ public class PatientProfileActivityForDoctor extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        Toast.makeText(this, "XXX "+targetuserID, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "XXX "+targetuserID, Toast.LENGTH_SHORT).show();
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment( AppintmentInfoFragment.newInstance(type), "Appointment Info");
 

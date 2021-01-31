@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.telemedicine.maulaji.Activity.DateAndTimeSlotActivity;
+import com.telemedicine.maulaji.Activity.HomeCareRequestActivity;
+import com.telemedicine.maulaji.Activity.UrgentCareRequestActivity;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.model.DoctorModelRaw;
 
@@ -40,18 +42,20 @@ public class DoctorsProfileFragment extends BottomSheetDialogFragment {
     ImageView img;
     @BindView(R.id.cardBook)
     CardView cardBook;
+    String nowShowingType = "";
 
 
     // TODO: Rename and change types of parameters
 
 
-    public DoctorsProfileFragment(DoctorModelRaw objectMap) {
+    public DoctorsProfileFragment(DoctorModelRaw objectMap, String type) {
         this.docData = objectMap;
+        this.nowShowingType = type;
     }
 
 
-    public static DoctorsProfileFragment newInstance(DoctorModelRaw objectMap) {
-        DoctorsProfileFragment fragment = new DoctorsProfileFragment(objectMap);
+    public static DoctorsProfileFragment newInstance(DoctorModelRaw objectMap, String type) {
+        DoctorsProfileFragment fragment = new DoctorsProfileFragment(objectMap, type);
 
         return fragment;
     }
@@ -67,8 +71,8 @@ public class DoctorsProfileFragment extends BottomSheetDialogFragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_doctors_profile, container, false);
         context = view.getContext();
-        ButterKnife.bind(this,view);
-        Glide.with(context).load(PHOTO_BASE+docData.getImgUrl().toString()).into(img);
+        ButterKnife.bind(this, view);
+        Glide.with(context).load(PHOTO_BASE + docData.getImgUrl().toString()).into(img);
         TextView tv = (TextView) view.findViewById(R.id.tv_name);
         TextView tv_department = (TextView) view.findViewById(R.id.tv_dept);
         TextView tv_address = (TextView) view.findViewById(R.id.tv_address);
@@ -79,11 +83,34 @@ public class DoctorsProfileFragment extends BottomSheetDialogFragment {
         cardBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(context, DateAndTimeSlotActivity.class);
 
-                NOW_SHOWING_DOC =  docData;
-                //   NOW_SHOWING_DYNAMIC = data__;
-                startActivity(intent);
+                if (nowShowingType.equals("typeOne")) {
+                    Intent intent = new Intent(context, DateAndTimeSlotActivity.class);
+
+                    NOW_SHOWING_DOC = docData;
+                    //   NOW_SHOWING_DYNAMIC = data__;
+                    startActivity(intent);
+                } else if (nowShowingType.equals("typeTwo")) {
+                    Intent intent = new Intent(context, DateAndTimeSlotActivity.class);
+
+                    NOW_SHOWING_DOC = docData;
+                    //   NOW_SHOWING_DYNAMIC = data__;
+                    startActivity(intent);
+                } else if (nowShowingType.equals("typeThree")) {
+                    Intent intent = new Intent(context, UrgentCareRequestActivity.class);
+
+                    NOW_SHOWING_DOC = docData;
+                    //   NOW_SHOWING_DYNAMIC = data__;
+                    startActivity(intent);
+                }else if (nowShowingType.equals("typeFour")) {
+                    Intent intent = new Intent(context, HomeCareRequestActivity.class);
+
+                    NOW_SHOWING_DOC = docData;
+                    //   NOW_SHOWING_DYNAMIC = data__;
+                    startActivity(intent);
+                }
+
+
             }
         });
 

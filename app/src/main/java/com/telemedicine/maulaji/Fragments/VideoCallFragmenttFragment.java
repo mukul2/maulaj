@@ -90,7 +90,7 @@ public class VideoCallFragmenttFragment extends Fragment implements  ApiListener
     @Override
     public void onOnlineDoctorSearchFailed(String msg) {
 
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
     }
 

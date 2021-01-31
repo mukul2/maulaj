@@ -107,7 +107,7 @@ public class PatientPrescriptionRecheckActivity extends AppCompatActivity implem
 
     @Override
     public void onReviewRequestDownloadFailed(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
     }
 }

@@ -1,6 +1,8 @@
 package com.telemedicine.maulaji.Utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -9,49 +11,62 @@ import com.telemedicine.maulaji.model.CartItemsModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartManager {
+import static com.telemedicine.maulaji.Data.Data.NOW_SHOWING_PRODUCT;
+
+public  class CartManager {
     List<CartItemsModel> cartList = new ArrayList<>();
     Context context;
     SessionManager sessionManager ;
-    public CartManager with(Context c){
-        this.context = c;
-        this.sessionManager = new SessionManager(c);
-        return new CartManager();
+    private static CartManager cartManager;
+    public  CartManager with(Activity activity) {
+        this.context = activity;
+        this.sessionManager = new SessionManager(activity);
+        return this;
     }
+    public static CartManager getInstance() {
 
+        if (cartManager == null) {
+            cartManager = new CartManager();
+        }
+        return cartManager;
+    }
     public void addItem(CartItemsModel data){
 
         String cartItemString="";
-        if( sessionManager.get_Cart()!=null){
+        if( sessionManager.get_Cart()!=null&& sessionManager.get_Cart().length()>0){
             cartItemString = sessionManager.get_Cart();
             Gson gson = new Gson();
-            cartList = (ArrayList<CartItemsModel>)gson. fromJson(cartItemString,
-                    new TypeToken<ArrayList<CartItemsModel>>() {
-                    }.getType());
+            cartList = (ArrayList<CartItemsModel>)gson. fromJson(cartItemString, new TypeToken<ArrayList<CartItemsModel>>() {}.getType());
             cartList.add(data);
-            sessionManager.set_Cart(cartList.toString());
+          //  cartList.add(new CartItemsModel("test",""+123,1));
+
+            sessionManager.set_Cart(gson.toJson(cartList));
         }else{
             cartList.add(data);
-            sessionManager.set_Cart(cartList.toString());
+            Gson gson = new Gson();
+            sessionManager.set_Cart(gson.toJson(cartList));
         }
 
     }
 
-    public void getCart(){
+    public List<CartItemsModel> getCart(){
 
         String cartItemString="";
-        if( sessionManager.get_Cart()!=null){
+        if( sessionManager.get_Cart()!=null&&sessionManager.get_Cart().length()>0){
             cartItemString = sessionManager.get_Cart();
             Gson gson = new Gson();
-            cartList = (ArrayList<CartItemsModel>)gson. fromJson(cartItemString,
-                    new TypeToken<ArrayList<CartItemsModel>>() {
-                    }.getType());
+           cartList = (ArrayList<CartItemsModel>)gson. fromJson(cartItemString, new TypeToken<ArrayList<CartItemsModel>>() {}.getType());
 
-            sessionManager.set_Cart(cartList.toString());
+          //  Toast.makeText(context, sessionManager.get_Cart(), Toast.LENGTH_SHORT).show();
+
+           // sessionManager.set_Cart(cartList.toString());
         }else{
 
-            sessionManager.set_Cart(cartList.toString());
+            Gson gson = new Gson();
+            sessionManager.set_Cart(gson.toJson(cartList));
         }
+
+        return  cartList;
 
     }
 

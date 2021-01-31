@@ -44,6 +44,9 @@ public class GuestActivity extends AppCompatActivity {
     @BindView(R.id.spinner)
     Spinner spinner;
 
+    @BindView(R.id.cardOpenPharmacey)
+    CardView cardOpenPharmacey;
+
 
 
 
@@ -68,6 +71,13 @@ public class GuestActivity extends AppCompatActivity {
         engineGridViews = new engineGridViews();
         initFirstRecycler();
         //initSpinner();
+        //  context.startActivity(new Intent(context, ShopActivity.class));
+        cardOpenPharmacey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, ShopActivity.class));
+            }
+        });
     }
     private void initFirstRecycler() {
         List servicesType = new ArrayList();

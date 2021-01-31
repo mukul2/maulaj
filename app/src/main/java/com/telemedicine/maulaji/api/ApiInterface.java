@@ -275,7 +275,26 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("dr_all_confirmed.php")
     Call<List<AppointmentModel>> dr_confirmed(@Field("dr_id") String dr_id);
+    @FormUrlEncoded
+    @POST("apiuniquephonenumber")
+    Call<String> apiuniquephonenumber(@Field("phonenumber") String phonenumber);
 
+
+    @FormUrlEncoded
+    @POST("patient_register")
+    Call<String> patient_register(@Field("name") String name,
+                                  @Field("phone") String phone,
+                                  @Field("email") String email,
+                                  @Field("password") String password,
+                                  @Field("phonecode") String phonecode,
+
+
+                                  @Field("support_input") String support_input);
+
+
+    @FormUrlEncoded
+    @POST("apiuniqueemail")
+    Call<String> apiuniqueemail(@Field("email") String email);
     @FormUrlEncoded
     @POST("getMyAppointments.php")
     Call<AppointmentResponse> myAppointmentsbyPatient(@Field("patient_id") String patient_id);
@@ -334,12 +353,38 @@ public interface ApiInterface {
                                                          @Part("amount") RequestBody amount,
                                                          @Part MultipartBody.Part image, @Part("date") RequestBody date, @Part("time") RequestBody time);
 
+
+
+    @Multipart
+    @POST("prescription_order_phaarmacey.php")
+    Call<StatusMessage> prescription_order_phaarmacey(
+                                                         @Part("cus_id") RequestBody patient_id,
+                                                         @Part("cus_picture") RequestBody doctor_id,
+                                                         @Part("shippinaddress") RequestBody payment_details,
+                                                         @Part("road") RequestBody road,
+                                                         @Part("post_code") RequestBody post,
+                                                         @Part("name") RequestBody name,
+                                                         @Part("phone") RequestBody phone,
+                                                         @Part MultipartBody.Part image);
+
+
     @FormUrlEncoded
     @POST("get-appointment-list")
     Call<List<AppointmentModelNew>> getAppointmentsList(@Header("Authorization") String token,
                                                         @Field("user_type") String user_type,
                                                         @Field("id") String id,
                                                         @Field("status") String status);
+
+    @FormUrlEncoded
+    @POST("non_prescription_order.php")
+    Call<StatusMessage> non_prescription_order( @Field("cus_id") String patient_id,
+                                                @Field("cus_picture") String doctor_id,
+                                                @Field("shippinaddress") String payment_details,
+                                                @Field("road") String road,
+                                                @Field("post_code") String post,
+                                                        @Field("name") String name,
+                                                        @Field("phone") String phone,
+                                                        @Field("non_prescription_order") String non_prescription_order);
 
     @FormUrlEncoded
     @POST("test-recommendation-list")
@@ -718,6 +763,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("all_medicines.php")
     Call<List<MedicineModel4>> all_medicines(@Field("key") String key );
+
+    @FormUrlEncoded
+    @POST("search_medicine.php")
+    Call<List<MedicineModel4>> search_medicine(@Field("key") String key );
 
     @FormUrlEncoded
     @POST("all_med_by_brand.php")

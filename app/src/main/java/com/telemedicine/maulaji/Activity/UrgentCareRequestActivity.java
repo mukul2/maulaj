@@ -18,7 +18,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.telemedicine.maulaji.Fragments.PhonVerificationBottomSheet;
 import com.telemedicine.maulaji.R;
+import com.telemedicine.maulaji.Utils.MyDialog;
 import com.telemedicine.maulaji.Utils.MyProgressBar;
 import com.telemedicine.maulaji.Utils.SessionManager;
 import com.telemedicine.maulaji.api.Api;
@@ -38,6 +40,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.telemedicine.maulaji.Data.Data.NOW_SHOWING_DOC;
+import static com.telemedicine.maulaji.Data.Data.TEMP_SAVE_GUEST_EMAIL;
+import static com.telemedicine.maulaji.Data.Data.TEMP_SAVE_GUEST_NAME;
+import static com.telemedicine.maulaji.Data.Data.TEMP_SAVE_GUEST_PHONE;
 
 public class UrgentCareRequestActivity extends AppCompatActivity {
     @BindView(R.id.ed_name)
@@ -132,7 +137,7 @@ public class UrgentCareRequestActivity extends AppCompatActivity {
                             ids.add(pair.getValue());
                             it.remove(); // avoids a ConcurrentModificationException
                         }
-                        Toast.makeText(context, ids.toString(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(context, ids.toString(), Toast.LENGTH_SHORT).show();
 
                     }
                 };
@@ -170,7 +175,7 @@ public class UrgentCareRequestActivity extends AppCompatActivity {
                     // arg2 = month
                     // arg3 = day
                     dateInString = "" + arg1 + "-" + (arg2 + 1) + "-" + arg3;
-                    Toast.makeText(context, dateInString, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(context, dateInString, Toast.LENGTH_SHORT).show();
                     ed_age.setText(dateInString);
 
                 }
@@ -241,7 +246,9 @@ public class UrgentCareRequestActivity extends AppCompatActivity {
         }
 
         String hospital = "477";
-
+        TEMP_SAVE_GUEST_EMAIL = ed_email.getText().toString().trim();
+        TEMP_SAVE_GUEST_NAME =  name;
+        TEMP_SAVE_GUEST_PHONE = phone;
         if(selectedUserType== userType.MYSELF | name.length()>0){
             if(selectedUserType== userType.MYSELF |  age.length()>0){
                 if(email.length()>0){
@@ -267,26 +274,50 @@ public class UrgentCareRequestActivity extends AppCompatActivity {
                             request.put("appointment_for", appintmentFor);
                             request.put("birth_date", dateInString);
                             request.put("allergy", allergy);
+                            TEMP_SAVE_GUEST_EMAIL = email;
                             Api.getInstance().urgent_care_request_raw(request, new ApiListener.AppointmentInsertListener() {
                                 @Override
                                 public void onAppointmentInsertSuccess(JsonElement response) {
                                     Log.i("mkl", response.toString());
                                     MyProgressBar.dismiss();
-                                    //Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context,"Appointment has  been booked successfully", Toast.LENGTH_SHORT).show();
+
+
+
                                     if (sessionManager.getUserId().equals("0")) {
-                                        startActivity(new Intent(context, GuestActivity.class));
+                                        MyDialog.getInstance().with(context).yesNoConfirmation(new MyDialog.confirmListener() {
+                                            @Override
+                                            public void onDialogClicked(boolean result) {
+                                                if (result==false){
+                                                    startActivity(new Intent(context, GuestActivity.class));
+                                                }else {
+
+                                                    PhonVerificationBottomSheet frag = PhonVerificationBottomSheet.newInstance("p",phone);
+                                                    frag.show(getSupportFragmentManager(), "add_photo_dialog_fragment");
+
+                                                }
+
+                                            }
+                                        },"Do you want us to create an account for you?");
+
+
                                     } else {
                                         startActivity(new Intent(context, PatientHomeActivity.class));
 
                                     }
-                                    finishAffinity();
+                                    MyDialog.getInstance().with(context)
+                                            .message("Appointment has  been booked successfully")
+                                            .autoBack(false)
+                                            .autoDismiss(false)
+                                            .showMsgOnly();
+                                  //  finishAffinity();
                                 }
 
                                 @Override
                                 public void onAppointmentInsertFailed(String msg) {
                                     Log.i("mkl", msg);
                                     MyProgressBar.dismiss();
-                                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
                                 }
                             });

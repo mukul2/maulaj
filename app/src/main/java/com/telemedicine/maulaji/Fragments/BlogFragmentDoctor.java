@@ -99,7 +99,7 @@ public class BlogFragmentDoctor extends Fragment implements ApiListener.BlogCate
 
                 @Override
                 public void onBlogDownloaSuccessFailed(String msg) {
-                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
                 }
             };
@@ -121,7 +121,7 @@ public class BlogFragmentDoctor extends Fragment implements ApiListener.BlogCate
 
     @Override
     public void onBlogCategoryDownloadFailed(String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
     }
 }

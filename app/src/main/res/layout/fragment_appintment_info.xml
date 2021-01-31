@@ -1,347 +1,384 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginTop="25dp"
+    android:orientation="vertical"
     tools:context=".Fragments.AppintmentInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_margin="@dimen/dimen_card_isolation_main"
-    app:cardCornerRadius="@dimen/dimen_card_radious"
-    android:layout_height="wrap_content">
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:paddingTop="10dp"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="15dp"
-                android:src="@android:drawable/ic_lock_idle_alarm"
-                android:layout_height="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                app:tint="@color/colorPrimary" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="Patient Info"
-                android:textColor="@color/colorPrimary"
-
-                android:layout_centerVertical="true"
-
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="55dp"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginLeft="55dp"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="Date of Birth"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/tv_dob"
-                android:textColor="@color/black"
-                android:layout_marginLeft="15dp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginLeft="55dp"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="Blood Group"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/tv_blood"
-                android:textColor="@color/black"
-                android:layout_marginLeft="15dp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginLeft="55dp"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="Sex"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/tv_sex"
-                android:textColor="@color/black"
-                android:layout_marginLeft="15dp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginLeft="55dp"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="Address"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/tv_address"
-                android:textColor="@color/black"
-                android:layout_marginLeft="15dp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_card_isolation_main"
-        app:cardCornerRadius="@dimen/dimen_card_radious"
-        android:layout_height="wrap_content">
+        app:cardCornerRadius="@dimen/dimen_card_radious">
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:id="@+id/linearCallBody"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:paddingTop="10dp"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="15dp"
-                android:src="@android:drawable/sym_call_outgoing"
-                android:layout_height="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                app:tint="@color/colorPrimary" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="Phone"
-                android:textColor="@color/colorPrimary"
-
-                android:layout_centerVertical="true"
-
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="55dp"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/tv_phone"
-
-            android:textColor="@color/black"
-            android:layout_marginLeft="55dp"
-            android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:src="@android:drawable/sym_call_outgoing"
-            app:tint="@color/colorPrimary"
-            android:layout_height="20dp"/>
-
-    </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_margin="@dimen/dimen_card_isolation_main"
-        app:cardCornerRadius="@dimen/dimen_card_radious"
-        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:padding="15dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:paddingTop="10dp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp">
 
                 <ImageView
                     android:layout_width="15dp"
-                    android:src="@android:drawable/ic_lock_idle_alarm"
                     android:layout_height="15dp"
-                    android:layout_marginLeft="15dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:src="@android:drawable/ic_lock_idle_alarm"
                     app:tint="@color/colorPrimary" />
+
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="Appointed Time"
-                    android:textColor="@color/colorPrimary"
-
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
 
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="55dp"
-                    android:layout_height="wrap_content"/>
-            </RelativeLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/tv_time"
 
-                android:textColor="@color/black"
+                    android:layout_marginLeft="55dp"
+                    android:text="Patient Info"
+                    android:textColor="@color/colorPrimary" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="55dp"
-                android:layout_height="wrap_content"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date of Birth" />
+
+                <TextView
+                    android:id="@+id/tv_dob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="55dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Blood Group" />
+
+                <TextView
+                    android:id="@+id/tv_blood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="55dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sex" />
+
+                <TextView
+                    android:id="@+id/tv_sex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="55dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address" />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_card_isolation_main"
+        app:cardCornerRadius="@dimen/dimen_card_radious">
+
+
+        <RelativeLayout
+            android:id="@+id/linearCallBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:src="@android:drawable/sym_call_outgoing"
+                        app:tint="@color/colorPrimary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+
+                        android:layout_gravity="center_vertical"
+
+                        android:layout_marginLeft="55dp"
+                        android:text="Phone"
+                        android:textColor="@color/colorPrimary" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="55dp"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:src="@android:drawable/sym_call_outgoing"
+                app:tint="@color/colorPrimary" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_card_isolation_main"
+        app:cardCornerRadius="@dimen/dimen_card_radious">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:src="@android:drawable/ic_lock_idle_alarm"
+                    app:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:layout_gravity="center_vertical"
+
+                    android:layout_marginLeft="55dp"
+                    android:text="Appointed Time"
+                    android:textColor="@color/colorPrimary" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="55dp"
+                android:textColor="@color/black" />
 
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_margin="@dimen/dimen_card_isolation_main"
-    app:cardCornerRadius="@dimen/dimen_card_radious"
-    android:layout_height="wrap_content">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:paddingTop="10dp"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="15dp"
-                android:src="@android:drawable/ic_dialog_alert"
-                android:layout_height="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                app:tint="@color/colorPrimary" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="Reason For Appointment"
-                android:textColor="@color/colorPrimary"
-
-                android:layout_centerVertical="true"
-
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="55dp"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/tv_problem"
-            android:textColor="@color/black"
-            android:layout_marginLeft="55dp"
-            android:layout_height="wrap_content"/>
-
-
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen_card_isolation_main"
-        app:cardCornerRadius="@dimen/dimen_card_radious"
-        android:layout_height="wrap_content">
+        app:cardCornerRadius="@dimen/dimen_card_radious">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:padding="15dp"
-        android:layout_height="wrap_content">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:paddingTop="10dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
 
-            <ImageView
-                android:layout_width="15dp"
-                android:src="@android:drawable/ic_dialog_alert"
-                android:layout_height="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                app:tint="@color/colorPrimary" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:src="@android:drawable/ic_dialog_alert"
+                    app:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:layout_gravity="center_vertical"
+
+                    android:layout_marginLeft="55dp"
+                    android:text="Reason For Appointment"
+                    android:textColor="@color/colorPrimary" />
+            </RelativeLayout>
+
             <TextView
+                android:id="@+id/tv_problem"
                 android:layout_width="wrap_content"
-                android:text="Medical History"
-                android:textColor="@color/colorPrimary"
-
-                android:layout_centerVertical="true"
-
-                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="55dp"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/tv_noMedicalRecord"
-            android:textColor="@color/black"
-            android:visibility="gone"
-            android:text="No Medical Record found"
-            android:layout_marginLeft="55dp"
-            android:layout_height="wrap_content"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:id="@+id/symptomsRecycler"
-            android:layout_marginLeft="55dp"
-            android:layout_height="wrap_content"/>
+                android:textColor="@color/black" />
 
 
-
-    </LinearLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_marginRight="8dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_card_isolation_main"
+        app:cardCornerRadius="@dimen/dimen_card_radious">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:src="@android:drawable/ic_dialog_alert"
+                    app:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:layout_gravity="center_vertical"
+
+                    android:layout_marginLeft="55dp"
+                    android:text="Medical History"
+                    android:textColor="@color/colorPrimary" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_noMedicalRecord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="55dp"
+                android:text="No Medical Record found"
+                android:textColor="@color/black"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/symptomsRecycler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="55dp" />
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/cardPrescrioption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
 
-        app:cardBackgroundColor="@color/colorPrimary"
-        android:layout_height="wrap_content">
+        android:layout_marginRight="8dp"
+        app:cardBackgroundColor="@color/colorPrimary">
+
         <TextView
             android:layout_width="wrap_content"
-            android:text="MAKE PRESCRIPTION"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="10dp"
 
-            android:textColor="@color/white"
-            android:layout_height="wrap_content"/>
+            android:text="MAKE PRESCRIPTION"
+            android:textColor="@color/white" />
     </androidx.cardview.widget.CardView>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

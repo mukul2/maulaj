@@ -105,7 +105,7 @@ public class ConfirmVideoCallAppointment extends BaseActivity {
         Api.getInstance().get_payment_methods_list(new ApiListener.PaymentMethodsDownloadListener() {
             @Override
             public void onPaymentMethodsDownloadSuccess(List<PaymentMethodsModel> d) {
-                Toast.makeText(context, "methods found " + data.size(), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(context, "methods found " + data.size(), Toast.LENGTH_SHORT).show();
                 data.addAll(d);
                 mAdapter.notifyDataSetChanged();
                 // PaymentMethodListAdapter
@@ -113,7 +113,7 @@ public class ConfirmVideoCallAppointment extends BaseActivity {
 
             @Override
             public void onPaymentMethodsDownloadFailed(String msg) {
-                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
             }
         });

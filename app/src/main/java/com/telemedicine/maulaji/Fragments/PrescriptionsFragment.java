@@ -90,7 +90,7 @@ public class PrescriptionsFragment extends Fragment {
         engineGridViews = new engineGridViews();
         HashMap<String, String> request = new HashMap<String, String>();
         request.put("id",targetUserID);
-        Toast.makeText(context, "downloading prescriptions for id "+targetUserID, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(context, "downloading prescriptions for id "+targetUserID, Toast.LENGTH_SHORT).show();
         //setupViewPager(vpPager);
 
         //createViewPagerFragments(response);

@@ -60,13 +60,7 @@ public class ProductListSecondLevel extends AppCompatActivity {
         tabLayout.setTabTextColors(normal, selectedColor);
         tabLayout.setSelectedTabIndicatorColor(context.getResources().getColor(R.color.white));
     }
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment( NonPrescriptionFragment.newInstance(), "Non Prescription");
-        adapter.addFragment( PrescriptionUploadFragment.newInstance(), "Prescription");
 
-        viewPager.setAdapter(adapter);
-    }
     private void setupViewPagerMedicines(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment( ByConditionsFragment.newInstance(), "By Conditions");

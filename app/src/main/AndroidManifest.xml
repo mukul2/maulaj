@@ -31,7 +31,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.DocumentAddAcitvityForPatient"></activity>
+        <activity android:name=".Activity.CartListActivity"></activity>
+        <activity android:name=".Activity.ProductSearchActivity" />
+        <activity android:name=".Activity.SignupActivityPatient" />
+        <activity android:name=".Activity.DocumentAddAcitvityForPatient" />
         <activity
             android:name=".Activity.FullScreenCallIncommingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -45,7 +48,7 @@
         -->
         <activity android:name=".Activity.ProductListSecondLevel" />
         <activity android:name=".Activity.ProductListByCategoryActivity" />
-        <activity android:name=".Activity.ShopActivity"></activity>
+        <activity android:name=".Activity.ShopActivity" />
         <activity android:name=".Activity.AllHomeVisitDoctorsList" />
         <activity android:name=".Activity.AllUrgentDoctorsActivity" />
         <activity android:name=".Activity.CityChooseActivity" />
@@ -60,7 +63,7 @@
         <activity android:name=".Activity.BookingAppointmentActivity" />
         <activity android:name=".Activity.AllSpecialist" />
         <activity android:name=".Activity.GPSearchActivity" />
-        <activity android:name=".Activity.UserChooseActivity"></activity>
+        <activity android:name=".Activity.UserChooseActivity" />
         <activity android:name=".Activity.OnlineAppointmentsTabsActivity" />
         <activity android:name=".Activity.ConfirmVideoCallAppointment" />
         <activity android:name=".Activity.VideoAppointmentSlotDate" />

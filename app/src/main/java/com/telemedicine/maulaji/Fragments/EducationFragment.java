@@ -89,11 +89,11 @@ public class EducationFragment extends Fragment {
                                 public void onPostEducationInfoSuccess(StatusMessage status) {
                                     MyProgressBar.dismiss();
                                     if (status.getStatus()==true){
-                                        Toast.makeText(getContext(), status.getMessage(), Toast.LENGTH_SHORT).show();
+                                     //   Toast.makeText(getContext(), status.getMessage(), Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
                                         GeneralListener.needRefresh.doRefresh(0);
                                     }else {
-                                        Toast.makeText(getContext(), status.getMessage(), Toast.LENGTH_SHORT).show();
+                                     //   Toast.makeText(getContext(), status.getMessage(), Toast.LENGTH_SHORT).show();
 
                                     }
                                 }

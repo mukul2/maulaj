@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.telemedicine.maulaji.Data.sharedPhotoListener;
 import com.telemedicine.maulaji.Fragments.CallGpHomefragmentDoctor;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.Utils.CustomDrawerButton;
+import com.telemedicine.maulaji.Utils.MyDialog;
 import com.telemedicine.maulaji.Utils.SessionManager;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
@@ -82,7 +84,7 @@ public class HomeActivityDrActivity extends AppCompatActivity {
     @BindView(R.id.bottom)
     BottomNavigationView bottom;
     @BindView(R.id.customDrawer)
-    CustomDrawerButton customDrawerButton;
+    ImageView customDrawerButton;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer_layout;
 
@@ -102,12 +104,17 @@ public class HomeActivityDrActivity extends AppCompatActivity {
         FirebaseMessaging.getInstance().subscribeToTopic("d"+USER_ID);
 
         Glide.with(this).load(PHOTO_BASE+sessionManager.get_userPhoto()).into(profilePic);
-        customDrawerButton.setDrawerLayout(drawer_layout);
-        customDrawerButton.getDrawerLayout().addDrawerListener(customDrawerButton);
         customDrawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                customDrawerButton.changeState();
+                MyDialog.getInstance().with(context).yesNoConfirmation(new MyDialog.confirmListener() {
+                    @Override
+                    public void onDialogClicked(boolean result) {
+                        if(result){
+                            logout(v);
+                        }
+                    }
+                },"Do you want to logout?");
             }
         });
         initHomePage();
@@ -373,7 +380,7 @@ public class HomeActivityDrActivity extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
 
-                Toast.makeText(context, "image picked listened from activity", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(context, "image picked listened from activity", Toast.LENGTH_SHORT).show();
              /*  resultUri = result.getUri();
                 imageView.setImageURI(resultUri);
                 */

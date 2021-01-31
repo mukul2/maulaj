@@ -112,7 +112,7 @@ public class AdddChamberActivity extends AppCompatActivity implements ApiListene
     @Override
     public void ondrSchedulePostSuccess(StatusMessage data) {
         progressDialog.dismiss();
-        Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this, data.getMessage(), Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this,DrChamberListActivity.class));
         finish();
 
@@ -122,7 +122,7 @@ public class AdddChamberActivity extends AppCompatActivity implements ApiListene
     public void ondrSchedulePostFailed(String msg) {
         progressDialog.dismiss();
 
-        Toast.makeText(this,"error here "+ msg, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(this,"error here "+ msg, Toast.LENGTH_SHORT).show();
 
 
     }

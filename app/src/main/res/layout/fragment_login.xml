@@ -27,11 +27,6 @@
             android:paddingBottom="10dp">
 
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_margin="@dimen/dimen_card_isolation_main"
-                app:cardCornerRadius="@dimen/dimen_card_radious"
-                android:layout_height="wrap_content">
 
 
 
@@ -152,9 +147,35 @@
                             android:textColor="@color/white"
                             android:textSize="15dp"
                             android:background="#D84315" />
+
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/linearReg"
+                        android:orientation="horizontal"
 
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:gravity="center"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="Signup"
+                            android:id="@+id/tv_signupType"
+                            android:textColor="@color/white"
+                            android:textSize="15dp"
+                            android:background="#D84315" />
+
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -183,18 +204,17 @@
 
                     </LinearLayout>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="10dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:onClick="forgotePassword"
                 android:text="Forgot password?"
-                android:textColor="@color/white"
-                android:textSize="12dp"/>
+                android:textColor="@color/black"
+                android:textSize="14dp"/>
 
         </LinearLayout>
 

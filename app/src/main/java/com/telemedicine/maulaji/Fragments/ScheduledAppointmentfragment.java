@@ -112,7 +112,7 @@ public class ScheduledAppointmentfragment extends Fragment {
             @Override
             public void onScheduledListDownloadSuccess(List response) {
                 Log.i("mkl",response.toString());
-                Toast.makeText(context,  sessionManager.getUserType()+"   "+"scheduled app size "+response.size(), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(context,  sessionManager.getUserType()+"   "+"scheduled app size "+response.size(), Toast.LENGTH_SHORT).show();
                 //patientname
                 //time_slot
                 //showScheduledAppList
@@ -182,7 +182,7 @@ public class ScheduledAppointmentfragment extends Fragment {
 
 
                             }else {
-                                Toast.makeText(context, response.get(pos).toString(), Toast.LENGTH_SHORT).show();
+                             //   Toast.makeText(context, response.get(pos).toString(), Toast.LENGTH_SHORT).show();
                                 if(optional==5){
 
 
@@ -231,6 +231,33 @@ public class ScheduledAppointmentfragment extends Fragment {
 
 
                                 }
+                                if(optional==4){
+
+
+                                    final Map<String, Object> data = (Map<String, Object>) response.get(pos);
+                                    String doctor_id = data.get("doctor_id").toString();
+                                    String d_photo =data.get("img_url")!=null? data.get("img_url").toString():"";
+                                    String patient_id = sessionManager.getUserId();
+                                    String room =patient_id+"-"+doctor_id;
+                                    // Toast.makeText(context, room, Toast.LENGTH_SHORT).show();
+
+                                    MyDialog.getInstance().with(context).yesNoConfirmation(new MyDialog.confirmListener() {
+                                        @Override
+                                        public void onDialogClicked(boolean result) {
+                                            if(result){
+                                                Intent intent = new Intent(context, ChatActivityCommon.class);
+                                                intent.putExtra("partner_id", doctor_id);
+                                                intent.putExtra("partner_name", "doctor name");
+                                                intent.putExtra("partner_photo",  d_photo);
+                                                context.startActivity(intent);
+                                            }}
+                                    },"Do you want to Chat with your doctor?");
+
+
+
+
+
+                                }
                             }
 
 
@@ -259,7 +286,7 @@ public class ScheduledAppointmentfragment extends Fragment {
             @Override
             public void onScheduledListDownloadFailed(String msg) {
 
-                Toast.makeText(context, "Error while downloading scheduled appointments", Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(context, "Error while downloading scheduled appointments", Toast.LENGTH_SHORT).show();
                 Log.i("mkl",msg);
             }
         });

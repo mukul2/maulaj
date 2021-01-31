@@ -134,6 +134,8 @@ public class PatientHomeActivity extends BaseActivity implements ApiListener.bas
         sesMan = new SessionManager(this);
         tv_address.setText("Choose your city");
 
+       // Toast.makeText(context, "user id "+sesMan.getUserId(), Toast.LENGTH_SHORT).show();
+       // sesMan.set_Cart("");
         TOKEN = sesMan.getToken();
         USER_ID = sesMan.getUserId();
         SESSION_MANAGER = sesMan;

@@ -47,7 +47,7 @@ public class DrChamberListActivity extends AppCompatActivity implements ApiListe
 
     @Override
     public void onChamberListDownloadFailed(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
     }
 

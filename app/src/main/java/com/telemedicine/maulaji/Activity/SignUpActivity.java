@@ -191,7 +191,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         @Override
                                         public void onPatientSignUPSuccessFailed(String msg) {
                                             MyProgressBar.dismiss();
-                                            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                                        //    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
                                         }
                                     });

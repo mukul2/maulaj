@@ -67,7 +67,7 @@ public class RandomSubCategoryItem extends Fragment {
         Api.getInstance().all_medicines(key, new ApiListener.MedDownloadListener() {
             @Override
             public void onMedDownloadSuccess(List<MedicineModel4> response) {
-                Toast.makeText(context, "med size " + response.size(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "med size " + response.size(), Toast.LENGTH_SHORT).show();
                 com.telemedicine.maulaji.viewEngine.engineGridViews.TapSelectListener listener = new engineGridViews.TapSelectListener() {
                     @Override
                     public void onSelected(int pos, int optional) {

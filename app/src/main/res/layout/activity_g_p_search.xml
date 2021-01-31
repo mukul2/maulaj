@@ -31,7 +31,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:text="All GP"
+                android:text="All General Doctors"
                 android:paddingLeft="5dp"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/white"

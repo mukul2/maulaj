@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -17,12 +18,16 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.telemedicine.maulaji.Activity.HomeActivityDrActivity;
+import com.telemedicine.maulaji.Activity.LoginActivity;
 import com.telemedicine.maulaji.Activity.OTPLoginActivity;
 import com.telemedicine.maulaji.Activity.PatientHomeActivity;
 import com.telemedicine.maulaji.R;
@@ -43,10 +48,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends BottomSheetDialogFragment {
     View view;
     Context context;
 
+    @BindView(R.id.linearReg)
+    LinearLayout linearReg;
+    @BindView(R.id.tv_signupType)
+    TextView tv_signupType;
     @BindView(R.id.ed_phone)
     EditText ed_phone;
     @BindView(R.id.ehckOtp)
@@ -72,17 +81,17 @@ public class LoginFragment extends Fragment {
     ApiListener.LoginUserListener loginUserListenerP;
     ApiListener.DocLoginListener loginUserListenerD;
     // TODO: Rename and change types of parameters
-
-
-    public LoginFragment(String u) {
+    LoginActivity.OpenOtherFragmentListener openOtherFragmentListener;
+    public LoginFragment(String u, LoginActivity.OpenOtherFragmentListener listener) {
         // Required empty public constructor
 
         this.userType = u;
+        this.openOtherFragmentListener = listener;
     }
 
 
-    public static LoginFragment newInstance(String userType) {
-        LoginFragment fragment = new LoginFragment(userType);
+    public static LoginFragment newInstance(String userType,LoginActivity.OpenOtherFragmentListener listener) {
+        LoginFragment fragment = new LoginFragment(userType,listener);
 
         return fragment;
     }
@@ -90,7 +99,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle);
     }
 
     @Override
@@ -100,6 +109,14 @@ public class LoginFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_login, container, false);
         context = view.getContext();
         ButterKnife.bind(this, view);
+        if(userType.equals("p")){
+            ed_phone.setText("patient@callgpnow.com");
+            tv_signupType.setText("Signup as Patient");
+        }else{
+            tv_signupType.setText("Signup as Doctor");
+            ed_phone.setText("doctor@callgpnow.com");
+        }
+
         sessionManager = new SessionManager(context);
 
         loginUserListenerP = new ApiListener.LoginUserListener() {
@@ -136,7 +153,7 @@ public class LoginFragment extends Fragment {
                         //  finishAffinity();
                     } else if (userType.equals(PATIENT)) {
                         startActivity(new Intent(context, PatientHomeActivity.class));
-                        ((Activity) context).finishAffinity();
+                        getActivity().finishAffinity();
 
                     } else {
                         Toast.makeText(context, "Unknown usertype", Toast.LENGTH_SHORT).show();
@@ -155,11 +172,11 @@ public class LoginFragment extends Fragment {
             @Override
             public void onUserLoginFailed(String msg) {
                 progressDialog.dismiss();
-                MyDialog.getInstance().with(context)
-                        .message(msg)
+                MyDialog.getInstance().with(getActivity())
+                        .message("Wrong Email/Password or your account has not been verified")
                         .autoBack(false)
                         .autoDismiss(false)
-                        .show();
+                        .showMsgOnly();
             }
         };
         loginUserListenerD = new ApiListener.DocLoginListener() {
@@ -199,10 +216,10 @@ public class LoginFragment extends Fragment {
 
                     if (userType.equals(DOCTOR)) {
                         startActivity(new Intent(context, HomeActivityDrActivity.class));
-                        ((Activity) context).finishAffinity();
+                        getActivity().finishAffinity();
                     } else if (userType.equals(PATIENT)) {
                         startActivity(new Intent(context, PatientHomeActivity.class));
-                        ((Activity) context).finishAffinity();
+                        getActivity().finishAffinity();
 
                     } else {
                         Toast.makeText(context, "Unknown usertype", Toast.LENGTH_SHORT).show();
@@ -304,6 +321,15 @@ public class LoginFragment extends Fragment {
                     ed_password.setEnabled(true);
                     prefferedLoginType = loginType.PASSWORD;
                 }
+            }
+        });
+
+        linearReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOtherFragmentListener.open(userType);
+                dismiss();
+
             }
         });
 

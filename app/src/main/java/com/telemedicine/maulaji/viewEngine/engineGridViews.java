@@ -436,10 +436,14 @@ public class engineGridViews {
                 TextView tv_name = (TextView) holder.itemView.findViewById(R.id.tv_name);
                 TextView tv_price = (TextView) holder.itemView.findViewById(R.id.tv_price);
                 TextView tv_quantity = (TextView) holder.itemView.findViewById(R.id.tv_quantity);
+                TextView tvNegative = (TextView) holder.itemView.findViewById(R.id.tvNegative);
+                TextView tvPositive = (TextView) holder.itemView.findViewById(R.id.tv_Posetive);
+                TextView tvUnitTotal = (TextView) holder.itemView.findViewById(R.id.tvUnitTotal);
 
                 tv_name.setText(medicineModel4.getName());
-                tv_quantity.setText("QTY " + medicineModel4.getQuantity());
+                tv_quantity.setText(String.valueOf(medicineModel4.getQuantity()));
                 tv_price.setText("MRP. " + medicineModel4.getPrice());
+                tvUnitTotal.setText("MRP. " + medicineModel4.getPrice());
 
                 Glide.with(context).load(PHOTO_BASE_PHARMACY + medicineModel4.getImage() + ".jpg").into(img);
 
@@ -448,6 +452,27 @@ public class engineGridViews {
                 holder.itemView.setOnClickListener((View view) -> {
                     sL.onSelected(position, 0);
 
+                });
+
+                tvNegative.setOnClickListener((View view) -> {
+                    if(Integer.parseInt(tv_quantity.getText().toString())>=1)
+                    {
+                        int i=Integer.parseInt(tv_quantity.getText().toString())-1;
+                        float ut=i*medicineModel4.getPrice();
+
+                        tv_quantity.setText(String.valueOf(i));
+                        tvUnitTotal.setText("MRP. "+ ut);
+                    }
+
+
+                });
+                tvPositive.setOnClickListener((View view) -> {
+
+                    int i=Integer.parseInt(tv_quantity.getText().toString())+1;
+                    float ut=i*medicineModel4.getPrice();
+
+                    tv_quantity.setText(String.valueOf(i));
+                    tvUnitTotal.setText("MRP. " +ut);
                 });
 
 
@@ -539,7 +564,7 @@ public class engineGridViews {
 
                 cardVcall.setVisibility(View.GONE);
                 cardAcall.setVisibility(View.GONE);
-              //  cardChat.setVisibility(View.GONE);
+                //  cardChat.setVisibility(View.GONE);
 
 
             }

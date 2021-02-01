@@ -17,6 +17,7 @@ import com.telemedicine.maulaji.Data.sharedPhotoListener;
 import com.telemedicine.maulaji.Fragments.NonPrescriptionFragment;
 import com.telemedicine.maulaji.Fragments.PrescriptionUploadFragment;
 import com.telemedicine.maulaji.R;
+import com.telemedicine.maulaji.Utils.Utillites;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.ArrayList;
@@ -31,7 +32,8 @@ public class ShopActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
-
+        //Toast.makeText(context, " this is " + context, Toast.LENGTH_SHORT).show();
+Utillites.thisContext(context);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 

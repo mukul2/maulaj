@@ -18,6 +18,7 @@ import com.telemedicine.maulaji.Activity.ProductListByCategoryActivity;
 import com.telemedicine.maulaji.Activity.ProductListSecondLevel;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.Utils.MyDialog;
+import com.telemedicine.maulaji.Utils.Utillites;
 import com.telemedicine.maulaji.api.Api;
 import com.telemedicine.maulaji.api.ApiListener;
 import com.telemedicine.maulaji.viewEngine.engineGridViews;
@@ -78,6 +79,7 @@ public class NonPrescriptionFragment extends Fragment implements View.OnClickLis
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_non_prescription, container, false);
         context = view.getContext();
+        Utillites.thisContext(context);
         ButterKnife.bind(this, view);
 
         tv_one.setOnClickListener(this);

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.telemedicine.maulaji.R;
+import com.telemedicine.maulaji.Utils.Utillites;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +46,7 @@ public class PrescriptionUploadFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_prescription_upload, container, false);
         context = view .getContext();
+        Utillites.thisContext(context);
         ButterKnife.bind(this,view);
         cardUpload.setOnClickListener(new View.OnClickListener() {
             @Override

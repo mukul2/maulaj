@@ -16,6 +16,7 @@ import com.telemedicine.maulaji.Fragments.UploadPrescriptionBottomSheet;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.Utils.CartManager;
 import com.telemedicine.maulaji.Utils.SessionManager;
+import com.telemedicine.maulaji.Utils.Utillites;
 import com.telemedicine.maulaji.model.CartItemsModel;
 import com.telemedicine.maulaji.viewEngine.engineGridViews;
 
@@ -39,6 +40,8 @@ public class CartListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_list);
+        Utillites.thisContext(context);
+        Toast.makeText(context, " this is " + context, Toast.LENGTH_SHORT).show();
         ButterKnife.bind(this);
         sessionManager = new SessionManager(this);
 

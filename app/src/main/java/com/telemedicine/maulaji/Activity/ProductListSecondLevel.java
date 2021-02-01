@@ -19,6 +19,7 @@ import com.telemedicine.maulaji.Fragments.NonPrescriptionFragment;
 import com.telemedicine.maulaji.Fragments.PrescriptionUploadFragment;
 import com.telemedicine.maulaji.Fragments.RandomSubCategoryItem;
 import com.telemedicine.maulaji.R;
+import com.telemedicine.maulaji.Utils.Utillites;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class ProductListSecondLevel extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list_second_level);
+        Utillites.thisContext(context);
         ButterKnife.bind(this);
         Intent iin = getIntent();
         Bundle b = iin.getExtras();

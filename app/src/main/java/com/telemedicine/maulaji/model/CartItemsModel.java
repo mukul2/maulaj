@@ -6,13 +6,22 @@ public class CartItemsModel {
     String id;
     int quantity;
     float price;
-
+    float Unitprice;
     public CartItemsModel(String name, String image, String id, int quantity, float price) {
         this.name = name;
         this.image = image;
         this.id = id;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public CartItemsModel(String name, String image, String id, int quantity, float price, float unitprice) {
+        this.name = name;
+        this.image = image;
+        this.id = id;
+        this.quantity = quantity;
+        this.price = price;
+        Unitprice = unitprice;
     }
 
     public float getPrice() {
@@ -56,5 +65,13 @@ public class CartItemsModel {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public float getUnitprice() {
+        return Unitprice;
+    }
+
+    public void setUnitprice(float unitprice) {
+        Unitprice = unitprice;
     }
 }

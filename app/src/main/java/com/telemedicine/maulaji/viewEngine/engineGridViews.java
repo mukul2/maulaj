@@ -19,13 +19,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.telemedicine.maulaji.Activity.CartListActivity;
+import com.telemedicine.maulaji.LiveResponce.MessageEvent;
 import com.telemedicine.maulaji.R;
+import com.telemedicine.maulaji.Utils.CartManager;
+import com.telemedicine.maulaji.Utils.Utillites;
 import com.telemedicine.maulaji.model.CartItemsModel;
 import com.telemedicine.maulaji.model.CityModel;
 import com.telemedicine.maulaji.model.DoctorModelRaw;
 import com.telemedicine.maulaji.model.MedHModel;
 import com.telemedicine.maulaji.model.MedicineModel4;
 import com.telemedicine.maulaji.widgets.DividerItemDecoration;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -431,7 +437,7 @@ public class engineGridViews {
                 Log.i("mkl", list.get(position).toString());
                 final CartItemsModel medicineModel4 = data.get(position);
                 context = holder.itemView.getContext();
-
+                Log.d("tag", "medicineModel4 " + medicineModel4.getId());
                 ImageView img = (ImageView) holder.itemView.findViewById(R.id.img);
                 TextView tv_name = (TextView) holder.itemView.findViewById(R.id.tv_name);
                 TextView tv_price = (TextView) holder.itemView.findViewById(R.id.tv_price);
@@ -443,7 +449,7 @@ public class engineGridViews {
                 tv_name.setText(medicineModel4.getName());
                 tv_quantity.setText(String.valueOf(medicineModel4.getQuantity()));
                 tv_price.setText("MRP. " + medicineModel4.getPrice());
-                tvUnitTotal.setText("MRP. " + medicineModel4.getPrice());
+                tvUnitTotal.setText("MRP. " + medicineModel4.getUnitprice());
 
                 Glide.with(context).load(PHOTO_BASE_PHARMACY + medicineModel4.getImage() + ".jpg").into(img);
 
@@ -453,26 +459,55 @@ public class engineGridViews {
                     sL.onSelected(position, 0);
 
                 });
-
                 tvNegative.setOnClickListener((View view) -> {
-                    if(Integer.parseInt(tv_quantity.getText().toString())>=1)
-                    {
-                        int i=Integer.parseInt(tv_quantity.getText().toString())-1;
-                        float ut=i*medicineModel4.getPrice();
+                    if (Integer.parseInt(tv_quantity.getText().toString()) >= 1) {
+                        int i = Integer.parseInt(tv_quantity.getText().toString()) - 1;
+                        float ut = i * medicineModel4.getPrice();
 
                         tv_quantity.setText(String.valueOf(i));
-                        tvUnitTotal.setText("MRP. "+ ut);
+                        tvUnitTotal.setText("MRP. " + ut);
+                        try {
+                            CartManager.getInstance().UpdateItem(medicineModel4, i, ut, medicineModel4.getId());
+                            Log.d("tag","UpdateItem data remove ");
+                        } catch (Exception e) {
+                            Log.d("tag", "Exception " + e.toString());
+                        }
+
+                        CartListActivity.Total=CartListActivity.Total-medicineModel4.getPrice();
+                        EventBus.getDefault().post(new MessageEvent(true));
+                    }
+
+                    else {
+                        data.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, data.size());
+                        try {
+                            CartManager.getInstance().RemoveItem(medicineModel4, medicineModel4.getId());
+                        } catch (Exception e) {
+                            Log.d("tag", "Exception " + e.toString());
+                        }
+                       // EventBus.getDefault().post(new MessageEvent());
                     }
 
 
                 });
                 tvPositive.setOnClickListener((View view) -> {
 
-                    int i=Integer.parseInt(tv_quantity.getText().toString())+1;
-                    float ut=i*medicineModel4.getPrice();
+                    int i = Integer.parseInt(tv_quantity.getText().toString()) + 1;
+                    float ut = i * medicineModel4.getPrice();
 
                     tv_quantity.setText(String.valueOf(i));
-                    tvUnitTotal.setText("MRP. " +ut);
+                    tvUnitTotal.setText("MRP. " + ut);
+                    try {
+                        CartManager.getInstance().UpdateItem(medicineModel4, i, ut, medicineModel4.getId());
+                        Log.d("tag","UpdateItem data add ");
+                        notify();
+
+                    } catch (Exception e) {
+                        Log.d("tag", "Exception " + e.toString());
+                    }
+                    CartListActivity.Total=CartListActivity.Total+medicineModel4.getPrice();
+                    EventBus.getDefault().post(new MessageEvent(true));
                 });
 
 
@@ -485,6 +520,7 @@ public class engineGridViews {
         recyclerView.setAdapter(mAdapter);
 
     }
+
 
     public void showShopMedicineList(List<MedicineModel4> data, RecyclerView recyclerView, Context context, int vie, TapSelectListener sL) {
         DynamicListView mAdapter = new DynamicListView(data, vie) {

@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 public class Utillites {
     Context context;
+   /* public static float TotalAmmount=CartManager.getInstance().with(thisContext();)getTotal();*/
 
     public Utillites(Context context) {
         this.context = context;

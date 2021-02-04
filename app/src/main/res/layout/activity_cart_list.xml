@@ -8,8 +8,8 @@
     tools:context=".Activity.CartListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
         android:id="@+id/appbar"
+        android:layout_width="match_parent"
         android:layout_height="60dp">
 
         <LinearLayout
@@ -39,34 +39,72 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
-        android:layout_below="@id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appbar" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/cardCheckout"
         android:layout_margin="10dp"
-        android:id="@+id/cardCheckout"
-        app:cardBackgroundColor="@color/colorPrimary"
-        android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content">
+        app:cardBackgroundColor="@color/tab_inactive">
+
         <LinearLayout
             android:layout_width="wrap_content"
-            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
-                android:text="Checkout"
-                android:padding="10dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@android:color/white"
-                android:layout_height="wrap_content"/>
+                android:padding="10dp"
+                android:text="Total: "
+                android:textColor="@color/colorPrimary" />
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="Total: "
+                android:textColor="@color/colorPrimary" />
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardCheckout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:text="Checkout"
+                android:textColor="@android:color/white" />
+
             <ImageView
                 android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_gravity="center"
                 android:src="@drawable/right_arrow_big"
-                android:layout_height="15dp"
                 app:tint="@android:color/white" />
         </LinearLayout>
 

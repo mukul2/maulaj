@@ -59,6 +59,7 @@ public class ChatActivityCommon extends AppCompatActivity {
 
     String CLIEND_ID = "maulaji";
     ChatAdapter mAdapter;
+
     @BindView(R.id.tv_user_name)
     TextView tv_user_name;
     @BindView(R.id.img_call)

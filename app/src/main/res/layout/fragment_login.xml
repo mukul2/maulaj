@@ -71,7 +71,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="50dp"
-                                android:text="patient@callgpnow.com"
                                 android:hint="Email or Phone"
                                 android:padding="10dp"
                                 android:textSize="13dp" />
@@ -107,7 +106,6 @@
                             <EditText
                                 android:id="@+id/ed_password"
                                 android:layout_width="match_parent"
-                                android:text="12345"
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="50dp"
                                 android:hint="Password"

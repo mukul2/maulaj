@@ -47,7 +47,7 @@ public class ChatFragment extends Fragment implements  View.OnClickListener{
     List<ChatModelFullBody> list = new ArrayList<>();
     DatabaseReference databaseReference;
 
-    String CLIEND_ID = "chatData";
+    String CLIEND_ID = "maulaji";
 
     public ChatFragment() {
         // Required empty public constructor

@@ -66,7 +66,7 @@ public class ByConditionsFragment extends Fragment {
         Api.getInstance().all_medicinesCategory(new ApiListener.MedCatDownloadListener() {
             @Override
             public void onMedCatDownloadSuccess(List<String> response) {
-                Toast.makeText(context, "" + response.size(), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(context, "" + response.size(), Toast.LENGTH_SHORT).show();
                 com.telemedicine.maulaji.viewEngine.engineGridViews.TapSelectListener listener = new engineGridViews.TapSelectListener() {
                     @Override
                     public void onSelected(int pos, int optional) {

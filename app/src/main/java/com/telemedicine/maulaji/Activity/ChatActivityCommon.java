@@ -10,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.Utils.LinearLayoutManagerWithSmoothScroller;
 import com.telemedicine.maulaji.Utils.PicUploadListener;
@@ -54,7 +56,8 @@ public class ChatActivityCommon extends AppCompatActivity {
     String partner_name;
     public static String partner_photo;
     String partner_id;
-    String CLIEND_ID = "chatData";
+
+    String CLIEND_ID = "maulaji";
     ChatAdapter mAdapter;
     @BindView(R.id.tv_user_name)
     TextView tv_user_name;
@@ -183,6 +186,11 @@ public class ChatActivityCommon extends AppCompatActivity {
                    // Api.getInstance().appNotification(String.valueOf(partner_id),partner_name,msg,"chat",PHOTO_BASE+partner_photo,"not_matter");
 
 
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, "Failed "+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
 

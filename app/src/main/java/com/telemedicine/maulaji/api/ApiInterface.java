@@ -760,9 +760,9 @@ public interface ApiInterface {
     @POST("add-appointment-info")
     Call<JsonElement> appAppInfo(@Body HashMap request);
 
-    @FormUrlEncoded
+
     @POST("all_medicines.php")
-    Call<List<MedicineModel4>> all_medicines(@Field("key") String key );
+    Call<List<MedicineModel4>> all_medicines(@Body HashMap request);
 
     @FormUrlEncoded
     @POST("search_medicine.php")

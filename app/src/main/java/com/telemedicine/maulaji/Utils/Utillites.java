@@ -12,7 +12,7 @@ public class Utillites {
     }
 
     public static void thisContext(Context context1) {
-        Toast.makeText(context1, " this is " + context1, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(context1, " this is " + context1, Toast.LENGTH_SHORT).show();
 
     }
 }

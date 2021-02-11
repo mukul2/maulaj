@@ -303,7 +303,7 @@ public class Api {
         });
     }
 
-    public void all_medicines(String key, final ApiListener.MedDownloadListener listener) {
+    public void all_medicines(HashMap key, final ApiListener.MedDownloadListener listener) {
 
         ApiClientRawApi.getApiInterface().all_medicines(key).enqueue(new Callback<List<MedicineModel4>>() {
             @Override

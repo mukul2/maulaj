@@ -3,6 +3,7 @@ package com.telemedicine.maulaji.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +14,8 @@ import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.Utils.CartManager;
 import com.telemedicine.maulaji.Utils.MyDialog;
 import com.telemedicine.maulaji.model.CartItemsModel;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +41,17 @@ public class ProductBodyDetailActivity extends AppCompatActivity {
     @BindView(R.id.tv_cartStatus)
     TextView tv_cartStatus;
     Context context = this ;
+    @BindView(R.id.tv_count)
+    TextView tv_count;
+    ProductAddedListener productAddedListener;
+
+    public  interface  ProductAddedListener{
+        void onAdded();
+    }
+
+    public void setProductAddedListener(ProductAddedListener l) {
+        this.productAddedListener = l;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +66,27 @@ public class ProductBodyDetailActivity extends AppCompatActivity {
         category.setText(NOW_SHOWING_PRODUCT.getCategory());
         subcategory.setText(NOW_SHOWING_PRODUCT.getSubcategory());
         tv_description.setText(NOW_SHOWING_PRODUCT.getDescription());
-
+        List<CartItemsModel> list = CartManager.getInstance().with(ProductBodyDetailActivity.this).getCart();
+        tv_count.setText(""+list.size());
         tv_cartStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CartManager.getInstance().with(ProductBodyDetailActivity.this).addItem(new CartItemsModel(NOW_SHOWING_PRODUCT.getName(),NOW_SHOWING_PRODUCT.getImg(),""+NOW_SHOWING_PRODUCT.getId(),1,Float.parseFloat(NOW_SHOWING_PRODUCT.getPrice().replaceAll("[^\\d.]", ""))));
+                tv_cartStatus.setText("Product is added on  your cart");
+                productAddedListener.onAdded();
+
             }
         });
+
+        setProductAddedListener(new ProductAddedListener() {
+            @Override
+            public void onAdded() {
+                List<CartItemsModel> list = CartManager.getInstance().with(ProductBodyDetailActivity.this).getCart();
+                tv_count.setText(""+list.size());
+            }
+        });
+
+
     }
 
     public void back(View view) {
@@ -75,5 +103,9 @@ public class ProductBodyDetailActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         NOW_SHOWING_PRODUCT = null;
+    }
+
+    public void openCart(View view) {
+        startActivity(new Intent(this,CartListActivity.class));
     }
 }

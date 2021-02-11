@@ -20,6 +20,7 @@ import com.telemedicine.maulaji.api.ApiListener;
 import com.telemedicine.maulaji.model.MedicineModel4;
 import com.telemedicine.maulaji.viewEngine.engineGridViews;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -64,7 +65,9 @@ public class RandomSubCategoryItem extends Fragment {
         ButterKnife.bind(this,view);
         context = view.getContext();
         engineGridViews = new engineGridViews();
-        Api.getInstance().all_medicines(key, new ApiListener.MedDownloadListener() {
+        HashMap<String,String>hashMap= new HashMap<>();
+        hashMap.put("key",key);
+        Api.getInstance().all_medicines(hashMap, new ApiListener.MedDownloadListener() {
             @Override
             public void onMedDownloadSuccess(List<MedicineModel4> response) {
                 //Toast.makeText(context, "med size " + response.size(), Toast.LENGTH_SHORT).show();

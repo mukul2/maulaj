@@ -52,7 +52,7 @@ public class ProductListSecondLevel extends AppCompatActivity {
             if(state.equals("1")) setupViewPagerPersonalCare(viewPager);
             if(state.equals("2")) setupViewPagerWelbeingAndFitness(viewPager);
             if(state.equals("3")) setupViewPagerWelbeingAndFitness(viewPager);
-            if(state.equals("3")) setupViewPagerMedicalDevices(viewPager);
+            if(state.equals("4")) setupViewPagerMedicalDevices(viewPager);
 
         }
         tabLayout = (TabLayout) findViewById(R.id.tabs);

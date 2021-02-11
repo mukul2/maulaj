@@ -16,6 +16,7 @@ import com.telemedicine.maulaji.api.ApiListener;
 import com.telemedicine.maulaji.model.MedicineModel4;
 import com.telemedicine.maulaji.viewEngine.engineGridViews;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,7 +48,10 @@ public class ProductListByCategoryActivity extends AppCompatActivity {
 
             if(type.equals("category")) {
 
-                Api.getInstance().all_medicines(key, new ApiListener.MedDownloadListener() {
+                HashMap<String, String> request = new HashMap<String, String>();
+                request.put("key", key);
+
+                Api.getInstance().all_medicines(request, new ApiListener.MedDownloadListener() {
                     @Override
                     public void onMedDownloadSuccess(List<MedicineModel4> response) {
                         //Toast.makeText(ProductListByCategoryActivity.this, "med size " + response.size(), Toast.LENGTH_SHORT).show();

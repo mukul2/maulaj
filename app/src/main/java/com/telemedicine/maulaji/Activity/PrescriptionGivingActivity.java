@@ -138,8 +138,8 @@ public class PrescriptionGivingActivity extends AppCompatActivity implements Api
 //
 //
 //        }
-
-        Api.getInstance().all_medicines("", new ApiListener.MedDownloadListener() {
+        HashMap<String,String>hashMap = new HashMap<String, String>();
+        Api.getInstance().all_medicines(hashMap, new ApiListener.MedDownloadListener() {
             @Override
             public void onMedDownloadSuccess(List<MedicineModel4> response) {
                 Toast.makeText(context, "size " + response.size(), Toast.LENGTH_SHORT).show();

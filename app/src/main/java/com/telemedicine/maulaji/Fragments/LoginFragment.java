@@ -110,11 +110,11 @@ public class LoginFragment extends BottomSheetDialogFragment {
         context = view.getContext();
         ButterKnife.bind(this, view);
         if(userType.equals("p")){
-            ed_phone.setText("patient@callgpnow.com");
-            tv_signupType.setText("Signup as Patient");
+          //  ed_phone.setText("patient@callgpnow.com");
+          //  tv_signupType.setText("Signup as Patient");
         }else{
-            tv_signupType.setText("Signup as Doctor");
-            ed_phone.setText("doctor@callgpnow.com");
+           // tv_signupType.setText("Signup as Doctor");
+           // ed_phone.setText("doctor@callgpnow.com");
         }
 
         sessionManager = new SessionManager(context);
@@ -289,7 +289,7 @@ public class LoginFragment extends BottomSheetDialogFragment {
 
 
                                 Intent i = new Intent(context, OTPLoginActivity.class);
-                                Toast.makeText(context,response.getPhone() , Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(context,response.getPhone() , Toast.LENGTH_SHORT).show();
                                 i.putExtra("phone",response.getPhone());
                                 i.putExtra("userType",userType);
                                 startActivity(i);

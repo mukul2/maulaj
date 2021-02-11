@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -30,6 +31,8 @@ import static com.telemedicine.maulaji.Data.Data.NOW_SHOWING_PRODUCT;
 public class CartListActivity extends AppCompatActivity {
     @BindView(R.id.recycler)
     RecyclerView recycler;
+    @BindView(R.id.cartTotalPrice)
+    TextView cartTotalPrice;
     @BindView(R.id.cardCheckout)
     CardView cardCheckout;
     engineGridViews engineGridViews;
@@ -40,13 +43,23 @@ public class CartListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_list);
-        Utillites.thisContext(context);
-        Toast.makeText(context, " this is " + context, Toast.LENGTH_SHORT).show();
+       // Utillites.thisContext(context);
         ButterKnife.bind(this);
         sessionManager = new SessionManager(this);
 
         engineGridViews = new engineGridViews();
         List<CartItemsModel> list = CartManager.getInstance().with(CartListActivity.this).getCart();
+        float total = 0 ;
+        if(list.size()>0){
+            for (int i = 0 ;i <list.size();i++){
+                total = total+list.get(i).getPrice();
+            }
+            cartTotalPrice.setText("Total : "+total+" RS");
+
+        }else {
+            cartTotalPrice.setText("Total : "+00+" RS");
+        }
+
         if (list.size() > 0) {
             cardCheckout.setVisibility(View.VISIBLE);
             cardCheckout.setOnClickListener(new View.OnClickListener() {

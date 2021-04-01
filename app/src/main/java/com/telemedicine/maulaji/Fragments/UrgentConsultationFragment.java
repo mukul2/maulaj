@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.telemedicine.maulaji.Activity.ChatActivityCommon;
 import com.telemedicine.maulaji.Activity.PatientProfileActivityForDoctor;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.Utils.MyDialog;
@@ -21,9 +22,12 @@ import com.telemedicine.maulaji.api.Api;
 import com.telemedicine.maulaji.api.ApiListener;
 import com.telemedicine.maulaji.viewEngine.engineGridViews;
 
+import org.jitsi.meet.sdk.JitsiMeet;
 import org.jitsi.meet.sdk.JitsiMeetActivity;
 import org.jitsi.meet.sdk.JitsiMeetConferenceOptions;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,7 +168,81 @@ public class UrgentConsultationFragment extends Fragment {
                                 }
                             }
                             else {
+                                if(optional==5){
 
+
+                                    final Map<String, Object> data = (Map<String, Object>) response.get(pos);
+                                    String doctor_id = data.get("doctor_id").toString();
+                                    String patient_photo =data.get("img_url")!=null? data.get("img_url").toString():"";
+                                    String patient_id = sessionManager.getUserId();
+                                    String room =patient_id+"-"+doctor_id;
+                                    // Toast.makeText(context, room, Toast.LENGTH_SHORT).show();
+
+                                    MyDialog.getInstance().with(context).yesNoConfirmation(new MyDialog.confirmListener() {
+                                        @Override
+                                        public void onDialogClicked(boolean result) {
+                                            if(result){
+                                                URL serverURL;
+                                                try {
+                                                    // When using JaaS, replace "https://meet.jit.si" with the proper serverURL
+                                                    serverURL = new URL("https://simra.org");
+                                                } catch (MalformedURLException e) {
+                                                    e.printStackTrace();
+                                                    throw new RuntimeException("Invalid server URL!");
+                                                }
+                                                JitsiMeetConferenceOptions defaultOptions
+                                                        = new JitsiMeetConferenceOptions.Builder()
+                                                        .setServerURL(serverURL)
+                                                        .setFeatureFlag("invite.enabled", false)
+                                                        // When using JaaS, set the obtained JWT here
+                                                        //.setToken("MyJWT")
+                                                        .setWelcomePageEnabled(false)
+                                                        .build();
+                                                JitsiMeet.setDefaultConferenceOptions(defaultOptions);
+
+                                                JitsiMeetConferenceOptions options
+                                                        = new JitsiMeetConferenceOptions.Builder()
+                                                        .setRoom(room)
+                                                        .setAudioOnly(false)
+                                                        .setVideoMuted(false)
+                                                        .setSubject("Consultation")
+                                                        .build();
+                                                JitsiMeetActivity.launch(context, options);
+                                            }}
+                                    },"Do you want to Join this session?");
+
+
+
+
+
+                                }
+                                if(optional==4){
+
+
+                                    final Map<String, Object> data = (Map<String, Object>) response.get(pos);
+                                    String doctor_id = data.get("doctor_id").toString();
+                                    String d_photo =data.get("img_url")!=null? data.get("img_url").toString():"";
+                                    String patient_id = sessionManager.getUserId();
+                                    String room =patient_id+"-"+doctor_id;
+                                    // Toast.makeText(context, room, Toast.LENGTH_SHORT).show();
+
+                                    MyDialog.getInstance().with(context).yesNoConfirmation(new MyDialog.confirmListener() {
+                                        @Override
+                                        public void onDialogClicked(boolean result) {
+                                            if(result){
+                                                Intent intent = new Intent(context, ChatActivityCommon.class);
+                                                intent.putExtra("partner_id", doctor_id);
+                                                intent.putExtra("partner_name", "doctor name");
+                                                intent.putExtra("partner_photo",  d_photo);
+                                                context.startActivity(intent);
+                                            }}
+                                    },"Do you want to Chat with your doctor?");
+
+
+
+
+
+                                }
                             }
 
                         }

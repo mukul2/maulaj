@@ -67,7 +67,7 @@ public class FullScreenCallIncommingActivity extends AppCompatActivity {
                     JitsiMeetConferenceOptions options
                             = new JitsiMeetConferenceOptions.Builder()
                             .setRoom(room)
-
+                            .setFeatureFlag("invite.enabled", false)
                             .build();
                     // Launch the new activity with the given options. The launch() method takes care
                     // of creating the required Intent and passing the options.

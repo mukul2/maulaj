@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -54,6 +56,8 @@ public class LoginFragment extends BottomSheetDialogFragment {
 
     @BindView(R.id.linearReg)
     LinearLayout linearReg;
+    @BindView(R.id.img_show_pass)
+    ImageView img_show_pass;
     @BindView(R.id.tv_signupType)
     TextView tv_signupType;
     @BindView(R.id.ed_phone)
@@ -72,6 +76,7 @@ public class LoginFragment extends BottomSheetDialogFragment {
     String DOCTOR = "d";
     String PATIENT = "p";
     String userType;
+    boolean isPassShowing = false ;
 
     enum loginType {OTP, PASSWORD}
 
@@ -109,6 +114,19 @@ public class LoginFragment extends BottomSheetDialogFragment {
         view = inflater.inflate(R.layout.fragment_login, container, false);
         context = view.getContext();
         ButterKnife.bind(this, view);
+        img_show_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isPassShowing){
+                    ed_password.setInputType(InputType.TYPE_CLASS_TEXT);
+                    isPassShowing = false ;
+                }else{
+                    ed_password.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    isPassShowing = true ;
+                }
+
+            }
+        });
         if(userType.equals("p")){
           //  ed_phone.setText("patient@callgpnow.com");
           //  tv_signupType.setText("Signup as Patient");

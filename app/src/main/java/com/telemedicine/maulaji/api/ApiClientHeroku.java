@@ -10,7 +10,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ApiClientHeroku {
 
-    private static final String BASE_URL = "https://callmygp.herokuapp.com/";
+   // private static final String BASE_URL = "https://callmygp.herokuapp.com/";
+    private static final String BASE_URL = "https://herokuapp.com/";
     private static Retrofit retrofit = null;
 
     private static Retrofit getClient() {

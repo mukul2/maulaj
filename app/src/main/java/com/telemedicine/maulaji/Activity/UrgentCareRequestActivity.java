@@ -16,8 +16,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.telemedicine.maulaji.Fragments.PhonVerificationBottomSheet;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.Utils.MyDialog;
@@ -26,6 +28,8 @@ import com.telemedicine.maulaji.Utils.SessionManager;
 import com.telemedicine.maulaji.api.Api;
 import com.telemedicine.maulaji.api.ApiListener;
 import com.google.gson.JsonElement;
+import com.telemedicine.maulaji.model.MedHModel;
+import com.telemedicine.maulaji.model.SympModel;
 import com.telemedicine.maulaji.viewEngine.engineGridViews;
 
 import java.util.ArrayList;
@@ -69,6 +73,13 @@ public class UrgentCareRequestActivity extends AppCompatActivity {
     @BindView(R.id.recycler_view)
     RecyclerView recycler_view;
     List ids = new ArrayList();
+
+    @BindView(R.id.cardMedicalHistory)
+    CardView cardMedicalHistory;
+    @BindView(R.id.cardMedicalGuest)
+    CardView cardMedicalGuest;
+    @BindView(R.id.recycler2)
+    RecyclerView recycler2;
     userType selectedUserType = userType.MYSELF;
     com.telemedicine.maulaji.viewEngine.engineGridViews engineGridViews;
     @Override
@@ -107,26 +118,150 @@ public class UrgentCareRequestActivity extends AppCompatActivity {
 
        // symptomsList();
 
-    }
+        if (!sessionManager.getUserId().equals("0")) {
 
+            //not guest
+            // ed_name.setText(sessionManager.getUserName());
+            showDiseasesHostory();
+            cardMedicalHistory.setVisibility(View.VISIBLE);
+            cardMedicalGuest.setVisibility(View.GONE);
+        }else{
+            //guest
+            symptomsList();
+            cardMedicalHistory.setVisibility(View.GONE);
+            cardMedicalGuest.setVisibility(View.VISIBLE);
+
+        }
+
+    }
+    private void showDiseasesHostory() {
+        HashMap<Integer, String> maps = new HashMap<Integer, String>();
+        HashMap<Integer, String> mapsSub = new HashMap<Integer, String>();
+        Api.getInstance().symptoms_list_get(new ApiListener.SymptomsDownloadListener() {
+            @Override
+            public void onSymptomsDownloadSuccess(List<MedHModel> list) {
+                Gson gson = new Gson();
+             //   Log.i("sym", gson.toJson(list));
+                com.telemedicine.maulaji.viewEngine.engineGridViews.TapSelectListener listener = new engineGridViews.TapSelectListener() {
+                    @Override
+                    public void onSelected(int pos, int optional) {
+                        Log.i("mkl",list.get(0).toString());
+                        final MedHModel data = list.get(pos);
+                        // Toast.makeText(context, ""+optional, Toast.LENGTH_SHORT).show();
+
+                        //data.get("name").toString()
+                        if (optional == 1) {
+                            maps.put(data.getId(), data.getName());
+                        } else {
+                            if(!maps.isEmpty()) maps.remove(data.getId());
+                        }
+                        mapsSub.putAll(maps);
+                        ids.clear();
+                        Iterator it = mapsSub.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry pair = (Map.Entry) it.next();
+                            System.out.println(pair.getKey() + " = " + pair.getValue());
+                            ids.add(pair.getValue());
+                            it.remove(); // avoids a ConcurrentModificationException
+                        }
+
+
+                        if(!ids.isEmpty()) {
+                            //update from here
+                            String dataToUpdate = ids.toString();
+                            dataToUpdate = dataToUpdate.substring(1, dataToUpdate.length() -1);
+                            Api.getInstance().setMedicalHistory(sessionManager.getUserId(), dataToUpdate, new ApiListener.medicalHistoryUpdateListener() {
+                                @Override
+                                public void OnmedicalHistoryUpdateSuccess(String list) {
+                                    // Toast.makeText(MedicalHistoryActivityPatient.this, list, Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void OnmedicalHistoryUpdateFailed(String msg) {
+                                    // Toast.makeText(MedicalHistoryActivityPatient.this, msg, Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                            // Toast.makeText(context, dataToUpdate, Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                };
+
+
+                Api.getInstance().getMyMedicalistory(sessionManager.getUserId(), new ApiListener.MedicalHistoryDownloadListener() {
+                    @Override
+                    public void onMedicalHistoryDownloadSuccess(List<String> res) {
+
+
+                        for (int i = 0;i<list.size();i++){
+                            for(int j = 0;j<res.size();j++){
+                                if(list.get(i).getName().replaceAll(" ","").equals(res.get(j).replaceAll(" ",""))){
+                                    list.get(i).setIsSelected(1);
+                                    break;
+                                }
+                            }
+                        }
+                        for (int i = 0;i<list.size();i++){
+                            if(list.get(i).getIsSelected()==1){
+                                maps.put(list.get(i).getId(), list.get(i).getName().trim());
+                            }else {
+                                if(!maps.isEmpty()) maps.remove(list.get(i).getId());
+                            }
+                        }
+
+                        mapsSub.putAll(maps);
+                        ids.clear();
+                        Iterator it = mapsSub.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry pair = (Map.Entry) it.next();
+                            System.out.println(pair.getKey() + " = " + pair.getValue());
+                            ids.add(pair.getValue());
+                            it.remove(); // avoids a ConcurrentModificationException
+                        }
+                        // Toast.makeText(context, ids.toString(), Toast.LENGTH_SHORT).show();
+                        engineGridViews.showSymptomsListPatient(list, recycler2, context, R.layout.checkbox_symptoms_items, listener);
+
+
+                    }
+
+                    @Override
+                    public void onMedicalHistoryDownloadFailed(String msg) {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onSymptomsDownloadFailed(String msg) {
+
+            }
+        });
+    }
     private void symptomsList() {
         HashMap<Integer, String> maps = new HashMap<Integer, String>();
         HashMap<Integer, String> mapsSub = new HashMap<Integer, String>();
 
         Api.getInstance().symptoms_list_get(new ApiListener.SymptomsDownloadListener() {
             @Override
-            public void onSymptomsDownloadSuccess(List list) {
+            public void onSymptomsDownloadSuccess(List<MedHModel> list) {
+                Gson gson = new Gson();
+                Log.i("sym", gson.toJson(list));
                 com.telemedicine.maulaji.viewEngine.engineGridViews.TapSelectListener listener = new engineGridViews.TapSelectListener() {
                     @Override
                     public void onSelected(int pos,int optional) {
-                        final Map<String, Object> data = (Map<String, Object>) list.get(pos);
+                        final MedHModel data =  list.get(pos);
                         // Toast.makeText(context, ""+optional, Toast.LENGTH_SHORT).show();
+                        Log.i("mm",""+ data);
 
                         //data.get("name").toString()
-                        if (optional==1){
-                            maps.put(Integer.parseInt(data.get("id").toString()),data.get("name").toString());
+                       if (optional==1){
+                            maps.put(Integer.parseInt(data.getId().toString()),data.getName().toString());
                         }else {
-                            maps.remove(Integer.parseInt(data.get("id").toString()));
+                            maps.remove(data.getId().toString());
                         }
                         mapsSub.putAll(maps);
                         ids.clear();
@@ -137,12 +272,13 @@ public class UrgentCareRequestActivity extends AppCompatActivity {
                             ids.add(pair.getValue());
                             it.remove(); // avoids a ConcurrentModificationException
                         }
-                       // Toast.makeText(context, ids.toString(), Toast.LENGTH_SHORT).show();
+
+                      //  Toast.makeText(context, ids.toString(), Toast.LENGTH_SHORT).show();
 
                     }
                 };
 
-                engineGridViews.showSymptomsListPatient(list, recycler_view, context, R.layout.checkbox_symptoms_items, listener);
+                engineGridViews.showSymptomsListGuest(list, recycler_view, context, R.layout.checkbox_symptoms_items, listener);
             }
 
             @Override
@@ -218,6 +354,8 @@ public class UrgentCareRequestActivity extends AppCompatActivity {
     }
 
     public void submit(View view) {
+
+       // Toast.makeText(context, "vitals "+ids.toString(), Toast.LENGTH_SHORT).show();
         String phone = ed_phone.getText().toString().trim();
         String name = ed_name.getText().toString().trim();
         String age = ed_age.getText().toString().trim();
@@ -274,6 +412,7 @@ public class UrgentCareRequestActivity extends AppCompatActivity {
                             request.put("appointment_for", appintmentFor);
                             request.put("birth_date", dateInString);
                             request.put("allergy", allergy);
+                            request.put("all_info", ids.toString());
                             TEMP_SAVE_GUEST_EMAIL = email;
                             Api.getInstance().urgent_care_request_raw(request, new ApiListener.AppointmentInsertListener() {
                                 @Override

@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.telemedicine.maulaji.R;
+import com.telemedicine.maulaji.Utils.SessionManager;
 import com.telemedicine.maulaji.model.CartItemsModel;
 import com.telemedicine.maulaji.model.CityModel;
 import com.telemedicine.maulaji.model.DoctorModelRaw;
@@ -27,7 +28,10 @@ import com.telemedicine.maulaji.model.MedHModel;
 import com.telemedicine.maulaji.model.MedicineModel4;
 import com.telemedicine.maulaji.widgets.DividerItemDecoration;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.telemedicine.maulaji.Data.Data.PHOTO_BASE;
 import static com.telemedicine.maulaji.Data.Data.PHOTO_BASE_PHARMACY;
+import static com.telemedicine.maulaji.Data.Data.SESSION_MANAGER;
 import static com.telemedicine.maulaji.Data.Data.itemView;
 import static com.telemedicine.maulaji.Data.Data.testList;
 
@@ -168,17 +173,40 @@ public class engineGridViews {
                 Log.i("mkl", list.get(position).toString());
                 final Map<String, Object> data = (Map<String, Object>) list.get(position);
                 context = holder.itemView.getContext();
+                CardView cardPatientViewProfile = (CardView) holder.itemView.findViewById(R.id.cardPatientViewProfile);
                 TextView tv_name = (TextView) holder.itemView.findViewById(R.id.tv_name);
                 TextView tv_time = (TextView) holder.itemView.findViewById(R.id.tv_time);
                 CircleImageView img = (CircleImageView) holder.itemView.findViewById(R.id.img);
                 tv_name.setText(data.get("doctor_name") != null ? data.get("doctor_name").toString() : "Doctor is not Asigned yet");
                 tv_time.setText(data.get("reason").toString() + "\n" + data.get("inserted_at").toString());
+                cardPatientViewProfile.setVisibility(View.GONE);
                 try {
                     Glide.with(context).load(PHOTO_BASE + (data.get("img_url") != null ? data.get("img_url").toString() : "")).into(img);
 
                 } catch (Exception e) {
 
                 }
+                ImageView cardChat = (ImageView) holder.itemView.findViewById(R.id.cardChat);
+                CardView cardPatientJoin = (CardView) holder.itemView.findViewById(R.id.cardPatientJoin);
+
+                cardPatientJoin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        //Toast.makeText(context, "wait, from master", Toast.LENGTH_SHORT).show();
+                        sL.onSelected(position, 5);
+                    }
+                });
+                cardChat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        //Toast.makeText(context, "wait, from master", Toast.LENGTH_SHORT).show();
+                        sL.onSelected(position, 4);
+                    }
+                });
+
+
                 //Glide.with(context).load("https://i.pinimg.com/originals/90/de/2b/90de2b0edcfd196cce7783f6dc0e4bb9.jpg").into(img);
                 holder.itemView.setOnClickListener((View view) -> {
                     //   sL.onSelected(position,0);
@@ -256,6 +284,53 @@ public class engineGridViews {
             @Override
             public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
                 Log.i("mkl", list.get(position).toString());
+                final MedHModel medHModel = data.get(position);
+                context = holder.itemView.getContext();
+                CheckBox checkbox = (CheckBox) holder.itemView.findViewById(R.id.checkbox);
+                if (medHModel.getIsSelected() == 1) {
+                    checkbox.setChecked(true);
+
+                } else {
+                    checkbox.setChecked(false);
+
+                }
+
+
+                checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        if (b) {
+                            sL.onSelected(position, 1);
+                        } else {
+                            sL.onSelected(position, 0);
+                        }
+                    }
+                });
+
+
+                checkbox.setText(medHModel.getName().toString());
+//
+//                holder.itemView.setOnClickListener((View view)->{
+//                    //sL.onSelected(position);
+//
+//                });
+
+
+            }
+        };
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(context, 1);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), recyclerView.VERTICAL, false);recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setAdapter(mAdapter);
+
+    }
+    public void showSymptomsListGuest(List<MedHModel> data, RecyclerView recyclerView, Context context, int vie, TapSelectListener sL) {
+        DynamicListView mAdapter = new DynamicListView(data, vie) {
+            @Override
+            public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+                Gson gson = new Gson();
+                Log.i("mkl", gson.toJson(list.get(position)));
                 final MedHModel medHModel = data.get(position);
                 context = holder.itemView.getContext();
                 CheckBox checkbox = (CheckBox) holder.itemView.findViewById(R.id.checkbox);
@@ -442,8 +517,8 @@ public class engineGridViews {
 
                 tv_name.setText(medicineModel4.getName());
                 tv_quantity.setText(String.valueOf(medicineModel4.getQuantity()));
-                tv_price.setText("MRP. " + medicineModel4.getPrice());
-                tvUnitTotal.setText("MRP. " + medicineModel4.getPrice());
+                tv_price.setText("RS. " + medicineModel4.getPrice());
+                tvUnitTotal.setText("RS. " + medicineModel4.getPrice());
 
                 Glide.with(context).load(PHOTO_BASE_PHARMACY + medicineModel4.getImage() + ".jpg").into(img);
 
@@ -461,7 +536,7 @@ public class engineGridViews {
                         float ut=i*medicineModel4.getPrice();
 
                         tv_quantity.setText(String.valueOf(i));
-                        tvUnitTotal.setText("MRP. "+ ut);
+                        tvUnitTotal.setText("RS. "+ ut);
                     }
 
 
@@ -472,7 +547,7 @@ public class engineGridViews {
                     float ut=i*medicineModel4.getPrice();
 
                     tv_quantity.setText(String.valueOf(i));
-                    tvUnitTotal.setText("MRP. " +ut);
+                    tvUnitTotal.setText("RS. " +ut);
                 });
 
 
@@ -494,7 +569,7 @@ public class engineGridViews {
                 final MedicineModel4 medicineModel4 = data.get(position);
                 context = holder.itemView.getContext();
                 TextView tv_name = (TextView) holder.itemView.findViewById(R.id.tv_name);
-                ((TextView) holder.itemView.findViewById(R.id.tv_price)).setText("MRP " + medicineModel4.getPrice());
+                ((TextView) holder.itemView.findViewById(R.id.tv_price)).setText("RS " + medicineModel4.getPrice());
                 ImageView img = (ImageView) holder.itemView.findViewById(R.id.img);
                 tv_name.setText(medicineModel4.getName());
 
@@ -536,6 +611,11 @@ public class engineGridViews {
                 tv_name.setText(data.get("doctor_name") != null ? data.get("doctor_name").toString() : "No Name in database");
                 tv_time.setText(data.get("time_slot") != null ? data.get("time_slot").toString() : "");
                 tv_date.setText(data.get("date") != null ? data.get("date").toString() : "");
+
+                SimpleDateFormat timeStampFormat = new SimpleDateFormat("EE dd MMM");
+
+                String DateStr = timeStampFormat.format( new java.util.Date(1000*Long.parseLong(data.get("date").toString())));
+                tv_date.setText(DateStr);
                 if (data.get("img_url") != null) {
                     img.setVisibility(View.VISIBLE);
                     Glide.with(context).load(PHOTO_BASE + data.get("img_url")).into(img);
@@ -586,15 +666,33 @@ public class engineGridViews {
                 context = holder.itemView.getContext();
                 TextView tv_name = (TextView) holder.itemView.findViewById(R.id.tv_name);
                 TextView tv_time = (TextView) holder.itemView.findViewById(R.id.tv_time);
+                TextView tv_date = (TextView) holder.itemView.findViewById(R.id.tv_date);
                 ImageView img = (ImageView) holder.itemView.findViewById(R.id.img);
-                tv_name.setText(data.get("patientname").toString());
+                tv_name.setText(data.get("patientname")!=null?data.get("patientname").toString():"No Patient Name");
                 tv_time.setText(data.get("time_slot") != null ? data.get("time_slot").toString() : "");
                 ImageView cardVcall = (ImageView) holder.itemView.findViewById(R.id.cardVcall);
+                CardView cardPatientViewProfile = (CardView) holder.itemView.findViewById(R.id.cardPatientViewProfile);
                 ImageView cardAcall = (ImageView) holder.itemView.findViewById(R.id.cardAcall);
                 ImageView cardChat = (ImageView) holder.itemView.findViewById(R.id.cardChat);
                 ImageView cardMore = (ImageView) holder.itemView.findViewById(R.id.cardMore);
+                SessionManager sessionManager = new SessionManager(context);
 
+                if(sessionManager.getUserType().equals("d")){
+                    cardPatientViewProfile.setVisibility(View.VISIBLE);
+                    cardPatientViewProfile.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            sL.onSelected(position, 4);
+                        }
+                    });
+                }else{
+                    cardPatientViewProfile.setVisibility(View.GONE);
+                }
 
+               // SimpleDateFormat timeStampFormat = new SimpleDateFormat("EE dd MMM");
+
+              // String DateStr = timeStampFormat.format( new java.util.Date(1000*Long.parseLong(data.get("date").toString())));
+               // tv_date.setText(data.get("date").toString());
                 try {
                     Glide.with(context).load(PHOTO_BASE + data.get("img_url") == null ? "" : data.get("img_url").toString()).into(img);
                 } catch (Exception e) {

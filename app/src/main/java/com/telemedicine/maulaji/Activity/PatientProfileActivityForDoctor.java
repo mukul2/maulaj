@@ -112,6 +112,7 @@ public class PatientProfileActivityForDoctor extends AppCompatActivity {
                                 .setAudioOnly(false)
                                 .setVideoMuted(false)
                                 .setSubject("Consultation")
+                                .setFeatureFlag("invite.enabled", false)
                                 .build();
                         JitsiMeetActivity.launch(context, options);
 
@@ -134,6 +135,7 @@ public class PatientProfileActivityForDoctor extends AppCompatActivity {
                                 .setAudioOnly(true)
                                 .setVideoMuted(true)
                                 .setSubject("Consultation")
+                                .setFeatureFlag("invite.enabled", false)
                                 .build();
                         JitsiMeetActivity.launch(context, options);
 
@@ -179,7 +181,7 @@ public class PatientProfileActivityForDoctor extends AppCompatActivity {
         JitsiMeetConferenceOptions defaultOptions
                 = new JitsiMeetConferenceOptions.Builder()
                 .setServerURL(serverURL)
-
+                .setFeatureFlag("invite.enabled", false)
                 // When using JaaS, set the obtained JWT here
                 //.setToken("MyJWT")
                 .setWelcomePageEnabled(false)

@@ -190,7 +190,7 @@ public class HomeActivityDrActivity extends AppCompatActivity {
         JitsiMeetConferenceOptions defaultOptions
                 = new JitsiMeetConferenceOptions.Builder()
                 .setServerURL(serverURL)
-
+                .setFeatureFlag("invite.enabled", false)
                 // When using JaaS, set the obtained JWT here
                 //.setToken("MyJWT")
                 .setWelcomePageEnabled(false)

@@ -57,8 +57,8 @@ public class Data {
     public static AmbulanceModel NOW_SHOWING_AMBULANCE;
     public static NoticeModel NOW_SHOWING_NOTICE;
     public static SessionManager SESSION_MANAGER;
-    public static String PHOTO_BASE = "https://callgpnow.com/public/";
-    public static String PHOTO_BASE_PHARMACY = "https://callgpnow.com/images/";
+    public static String PHOTO_BASE = "https://maulaji.com/";
+    public static String PHOTO_BASE_PHARMACY = "https://maulaji.com/assets/images/image/";
     public static BlogModel NOW_SHOWING_BLOG;
     public static String TYPE_OF_ACTIVITY;
     public static String TYPE_OF_CALL;

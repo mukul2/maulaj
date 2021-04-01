@@ -61,7 +61,7 @@ public class ProductBodyDetailActivity extends AppCompatActivity {
         Glide.with(context).load(PHOTO_BASE_PHARMACY+NOW_SHOWING_PRODUCT.getImg()+".jpg").into(img);
        // tv_name.setText(NOW_SHOWING_PRODUCT.getName());
         tv_name2.setText(NOW_SHOWING_PRODUCT.getName());
-        tv_price.setText("MRP "+NOW_SHOWING_PRODUCT.getPrice());
+        tv_price.setText("RS "+NOW_SHOWING_PRODUCT.getPrice());
         tv_cartStatus.setText("ADD TO CART");
         category.setText(NOW_SHOWING_PRODUCT.getCategory());
         subcategory.setText(NOW_SHOWING_PRODUCT.getSubcategory());

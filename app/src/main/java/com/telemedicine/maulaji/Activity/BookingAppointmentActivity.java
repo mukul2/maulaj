@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.telemedicine.maulaji.R;
@@ -64,6 +65,12 @@ public class BookingAppointmentActivity extends AppCompatActivity {
 
     @BindView(R.id.ed_health_condition)
     EditText ed_health_condition;
+    @BindView(R.id.cardMedicalHistory)
+    CardView cardMedicalHistory;
+    @BindView(R.id.cardMedicalGuest)
+    CardView cardMedicalGuest;
+    @BindView(R.id.recycler2)
+    RecyclerView recycler2;
     SessionManager sessionManager;
     String selctedDate;
     String selctedTime;
@@ -111,6 +118,14 @@ public class BookingAppointmentActivity extends AppCompatActivity {
 
         if (!sessionManager.getUserId().equals("0")) {
             // ed_name.setText(sessionManager.getUserName());
+            showDiseasesHostory();
+            cardMedicalHistory.setVisibility(View.VISIBLE);
+            cardMedicalGuest.setVisibility(View.GONE);
+        }else{
+            showSysptomsList();
+            cardMedicalHistory.setVisibility(View.GONE);
+            cardMedicalGuest.setVisibility(View.VISIBLE);
+
         }
 
         if (b != null) {
@@ -131,8 +146,116 @@ public class BookingAppointmentActivity extends AppCompatActivity {
 
        // showSysptomsList();
 
+       // showDiseasesHostory();
 
 
+
+    }
+
+    private void showDiseasesHostory() {
+        HashMap<Integer, String> maps = new HashMap<Integer, String>();
+        HashMap<Integer, String> mapsSub = new HashMap<Integer, String>();
+        Api.getInstance().symptoms_list_get(new ApiListener.SymptomsDownloadListener() {
+            @Override
+            public void onSymptomsDownloadSuccess(List<MedHModel> list) {
+                com.telemedicine.maulaji.viewEngine.engineGridViews.TapSelectListener listener = new engineGridViews.TapSelectListener() {
+                    @Override
+                    public void onSelected(int pos, int optional) {
+                        Log.i("mkl",list.get(0).toString());
+                        final MedHModel data = list.get(pos);
+                        // Toast.makeText(context, ""+optional, Toast.LENGTH_SHORT).show();
+
+                        //data.get("name").toString()
+                        if (optional == 1) {
+                            maps.put(data.getId(), data.getName());
+                        } else {
+                            if(!maps.isEmpty()) maps.remove(data.getId());
+                        }
+                        mapsSub.putAll(maps);
+                        ids.clear();
+                        Iterator it = mapsSub.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry pair = (Map.Entry) it.next();
+                            System.out.println(pair.getKey() + " = " + pair.getValue());
+                            ids.add(pair.getValue());
+                            it.remove(); // avoids a ConcurrentModificationException
+                        }
+
+
+                        if(!ids.isEmpty()) {
+                            //update from here
+                            String dataToUpdate = ids.toString();
+                            dataToUpdate = dataToUpdate.substring(1, dataToUpdate.length() -1);
+                            Api.getInstance().setMedicalHistory(sessionManager.getUserId(), dataToUpdate, new ApiListener.medicalHistoryUpdateListener() {
+                                @Override
+                                public void OnmedicalHistoryUpdateSuccess(String list) {
+                                    // Toast.makeText(MedicalHistoryActivityPatient.this, list, Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void OnmedicalHistoryUpdateFailed(String msg) {
+                                    // Toast.makeText(MedicalHistoryActivityPatient.this, msg, Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+                            // Toast.makeText(context, dataToUpdate, Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                };
+
+
+                Api.getInstance().getMyMedicalistory(sessionManager.getUserId(), new ApiListener.MedicalHistoryDownloadListener() {
+                    @Override
+                    public void onMedicalHistoryDownloadSuccess(List<String> res) {
+
+
+                        for (int i = 0;i<list.size();i++){
+                            for(int j = 0;j<res.size();j++){
+                                if(list.get(i).getName().replaceAll(" ","").equals(res.get(j).replaceAll(" ",""))){
+                                    list.get(i).setIsSelected(1);
+                                    break;
+                                }
+                            }
+                        }
+                        for (int i = 0;i<list.size();i++){
+                            if(list.get(i).getIsSelected()==1){
+                                maps.put(list.get(i).getId(), list.get(i).getName().trim());
+                            }else {
+                                if(!maps.isEmpty()) maps.remove(list.get(i).getId());
+                            }
+                        }
+
+                        mapsSub.putAll(maps);
+                        ids.clear();
+                        Iterator it = mapsSub.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry pair = (Map.Entry) it.next();
+                            System.out.println(pair.getKey() + " = " + pair.getValue());
+                            ids.add(pair.getValue());
+                            it.remove(); // avoids a ConcurrentModificationException
+                        }
+                        // Toast.makeText(context, ids.toString(), Toast.LENGTH_SHORT).show();
+                        engineGridViews.showSymptomsListPatient(list, recycler2, context, R.layout.checkbox_symptoms_items, listener);
+
+
+                    }
+
+                    @Override
+                    public void onMedicalHistoryDownloadFailed(String msg) {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onSymptomsDownloadFailed(String msg) {
+
+            }
+        });
     }
 
     private void showSysptomsList() {
@@ -221,10 +344,15 @@ public class BookingAppointmentActivity extends AppCompatActivity {
                 if (i == 0) {
                     linearHideContent.setVisibility(View.GONE);
                     selectedUserType = userType.MYSELF;
-
+                    showDiseasesHostory();
+                    cardMedicalHistory.setVisibility(View.VISIBLE);
+                    cardMedicalGuest.setVisibility(View.GONE);
                 } else {
                     linearHideContent.setVisibility(View.VISIBLE);
                     selectedUserType = userType.OTHER;
+                    showSysptomsList();
+                    cardMedicalHistory.setVisibility(View.GONE);
+                    cardMedicalGuest.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -298,6 +426,7 @@ public class BookingAppointmentActivity extends AppCompatActivity {
                             request.put("appointment_for", appintmentFor);
                             request.put("date_of_birth", dateInString);
                             request.put("allergy", allergy);
+                            request.put("all_info", ids.toString());
                             Api.getInstance().appAppInfo(request, new ApiListener.AppointmentInsertListener() {
                                 @Override
                                 public void onAppointmentInsertSuccess(JsonElement response) {

@@ -208,7 +208,7 @@ public class ScheduledAppointmentfragment extends Fragment {
                                             JitsiMeetConferenceOptions defaultOptions
                                                     = new JitsiMeetConferenceOptions.Builder()
                                                     .setServerURL(serverURL)
-
+                                                    .setFeatureFlag("invite.enabled", false)
                                                     // When using JaaS, set the obtained JWT here
                                                     //.setToken("MyJWT")
                                                     .setWelcomePageEnabled(false)
@@ -219,6 +219,7 @@ public class ScheduledAppointmentfragment extends Fragment {
                                                     = new JitsiMeetConferenceOptions.Builder()
                                                     .setRoom(room)
                                                     .setAudioOnly(false)
+                                                    .setFeatureFlag("invite.enabled", false)
                                                     .setVideoMuted(false)
                                                     .setSubject("Consultation")
                                                     .build();

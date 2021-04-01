@@ -37,7 +37,7 @@ public class IcommingCallJitsi extends AppCompatActivity {
         JitsiMeetConferenceOptions defaultOptions
                 = new JitsiMeetConferenceOptions.Builder()
                 .setServerURL(serverURL)
-
+                .setFeatureFlag("invite.enabled", false)
                 // When using JaaS, set the obtained JWT here
                 //.setToken("MyJWT")
                 .setWelcomePageEnabled(false)
@@ -49,7 +49,7 @@ public class IcommingCallJitsi extends AppCompatActivity {
         JitsiMeetConferenceOptions options
                 = new JitsiMeetConferenceOptions.Builder()
                 .setRoom(NOTI_DATA.getRoom())
-
+                .setFeatureFlag("invite.enabled", false)
                 .build();
         // Launch the new activity with the given options. The launch() method takes care
         // of creating the required Intent and passing the options.

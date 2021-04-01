@@ -102,18 +102,34 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginLeft="41dp"
                                 android:background="#cccccc" />
-
-                            <EditText
-                                android:id="@+id/ed_password"
+                            <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="50dp"
-                                android:hint="Password"
-                                android:padding="10dp"
-                                android:textSize="13dp"
+                                android:layout_height="wrap_content">
+                                <EditText
+                                    android:id="@+id/ed_password"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="50dp"
+                                    android:hint="Password"
+                                    android:inputType="textPassword"
+                                    android:padding="10dp"
+                                    android:textSize="13dp"
 
 
-                                />
+                                    />
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_margin="5dp"
+                                    android:alpha="0.5"
+                                    android:id="@+id/img_show_pass"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:src="@drawable/showpassword"
+                                    android:layout_height="20dp"/>
+
+                            </RelativeLayout>
+
+
                         </RelativeLayout>
                         <CheckBox
                             android:id="@+id/ehckOtp"

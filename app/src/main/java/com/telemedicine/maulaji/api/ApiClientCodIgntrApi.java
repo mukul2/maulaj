@@ -10,7 +10,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ApiClientCodIgntrApi {
 
-    private static final String BASE_URL = "https://callgpnow.com/public/auth/";
+    private static final String BASE_URL = "https://maulaji.com/auth/";
     private static Retrofit retrofit = null;
 
     private static Retrofit getClient() {

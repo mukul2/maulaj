@@ -125,10 +125,15 @@ public class Api {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+
+        Gson gson = new Gson() ;
+        Log.i("maulaji_ll",gson.toJson(notificationModel));
+
         ApiInterface apiInterface = retrofit.create(ApiInterface.class);
         apiInterface.newmsg(fcmKey, notificationModel).enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                Log.i("mklnoti", response.body().toString());
                 Log.i("mklnoti", response.body().toString());
                 Gson gson = new Gson();
                 Log.i("mklnoti", gson.toJson(data).toString());

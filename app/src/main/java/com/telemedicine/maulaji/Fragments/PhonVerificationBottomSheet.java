@@ -164,6 +164,7 @@ public class PhonVerificationBottomSheet extends BottomSheetDialogFragment {
         List<String> coutryCode = new ArrayList<String>();
         coutryCode.add("+44");
         coutryCode.add("+92");
+        coutryCode.add("+88");
 
 
         // Creating adapter for spinner

@@ -19,6 +19,7 @@ import com.telemedicine.maulaji.model.CityModel;
 import com.telemedicine.maulaji.model.CountryModel;
 import com.telemedicine.maulaji.model.DepartmentModel;
 import com.telemedicine.maulaji.model.DepartmentModel2;
+import com.telemedicine.maulaji.model.DepartmentModel3;
 import com.telemedicine.maulaji.model.DeptModel;
 import com.telemedicine.maulaji.model.DiseasesModel;
 import com.telemedicine.maulaji.model.DoctorLoginModel;
@@ -579,6 +580,12 @@ public class ApiListener {
     }
     public interface DeptListDownload {
         void onDeptListDownloadSuccess(List<DepartmentModel2> response);
+
+        void onDeptListDownloadFailed(String msg);
+    }
+
+    public interface DeptListDownload2Listener {
+        void onDeptListDownloadSuccess(List<DepartmentModel3> response);
 
         void onDeptListDownloadFailed(String msg);
     }

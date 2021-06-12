@@ -35,8 +35,10 @@ import com.telemedicine.maulaji.Activity.UrgentCareRequestActivity;
 import com.telemedicine.maulaji.Activity.VideoCallAppointmentList;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.api.Api;
+import com.telemedicine.maulaji.api.ApiClientRawApi;
 import com.telemedicine.maulaji.api.ApiListener;
 import com.telemedicine.maulaji.model.DepartmentModel2;
+import com.telemedicine.maulaji.model.DepartmentModel3;
 import com.telemedicine.maulaji.viewEngine.engineGridViews;
 
 import java.util.ArrayList;
@@ -197,56 +199,107 @@ public class HomeFragmentAlternativeMedX extends Fragment {
     }
 
     private void initSpinner() {
-        Api.getInstance().department_list(new ApiListener.DeptListDownload() {
-            @Override
-            public void onDeptListDownloadSuccess(List<DepartmentModel2> response) {
-                Log.i("mkl",response.toString());
-                List<String> allDat =new ArrayList<>();
-                allDat.add("Choose");
-                for (int i = 0 ; i<response.size();i++){
-                    final DepartmentModel2 data = response.get(i);
-                    allDat.add(data.getSpeciality().toString());
+       Api.getInstance().get_dept_list(new ApiListener.DeptListDownload2Listener() {
+           @Override
+           public void onDeptListDownloadSuccess(List<DepartmentModel3> response) {
+               Log.i("mkl",response.toString());
+               List<String> allDat =new ArrayList<>();
+               allDat.add("Choose");
+               for (int i = 0 ; i<response.size();i++){
+                   final DepartmentModel3 data = response.get(i);
+                   allDat.add(data.getSpeciality().toString());
 
 
 
-                }
-                //spinner
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, allDat);
+               }
+               //spinner
+               ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, allDat);
 
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+               dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                spinner.setAdapter(dataAdapter);
+               spinner.setAdapter(dataAdapter);
 
 
 
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int ii, long l) {
+               spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                   @Override
+                   public void onItemSelected(AdapterView<?> adapterView, View view, int ii, long l) {
 
                        if(ii>0) {
-                           DepartmentModel2 data =  response.get(ii-1);
+                           DepartmentModel3 data =  response.get(ii-1);
                            //selctedDepartmentId =""+ Integer.parseInt(data.get("id").toString());
                            selctedDepartmentId =""+data.getId();
+                           Log.i("mkl", "onItemSelected: "+ selctedDepartmentId);
                            Intent i = new Intent(context, AllSpecialist.class);
                            i.putExtra("dept", "" + selctedDepartmentId);
                            i.putExtra("name", "" + data.getSpeciality());
                            startActivity(i);
                        }
-                    }
+                   }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
+                   @Override
+                   public void onNothingSelected(AdapterView<?> adapterView) {
 
-                    }
-                });
+                   }
+               });
 
-            }
+           }
 
-            @Override
-            public void onDeptListDownloadFailed(String msg) {
+           @Override
+           public void onDeptListDownloadFailed(String msg) {
 
-            }
-        });
+           }
+       });
+//        ApiClientRawApi.getApiInterface().department_list(new ApiListener.DeptListDownload() {
+//            @Override
+//            public void onDeptListDownloadSuccess(List<DepartmentModel2> response) {
+//                Log.i("mkl",response.toString());
+//                List<String> allDat =new ArrayList<>();
+//                allDat.add("Choose");
+//                for (int i = 0 ; i<response.size();i++){
+//                    final DepartmentModel2 data = response.get(i);
+//                    allDat.add(data.getSpeciality().toString());
+//
+//
+//
+//                }
+//                //spinner
+//                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, allDat);
+//
+//                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//                spinner.setAdapter(dataAdapter);
+//
+//
+//
+//                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(AdapterView<?> adapterView, View view, int ii, long l) {
+//
+//                       if(ii>0) {
+//                           DepartmentModel2 data =  response.get(ii-1);
+//                           //selctedDepartmentId =""+ Integer.parseInt(data.get("id").toString());
+//                           selctedDepartmentId =""+data.getId();
+//                           Intent i = new Intent(context, AllSpecialist.class);
+//                           i.putExtra("dept", "" + selctedDepartmentId);
+//                           i.putExtra("name", "" + data.getSpeciality());
+//                           startActivity(i);
+//                       }
+//                    }
+//
+//                    @Override
+//                    public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                    }
+//                });
+//
+//            }
+//
+//            @Override
+//            public void onDeptListDownloadFailed(String msg) {
+//
+//            }
+//        });
 
 
 

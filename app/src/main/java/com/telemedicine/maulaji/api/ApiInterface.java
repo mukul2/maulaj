@@ -19,6 +19,7 @@ import com.telemedicine.maulaji.model.CityModel;
 import com.telemedicine.maulaji.model.CountryModel;
 import com.telemedicine.maulaji.model.DepartmentModel;
 import com.telemedicine.maulaji.model.DepartmentModel2;
+import com.telemedicine.maulaji.model.DepartmentModel3;
 import com.telemedicine.maulaji.model.DeptModel;
 import com.telemedicine.maulaji.model.DiseasesModel;
 import com.telemedicine.maulaji.model.DoctorLoginModel;
@@ -527,6 +528,10 @@ public interface ApiInterface {
 
     @GET("view-ambulance")
     Call<List<AmbulanceModel>> getAmbulanceList(@Header("Authorization") String token);
+
+
+    @GET("get_dept_list.php")
+    Call<List<DepartmentModel3>> get_dept_list();
 
     @FormUrlEncoded
     @POST("add-online-doctor-service")

@@ -24,6 +24,7 @@ import com.telemedicine.maulaji.model.CountryModel;
 import com.telemedicine.maulaji.model.Data;
 import com.telemedicine.maulaji.model.DepartmentModel;
 import com.telemedicine.maulaji.model.DepartmentModel2;
+import com.telemedicine.maulaji.model.DepartmentModel3;
 import com.telemedicine.maulaji.model.DeptModel;
 import com.telemedicine.maulaji.model.DiseasesModel;
 import com.telemedicine.maulaji.model.DoctorLoginModel;
@@ -2396,6 +2397,25 @@ public class Api {
             @Override
             public void onFailure(@NonNull Call<List<AmbulanceModel>> call, @NonNull Throwable t) {
                 listener.onDownloadAmbulanceListFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public void get_dept_list( final ApiListener.DeptListDownload2Listener listener) {
+
+        ApiClientRawApi.getApiInterface().get_dept_list().enqueue(new Callback<List<DepartmentModel3>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<DepartmentModel3>> call, @NonNull Response<List<DepartmentModel3>> response) {
+                if (response != null) {
+                    listener.onDeptListDownloadSuccess(response.body());
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<DepartmentModel3>> call, @NonNull Throwable t) {
+                listener.onDeptListDownloadFailed(t.getLocalizedMessage());
             }
         });
     }

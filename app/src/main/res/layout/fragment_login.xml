@@ -224,8 +224,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="10dp"
+                android:id="@+id/forgotPass"
                 android:layout_marginTop="5dp"
-                android:onClick="forgotePassword"
                 android:text="Forgot password?"
                 android:textColor="@color/black"
                 android:textSize="14dp"/>

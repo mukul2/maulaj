@@ -79,6 +79,7 @@
                             android:layout_width="wrap_content"
                             android:orientation="horizontal"
                             android:onClick="chooseCity"
+                            android:visibility="gone"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:layout_height="wrap_content">
@@ -185,6 +186,17 @@
                     android:src="@drawable/right_white" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="70dp"
+            android:onClick="click_6"
+            android:tint="@color/white"
+
+            app:srcCompat="@drawable/instruction"
+            android:layout_marginRight="16dp"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -550,4 +562,5 @@
 
 
     </com.google.android.material.navigation.NavigationView>
+
 </androidx.drawerlayout.widget.DrawerLayout>

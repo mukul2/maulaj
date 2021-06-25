@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.Utils.MyProgressBar;
+import com.telemedicine.maulaji.Utils.SessionManager;
 import com.telemedicine.maulaji.Utils.doForMe;
 import com.telemedicine.maulaji.api.Api;
 import com.telemedicine.maulaji.api.ApiListener;
@@ -66,18 +67,24 @@ public class PatientPersonalInfoActivity extends AppCompatActivity {
     ImageView image;
     Context context = this;
     Uri resultUri;
-
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_personal_info);
         ButterKnife.bind(this);
         setUpStatusbar();
+        sessionManager = new SessionManager(context);
+        //Toast.makeText(context, sessionManager.getUserId(), Toast.LENGTH_SHORT).show();
         tv_display_title.setText(SESSION_MANAGER.get_userdisplay());
         tv_email.setText(SESSION_MANAGER.get_userEmail());
         tv_name.setText(SESSION_MANAGER.getUserName());
         tv_phone.setText(SESSION_MANAGER.get_userMobile());
-        Glide.with(PatientPersonalInfoActivity.this).load(PHOTO_BASE + SESSION_MANAGER.get_userPhoto()).into(image);
+       try{
+           Glide.with(PatientPersonalInfoActivity.this).load(PHOTO_BASE + SESSION_MANAGER.get_userPhoto()).into(image);
+       }catch (Exception e){
+           image.setBackgroundColor(context.getResources().getColor(R.color.grayLite));
+       }
         if (SESSION_MANAGER.getUserType().equals("p")){
             liner_dr_only.setVisibility(View.GONE);
         }else {
@@ -127,7 +134,7 @@ public class PatientPersonalInfoActivity extends AppCompatActivity {
                 if (name.length()>0){
                     dialog.dismiss();
                     MyProgressBar.with(context);
-                    Api.getInstance().updateProfile(TOKEN, c_m_b(USER_ID), c_m_b(name), null,null, new ApiListener.PRofileUpdateListenerPatient() {
+                    Api.getInstance().updateProfile(TOKEN, c_m_b(sessionManager.getUserId()), c_m_b(name), null,null, new ApiListener.PRofileUpdateListenerPatient() {
                         @Override
                         public void onPRofileUpdateSuccess(ProfileUpdateResponse data) {
                             MyProgressBar.dismiss();
@@ -279,8 +286,9 @@ public class PatientPersonalInfoActivity extends AppCompatActivity {
                    // Toast.makeText(context,gson.toJson(data),Toast.LENGTH_LONG).show();
 
                     if (data.getStatus()==true){
+                      //  Toast.makeText(context, data.getPhoto(), Toast.LENGTH_SHORT).show();
                        SESSION_MANAGER.set_userPhoto(data.getPhoto());
-                        Glide.with(PatientPersonalInfoActivity.this).load(PHOTO_BASE + data.getPhoto()).into(image);
+                        Glide.with(PatientPersonalInfoActivity.this).load( "https://maulaji.com/" + data.getPhoto()).into(image);
 
                     }
 
@@ -289,7 +297,7 @@ public class PatientPersonalInfoActivity extends AppCompatActivity {
                 @Override
                 public void onPRofileUpdateFailed(String msg) {
                     MyProgressBar.dismiss();
-                    Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
+                   // Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
 
                 }
             });

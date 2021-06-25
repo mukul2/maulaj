@@ -49,10 +49,11 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
 
-        android:layout_height="180dp">
+        android:layout_height="170dp">
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
             app:cardCornerRadius="3dp"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:layout_height="150dp">
             <ImageView
@@ -81,7 +82,6 @@
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/tv_dept"
                 android:layout_width="wrap_content"
@@ -91,13 +91,52 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_address"
+                android:id="@+id/tv_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Address"
-                android:textSize="12dp" />
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_about_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_specialization"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_education"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_experience"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:text="ec"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textSize="12dp" />
     </LinearLayout>
 
 

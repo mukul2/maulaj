@@ -296,7 +296,7 @@ public class LoginFragment extends BottomSheetDialogFragment {
 
                                         sessionManager.setuserId("" + response.getId());
                                         sessionManager.setLoggedIn(true);
-                                        sessionManager.setuserName(response.getName()+" saved my listener");
+                                        sessionManager.setuserName(response.getName());
                                         sessionManager.setuserType(userType);
                                         sessionManager.setToken("Bearer " );
                                         sessionManager.set_userPhoto(response.getImgUrl());
@@ -342,6 +342,14 @@ public class LoginFragment extends BottomSheetDialogFragment {
             }
         });
 
+        linearReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOtherFragmentListener.open(userType);
+                dismiss();
+
+            }
+        });
         linearReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

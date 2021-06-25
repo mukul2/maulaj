@@ -78,7 +78,13 @@ public class LastChatListAdapter extends RecyclerView.Adapter<LastChatListAdapte
             TARGET_USER_IMAGE = data.getReceiver_photo();
             TARGET_USER_NAME = data.getReceiver_name();
             holder.tv_name.setText(data.getReceiver_name());
-            holder.tv_last_msg.setText(data.getMessage_body());
+            if(data.getMessage_body().startsWith("https:")){
+                holder.tv_last_msg.setText("Attachment");
+            }else{
+                holder.tv_last_msg.setText(data.getMessage_body());
+            }
+
+
             Glide.with(context).load(PHOTO_BASE + data.getReceiver_photo()).into(holder.imageView);
 
         } else {
@@ -88,8 +94,11 @@ public class LastChatListAdapter extends RecyclerView.Adapter<LastChatListAdapte
             TARGET_USER_NAME = data.getSender_name();
 
             holder.tv_name.setText(data.getSender_name());
-            holder.tv_last_msg.setText(data.getMessage_body());
-            Glide.with(context).load(PHOTO_BASE + data.getSender_photo()).into(holder.imageView);
+            if(data.getMessage_body().startsWith("https:")){
+                holder.tv_last_msg.setText("Attachment");
+            }else{
+                holder.tv_last_msg.setText(data.getMessage_body());
+            }            Glide.with(context).load(PHOTO_BASE + data.getSender_photo()).into(holder.imageView);
 
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -2,6 +2,7 @@ package com.telemedicine.maulaji.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.telemedicine.maulaji.model.HospitalModel;
 import com.telemedicine.maulaji.viewEngine.engineGridViews;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,13 +48,18 @@ public class AllHomeVisitDoctorsList extends AppCompatActivity {
     RecyclerView recyclerView;
     @BindView(R.id.spinnerHospital)
     Spinner spinnerHospital;
+    @BindView(R.id.spinnergender)
+    Spinner spinnergender;
     Context context = this ;
     FlippableStackView mFlippableStack;
+    String selectedhospitalId = null;
+    String selectedGender = "any";
 
     ColorFragmentAdapter mPageAdapter;
 
     List<Fragment> mViewPagerFragments;
     Boolean firstTimeDone = false ;
+    Boolean firstTimeDone2 = false ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,7 @@ public class AllHomeVisitDoctorsList extends AppCompatActivity {
         ButterKnife.bind(this);
         engineGridViews = new engineGridViews();
 
-        downloadDocs(null);
+        downloadDocs(selectedhospitalId,selectedGender);
         Api.getInstance().hospital_list(new ApiListener.HospitalDownloadListener() {
             @Override
             public void onHospitalDownloadSuccess(List<HospitalModel> response) {
@@ -87,9 +94,10 @@ public class AllHomeVisitDoctorsList extends AppCompatActivity {
                             firstTimeDone= true;
                         }else {
                             if(i==0){
-                                downloadDocs(null);
+                                downloadDocs(null,selectedGender);
                             }else {
-                                downloadDocs(response.get(i-1).getId());
+                                selectedhospitalId = response.get(i-1).getId();
+                                downloadDocs(response.get(i-1).getId(),selectedGender);
                             }
 
                         }
@@ -108,16 +116,49 @@ public class AllHomeVisitDoctorsList extends AppCompatActivity {
 
             }
         });
+        initGenderSpinner();
 
 
 
     }
+    private void initGenderSpinner() {
+        List genders = new ArrayList();
+        genders.add("Any");
+        genders.add("Male");
+        genders.add("Female");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, R.layout.white_spinner, genders);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnergender.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
 
-    private void downloadDocs(String hospital) {
-        Api.getInstance().get_home_visit_doctors(hospital,new ApiListener.RawDocDownloadListener() {
+        spinnergender.setAdapter(dataAdapter);
+
+        //spinnerHospital.setSelection(locatedCountryIndex);
+        spinnergender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedGender = ""+genders.get(i).toString().toLowerCase();
+
+                if(!firstTimeDone2){
+                    firstTimeDone2 = true;
+                }else downloadDocs(selectedhospitalId,selectedGender);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+    private void downloadDocs(String hospital,String gender) {
+        HashMap<String, String> request = new HashMap<String, String>();
+        request.put("gender", gender);
+        request.put("hospital",hospital);
+        Api.getInstance().get_home_visit_doctors(request,new ApiListener.RawDocDownloadListener() {
             @Override
             public void onAllDocDownloadSuccess(List<DoctorModelRaw> response) {
-                Toast.makeText(context, ""+response.size(), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(context, ""+response.size(), Toast.LENGTH_SHORT).show();
 
 
                 Gson gson= new Gson();

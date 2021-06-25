@@ -2,6 +2,7 @@ package com.telemedicine.maulaji.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -45,14 +46,20 @@ public class AllSpecialist extends AppCompatActivity {
     Context context = this ;
     com.telemedicine.maulaji.viewEngine.engineGridViews engineGridViews;
     Boolean firstTimeDone = false ;
+    Boolean firstTimeDone2 = false ;
     @BindView(R.id.spinnerHospital)
     Spinner spinnerHospital;
+    @BindView(R.id.spinnergender)
+    Spinner spinnergender;
     @BindView(R.id.tv_list)
     TextView tv_list;
     @BindView(R.id.tv_profile)
     TextView tv_profile;
     FlippableStackView mFlippableStack;
     ColorFragmentAdapter mPageAdapter;
+    String selectedGender = "0";
+    String selectedDepId = null;
+    String  selectedhospitalId = null;
 
     List<Fragment> mViewPagerFragments;
     @Override
@@ -99,19 +106,31 @@ public class AllSpecialist extends AppCompatActivity {
                     ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, R.layout.white_spinner, hospitals);
                     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerHospital.setAdapter(dataAdapter);
+                    spinnerHospital.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+
 
                     //spinnerHospital.setSelection(locatedCountryIndex);
                     spinnerHospital.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             // dowblaodAndPopulate(response.get(i).getNicename());
+
+                            if(i==0){
+                                selectedhospitalId = null;
+                                selectedDepId = id;
+                            }else {
+                                selectedhospitalId = response.get(i-1).getId();
+                                selectedDepId = id;
+                            }
                             if(!firstTimeDone){
 
                                 firstTimeDone= true;
                             }else {
                                 if(i==0){
+
                                     downloadSpecalist(id,null);
                                 }else {
+
                                     downloadSpecalist(id,response.get(i-1).getId());
                                 }
 
@@ -131,6 +150,7 @@ public class AllSpecialist extends AppCompatActivity {
 
                 }
             });
+            initGenderSpinner();
 
 
 
@@ -147,8 +167,39 @@ public class AllSpecialist extends AppCompatActivity {
         //dept
     }
 
+    private void initGenderSpinner() {
+        List genders = new ArrayList();
+        genders.add("Any");
+        genders.add("Male");
+        genders.add("Female");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, R.layout.white_spinner, genders);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnergender.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+
+        spinnergender.setAdapter(dataAdapter);
+
+        //spinnerHospital.setSelection(locatedCountryIndex);
+        spinnergender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedGender = ""+i;
+
+                if(!firstTimeDone2){
+                    firstTimeDone2 = true;
+                }else downloadSpecalist(selectedDepId,selectedhospitalId);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
     public void downloadSpecalist(String deptid,String hospitalId){
-        Api.getInstance().specialist_doctor_raw(deptid,hospitalId, new ApiListener.AllGPDownloadListener() {
+        Api.getInstance().specialist_doctor_raw(deptid,hospitalId, selectedGender,new ApiListener.AllGPDownloadListener() {
             @Override
             public void onAllGPDownloadSuccess(List<DoctorModelRaw> response) {
                 com.telemedicine.maulaji.viewEngine.engineGridViews.TapSelectListener listener = new engineGridViews.TapSelectListener() {
@@ -165,7 +216,7 @@ public class AllSpecialist extends AppCompatActivity {
 
                     }
                 };
-                Toast.makeText(context, ""+response.size(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, ""+response.size(), Toast.LENGTH_SHORT).show();
 
 
 
@@ -225,7 +276,7 @@ public class AllSpecialist extends AppCompatActivity {
 
             @Override
             public void onAllGPDownloadFailed(String msg) {
-                Toast.makeText(AllSpecialist.this, msg, Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(AllSpecialist.this, msg, Toast.LENGTH_SHORT).show();
 
             }
         });

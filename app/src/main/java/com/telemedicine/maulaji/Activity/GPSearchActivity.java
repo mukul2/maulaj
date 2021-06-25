@@ -2,6 +2,7 @@ package com.telemedicine.maulaji.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,11 +47,16 @@ public class GPSearchActivity extends AppCompatActivity {
     TextView tv_profile;
     @BindView(R.id.spinnerHospital)
     Spinner spinnerHospital;
+    @BindView(R.id.spinnergender)
+    Spinner spinnergender;
     Context context = this ;
     FlippableStackView mFlippableStack;
     @BindView(R.id.tv_list)
     TextView tv_list;
     ColorFragmentAdapter mPageAdapter;
+
+    String selectedGender = "0";
+    String selectedHospital = null;
 
     List<Fragment> mViewPagerFragments;
     Boolean firstTimeDone = false ;
@@ -87,6 +93,8 @@ public class GPSearchActivity extends AppCompatActivity {
 
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, R.layout.white_spinner, hospitals);
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerHospital.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+
                 spinnerHospital.setAdapter(dataAdapter);
 
                 //spinnerHospital.setSelection(locatedCountryIndex);
@@ -99,8 +107,10 @@ public class GPSearchActivity extends AppCompatActivity {
                           firstTimeDone= true;
                       }else {
                           if(i==0){
+                              selectedHospital = null ;
                               downloadGps(null);
                           }else {
+                              selectedHospital = response.get(i-1).getId();
                               downloadGps(response.get(i-1).getId());
                           }
 
@@ -121,15 +131,47 @@ public class GPSearchActivity extends AppCompatActivity {
             }
         });
 
+        genderSpinner();
+
 
 
     }
 
+    private void genderSpinner() {
+        List genders = new ArrayList();
+        genders.add("Any");
+        genders.add("Male");
+        genders.add("Female");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context, R.layout.white_spinner,genders);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnergender.getBackground().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+
+        spinnergender.setAdapter(dataAdapter);
+
+        //spinnerHospital.setSelection(locatedCountryIndex);
+        spinnergender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // dowblaodAndPopulate(response.get(i).getNicename());
+                selectedGender = ""+i;
+                downloadGps(selectedHospital);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
     private void downloadGps(String hospital) {
-        Api.getInstance().all_gp_raw(hospital,new ApiListener.AllGPDownloadListener() {
+        Log.i("selected gender", selectedGender);
+        Api.getInstance().all_gp_raw(hospital,selectedGender,new ApiListener.AllGPDownloadListener() {
             @Override
             public void onAllGPDownloadSuccess(List<DoctorModelRaw> response) {
-                Toast.makeText(GPSearchActivity.this, ""+response.size(), Toast.LENGTH_SHORT).show();
+        //        Toast.makeText(GPSearchActivity.this, ""+response.size(), Toast.LENGTH_SHORT).show();
 
 
                 Gson gson= new Gson();

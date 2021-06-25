@@ -148,7 +148,7 @@ public class doForMe {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(context, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(context, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         listener.onPicUploadFailed( e.getMessage());
                     }
                 })

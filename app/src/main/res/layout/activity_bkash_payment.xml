@@ -107,7 +107,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingBottom="15dp"
-                android:text="Please compleate the above fees amount into above marchant number and provide the transection ID or Screensot of the Transaction ID" />
+                android:text="Please complete the above fees amount into above marchant number and provide the transection ID or Screensot of the Transaction ID" />
         </LinearLayout>
 
         <EditText

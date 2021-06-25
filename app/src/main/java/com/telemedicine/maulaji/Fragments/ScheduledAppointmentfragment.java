@@ -187,6 +187,11 @@ public class ScheduledAppointmentfragment extends Fragment {
 
 
                                     final Map<String, Object> data = (Map<String, Object>) response.get(pos);
+
+                                    String s_time = data.get("s_time").toString();
+
+
+
                                     String doctor_id = data.get("doctor_id").toString();
                                     String patient_photo =data.get("img_url")!=null? data.get("img_url").toString():"";
                                     String patient_id = sessionManager.getUserId();

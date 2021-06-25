@@ -604,9 +604,9 @@ public class Api {
         });
     }
 
-    public void all_gp_raw(String hospital, final ApiListener.AllGPDownloadListener listener) {
+    public void all_gp_raw(String hospital, String gender,final ApiListener.AllGPDownloadListener listener) {
 
-        ApiClientRawApi.getApiInterface().all_gp_raw(hospital).enqueue(new Callback<List<DoctorModelRaw>>() {
+        ApiClientRawApi.getApiInterface().all_gp_raw(hospital,gender).enqueue(new Callback<List<DoctorModelRaw>>() {
             @Override
             public void onResponse(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Response<List<DoctorModelRaw>> response) {
                 if (response != null && response.body() != null) {
@@ -623,9 +623,9 @@ public class Api {
         });
     }
 
-    public void urgent_doctors_list(String hospital, final ApiListener.RawDocDownloadListener listener) {
+    public void urgent_doctors_list(HashMap request, final ApiListener.RawDocDownloadListener listener) {
 
-        ApiClientRawApi.getApiInterface().urgent_doctors_list(hospital).enqueue(new Callback<List<DoctorModelRaw>>() {
+        ApiClientRawApi.getApiInterface().urgent_doctors_list(request).enqueue(new Callback<List<DoctorModelRaw>>() {
             @Override
             public void onResponse(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Response<List<DoctorModelRaw>> response) {
                 if (response != null && response.body() != null) {
@@ -642,9 +642,9 @@ public class Api {
         });
     }
 
-    public void get_home_visit_doctors(String hospital, final ApiListener.RawDocDownloadListener listener) {
+    public void get_home_visit_doctors(HashMap request, final ApiListener.RawDocDownloadListener listener) {
 
-        ApiClientRawApi.getApiInterface().get_home_visit_doctors(hospital).enqueue(new Callback<List<DoctorModelRaw>>() {
+        ApiClientRawApi.getApiInterface().get_home_visit_doctors(request).enqueue(new Callback<List<DoctorModelRaw>>() {
             @Override
             public void onResponse(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Response<List<DoctorModelRaw>> response) {
                 if (response != null && response.body() != null) {
@@ -680,9 +680,9 @@ public class Api {
         });
     }
 
-    public void specialist_doctor_raw(String id, String hospitalId, final ApiListener.AllGPDownloadListener listener) {
+    public void specialist_doctor_raw(String id, String hospitalId,String selectedGender, final ApiListener.AllGPDownloadListener listener) {
 
-        ApiClientRawApi.getApiInterface().specialist_doctor_raw(id, hospitalId).enqueue(new Callback<List<DoctorModelRaw>>() {
+        ApiClientRawApi.getApiInterface().specialist_doctor_raw(id, hospitalId,selectedGender).enqueue(new Callback<List<DoctorModelRaw>>() {
             @Override
             public void onResponse(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Response<List<DoctorModelRaw>> response) {
                 if (response != null && response.body() != null) {
@@ -1083,7 +1083,7 @@ public class Api {
 
     public void updateProfile(String token, RequestBody id, RequestBody name, RequestBody designation_title, MultipartBody.Part photo, final ApiListener.PRofileUpdateListenerPatient listener) {
 
-        ApiClient.getApiInterface().updatePRofile(token, id, name, designation_title, photo).enqueue(new Callback<ProfileUpdateResponse>() {
+        ApiClientRawApi.getApiInterface().updatePRofile(token, id, name, designation_title, photo).enqueue(new Callback<ProfileUpdateResponse>() {
             @Override
             public void onResponse(@NonNull Call<ProfileUpdateResponse> call, @NonNull Response<ProfileUpdateResponse> response) {
                 if (response != null) {

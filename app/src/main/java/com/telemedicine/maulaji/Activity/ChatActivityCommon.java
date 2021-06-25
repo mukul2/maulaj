@@ -253,7 +253,7 @@ public class ChatActivityCommon extends AppCompatActivity {
 
                     @Override
                     public String onPicUploadFailed(String errorMessage) {
-                        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
 
                         return null;
                     }

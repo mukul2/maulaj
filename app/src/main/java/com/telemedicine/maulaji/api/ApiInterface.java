@@ -609,7 +609,7 @@ public interface ApiInterface {
                                                @Field("paypal_id") String paypal_id);
 
     @Multipart
-    @POST("update-user-info")
+    @POST("update_profile_pic.php")
     Call<ProfileUpdateResponse> updatePRofile(@Header("Authorization") String token,
                                               @Part("user_id") RequestBody user_id,
                                               @Part("name") RequestBody name,
@@ -721,19 +721,19 @@ public interface ApiInterface {
     Call<List> all_gp();
 
     @GET("all_gp.php")
-    Call<List<DoctorModelRaw>> all_gp_raw(@Query("hospital") String hospital);
+    Call<List<DoctorModelRaw>> all_gp_raw(@Query("hospital") String hospital,@Query("gender") String gender);
 
-    @GET("urgent_doctors_list.php")
-    Call<List<DoctorModelRaw>> urgent_doctors_list(@Query("hospital") String hospital);
+    @POST("urgent_doctors_list.php")
+    Call<List<DoctorModelRaw>> urgent_doctors_list(@Body HashMap request);
 
-    @GET("get_home_visit_doctors.php")
-    Call<List<DoctorModelRaw>> get_home_visit_doctors(@Query("hospital") String hospital);
+    @POST("get_home_visit_doctors.php")
+    Call<List<DoctorModelRaw>> get_home_visit_doctors(@Body HashMap request);
 
     @GET("specialist_doctor")
     Call<List<DoctorModelRaw>> specialist_doctor(@Query("id") String id);
 
     @GET("specialist_list.php")
-    Call<List<DoctorModelRaw>> specialist_doctor_raw(@Query("id") String id,@Query("hospital") String hospital);
+    Call<List<DoctorModelRaw>> specialist_doctor_raw(@Query("id") String id,@Query("hospital") String hospital,@Query("gender") String gender);
 
     @GET("free_slots_doctors_call_gp")
     Call<List> free_slots_doctors_call_gp(@Query("day") String day, @Query("date") String date, @Query("doctor") String doctor);

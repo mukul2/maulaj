@@ -163,7 +163,7 @@ public class PrescriptionReviewSendingActivity extends BaseActivity implements A
     @Override
     public void onPrescriptionPostSuccess(StatusMessage response) {
         MyProgressBar.dismiss();
-        Toast.makeText(context, response.getMessage(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(context, response.getMessage(), Toast.LENGTH_SHORT).show();
         if (response.getStatus() == true) {
             startActivity(new Intent(this, PatientHomeActivity.class));
             finishAffinity();
@@ -173,7 +173,7 @@ public class PrescriptionReviewSendingActivity extends BaseActivity implements A
     @Override
     public void onPrescriptionPostFailed(String msg) {
         MyProgressBar.dismiss();
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
     }
 }

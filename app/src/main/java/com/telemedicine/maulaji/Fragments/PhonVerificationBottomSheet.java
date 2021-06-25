@@ -8,6 +8,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.hbb20.CountryCodePicker;
 import com.telemedicine.maulaji.Activity.PhonVarificationActivity;
 import com.telemedicine.maulaji.Activity.SignUpActivity;
 import com.telemedicine.maulaji.Activity.SignupActivityPatient;
@@ -73,10 +75,12 @@ public class PhonVerificationBottomSheet extends BottomSheetDialogFragment {
     LinearLayout linearTwo;
     @BindView(R.id.ed_code)
     EditText ed_code;
+    String numberToVery;
 
     @BindView(R.id.spinner)
     Spinner spinner;
     String selectedCountryCode ;
+    CountryCodePicker ccp;
     String signUpas ;
     String pre_sent_phone;
     public PhonVerificationBottomSheet(String u,String phone) {
@@ -106,19 +110,36 @@ public class PhonVerificationBottomSheet extends BottomSheetDialogFragment {
         context = view.getContext();
         ButterKnife.bind(this, view);
         ed_phone.setText(pre_sent_phone);
+        ccp = (CountryCodePicker)view. findViewById(R.id.ccp);
+        ccp.setDefaultCountryUsingNameCode("GB");
+        Log.i("mkl", ccp.getDefaultCountryCode());
+        ccp.setPhoneNumberValidityChangeListener(new CountryCodePicker.PhoneNumberValidityChangeListener() {
+            @Override
+            public void onValidityChanged(boolean isValidNumber) {
+                // your code
+                Log.i("mkl", ccp.getDefaultCountryCode());
+            }
+        });
+
+
+        Log.i("mkl", ccp.getSelectedCountryNameCode());
 
         cardSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selectedCountryCode = ccp.getSelectedCountryCode();
+                Log.i("mkl", "onClick: "+ selectedCountryCode);
                 ed_phone.setError(null);
-                String number =selectedCountryCode+ed_phone.getText().toString().trim();
-                if (number.length() > 5) {
-                    Api.getInstance().apiuniquephonenumber(number, new ApiListener.PhoneUniqueCheckListener() {
+                 numberToVery =selectedCountryCode+ed_phone.getText().toString().trim();
+                numberToVery.replace("+","");
+                numberToVery = "+"+numberToVery;
+                if (true && numberToVery.length() > 5) {
+                    Api.getInstance().apiuniquephonenumber(numberToVery, new ApiListener.PhoneUniqueCheckListener() {
                         @Override
                         public void onPhoneUniqueCheckSuccess(String response) {
                             try{
                                 if (response.equals("0")) {
-                                    request_sms_varification(number);
+                                    request_sms_varification(numberToVery);
                                 } else {
                                     MyDialog.getInstance().with(getActivity())
                                             .message("Sorry, this phone number is allready used.Try login or use another number for signup")
@@ -144,7 +165,7 @@ public class PhonVerificationBottomSheet extends BottomSheetDialogFragment {
                     });
 
                 }else{
-                    Toast.makeText(context, number, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, numberToVery, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -239,7 +260,7 @@ public class PhonVerificationBottomSheet extends BottomSheetDialogFragment {
                MyProgressBar.dismiss();
                 mVerificationId = verificationId;
                // Toast.makeText(context, "A pin has been sent to " + phoneNumber + " Enter The Verification Code You Have Received Through SMS", Toast.LENGTH_SHORT).show();
-                tv_showInstruction.setText("A pin has been sent to " + phoneNumber + " Enter The Verification Code You Have Received Through SMS");
+                tv_showInstruction.setText("A verification code has been sent to " + phoneNumber + " .Enter The Verification Code bellow");
                 // ed_number.setEnabled(false);
                 VERIFICATION_PHONE_NUMBER = phoneNumber;
 
@@ -293,7 +314,7 @@ public class PhonVerificationBottomSheet extends BottomSheetDialogFragment {
 
 
                          startActivity(i);
-                         getActivity().finish();
+                        // getActivity().finish();
 
                         Toast.makeText(context, "Successfully verified", Toast.LENGTH_SHORT).show();
 

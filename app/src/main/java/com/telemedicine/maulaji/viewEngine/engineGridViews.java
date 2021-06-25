@@ -675,10 +675,14 @@ public class engineGridViews {
                 ImageView cardAcall = (ImageView) holder.itemView.findViewById(R.id.cardAcall);
                 ImageView cardChat = (ImageView) holder.itemView.findViewById(R.id.cardChat);
                 ImageView cardMore = (ImageView) holder.itemView.findViewById(R.id.cardMore);
+                CardView cardChatCard = (CardView) holder.itemView.findViewById(R.id.cardChatCard);
+                CardView cardPatientJoin = (CardView) holder.itemView.findViewById(R.id.cardPatientJoin);
                 SessionManager sessionManager = new SessionManager(context);
 
                 if(sessionManager.getUserType().equals("d")){
                     cardPatientViewProfile.setVisibility(View.VISIBLE);
+                    cardChatCard.setVisibility(View.GONE);
+                    cardPatientJoin.setVisibility(View.GONE);
                     cardPatientViewProfile.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

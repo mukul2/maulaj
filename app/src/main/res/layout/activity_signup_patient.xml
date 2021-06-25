@@ -101,7 +101,7 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:padding="10dp"
-                android:text="Compleate Registration"
+                android:text="Complete Registration"
                 android:layout_height="wrap_content"/>
 
         </androidx.cardview.widget.CardView>

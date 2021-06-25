@@ -45,7 +45,7 @@
         />
     <TextView
         android:layout_width="wrap_content"
-        android:text="Mark as Compleated"
+        android:text="Mark as Completed"
         android:layout_gravity="right"
         android:padding="5dp"
         android:id="@+id/tv_mark_done"

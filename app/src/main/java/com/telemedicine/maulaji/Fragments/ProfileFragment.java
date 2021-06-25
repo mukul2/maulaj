@@ -33,8 +33,8 @@ public class ProfileFragment extends Fragment {
     LinearLayout linearPersonal;
     @BindView(R.id.linearTest)
     LinearLayout linearTest;
-    @BindView(R.id.linearLabForm)
-    LinearLayout linearLabForm;
+//    @BindView(R.id.linearLabForm)
+//    LinearLayout linearLabForm;
 
     @BindView(R.id.linearPrescription)
     LinearLayout linearPrescription;

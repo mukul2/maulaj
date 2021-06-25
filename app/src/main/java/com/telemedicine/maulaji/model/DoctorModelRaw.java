@@ -14,9 +14,14 @@ private String imgUrl;
 @SerializedName("name")
 @Expose
 private String name;
+@SerializedName("experience")
+@Expose
+private String experience;
 @SerializedName("last_seen")
 @Expose
-private String lastSeen;
+private String lastSeen;@SerializedName("gender")
+@Expose
+private String gender;
 @SerializedName("email")
 @Expose
 private String email;
@@ -28,7 +33,9 @@ private String departmentId;
 private String address;
 @SerializedName("phone")
 @Expose
-private String phone;
+private String phone;@SerializedName("specialization")
+@Expose
+private String specialization;
 @SerializedName("department")
 @Expose
 private String department;
@@ -44,6 +51,12 @@ private String urgentCareStatus;
 @SerializedName("profile")
 @Expose
 private String profile;
+@SerializedName("education")
+@Expose
+private String education;
+@SerializedName("about_me")
+@Expose
+private String about_me;
 @SerializedName("x")
 @Expose
 private Object x;
@@ -68,6 +81,10 @@ private String country;
 @SerializedName("city")
 @Expose
 private String city;
+
+@SerializedName("awards")
+@Expose
+private String awards;
 
 public String getId() {
 return id;
@@ -237,4 +254,51 @@ public void setCity(String city) {
 this.city = city;
 }
 
+    public String getAbout_me() {
+        return about_me;
+    }
+
+    public void setAbout_me(String about_me) {
+        this.about_me = about_me;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getAwards() {
+        return awards;
+    }
+
+    public void setAwards(String awards) {
+        this.awards = awards;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }

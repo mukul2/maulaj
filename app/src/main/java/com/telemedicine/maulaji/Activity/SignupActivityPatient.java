@@ -126,6 +126,11 @@ public class SignupActivityPatient extends AppCompatActivity {
                                                             .autoBack(false)
                                                             .autoDismiss(false)
                                                             .show();
+                                                    onBackPressed();
+                                                    onBackPressed();
+                                                    onBackPressed();
+                                                    onBackPressed();
+
                                                 }else{
                                                     MyDialog.getInstance().with(context)
                                                             .message(response)

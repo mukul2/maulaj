@@ -75,6 +75,16 @@ public class PatientProfileInfoActivity extends AppCompatActivity {
         ImageView cardChat = (ImageView) findViewById(R.id.cardChat);
 
 
+        Intent iin= getIntent();
+        Bundle b = iin.getExtras();
+
+        if(b!=null)
+        {
+            int j =(int) b.get("pos");
+            viewPager.setCurrentItem(j);
+        }
+
+
 
 
 

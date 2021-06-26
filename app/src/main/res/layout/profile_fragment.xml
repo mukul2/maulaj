@@ -48,7 +48,6 @@
             android:text="Notification" />
     </LinearLayout>
 
-    <include layout="@layout/divider" />
 
     <LinearLayout
         android:id="@+id/linearPersonal"
@@ -126,29 +125,29 @@
 
     <include layout="@layout/divider" />
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/linearLabForm"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginLeft="10dp"-->
-<!--        android:orientation="horizontal"-->
+    <LinearLayout
+       android:id="@+id/linearLF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal"
 
-<!--        android:padding="10dp">-->
+        android:padding="10dp">
 
-<!--        <ImageView-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:src="@drawable/heart_disease" />-->
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/flag_dominican_republic" />
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:text="Lab Forms" />-->
-<!--    </LinearLayout>-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:text="Lab Forms" />
+    </LinearLayout>
 
-<!--    <include layout="@layout/divider" />-->
+    <include layout="@layout/divider" />
 
 
     <LinearLayout

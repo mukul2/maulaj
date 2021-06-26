@@ -3,12 +3,13 @@
     <item android:title="Home"
         android:id="@+id/home"
         android:icon="@drawable/menu_512"/>
+        <item android:title="Profile"
+            android:id="@+id/profile"
+            android:icon="@drawable/user"/>
 <!--    <item android:title="Notification"-->
 <!--        android:id="@+id/notification"-->
 <!--        android:icon="@drawable/bell"/>-->
-<!--    <item android:title="Profile"-->
-<!--        android:id="@+id/profile"-->
-<!--        android:icon="@drawable/user"/>-->
+
 <!--    <item android:title="Blog"-->
 <!--        android:id="@+id/blog"-->
 <!--        android:icon="@drawable/blog_512"/>-->

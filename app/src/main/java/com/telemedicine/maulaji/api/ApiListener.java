@@ -22,6 +22,7 @@ import com.telemedicine.maulaji.model.DepartmentModel2;
 import com.telemedicine.maulaji.model.DepartmentModel3;
 import com.telemedicine.maulaji.model.DeptModel;
 import com.telemedicine.maulaji.model.DiseasesModel;
+import com.telemedicine.maulaji.model.DoctorDetailProfile;
 import com.telemedicine.maulaji.model.DoctorLoginModel;
 import com.telemedicine.maulaji.model.DoctorModel;
 import com.telemedicine.maulaji.model.DoctorModelRaw;
@@ -73,6 +74,7 @@ import com.telemedicine.maulaji.model.VideoCallHistoryModel;
 import com.telemedicine.maulaji.model.VideoCallModel;
 import com.google.gson.JsonElement;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ApiListener {
@@ -571,6 +573,12 @@ public class ApiListener {
         void onAllDocDownloadSuccess(List<DoctorModelRaw> response);
 
         void onAllDocDownloadFailed(String msg);
+    }
+
+    public interface RawDocProfileDownloadListener {
+        void onDocDownloadSuccess(DoctorDetailProfile response);
+
+        void onADocDownloadFailed(String msg);
     }
 
     public interface AllSloatloadListener {

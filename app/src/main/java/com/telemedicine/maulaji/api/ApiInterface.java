@@ -22,6 +22,7 @@ import com.telemedicine.maulaji.model.DepartmentModel2;
 import com.telemedicine.maulaji.model.DepartmentModel3;
 import com.telemedicine.maulaji.model.DeptModel;
 import com.telemedicine.maulaji.model.DiseasesModel;
+import com.telemedicine.maulaji.model.DoctorDetailProfile;
 import com.telemedicine.maulaji.model.DoctorLoginModel;
 import com.telemedicine.maulaji.model.DoctorModel;
 import com.telemedicine.maulaji.model.DoctorModelRaw;
@@ -725,6 +726,13 @@ public interface ApiInterface {
 
     @POST("urgent_doctors_list.php")
     Call<List<DoctorModelRaw>> urgent_doctors_list(@Body HashMap request);
+
+
+    @POST("get_doctor_profile.php")
+    Call<DoctorDetailProfile> get_doctor_profile(@Body HashMap request);
+
+    @POST("update_doctor_profile.php")
+    Call<String> updateDocProfile(@Body HashMap request);
 
     @POST("get_home_visit_doctors.php")
     Call<List<DoctorModelRaw>> get_home_visit_doctors(@Body HashMap request);

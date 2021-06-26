@@ -27,6 +27,7 @@ import com.telemedicine.maulaji.model.DepartmentModel2;
 import com.telemedicine.maulaji.model.DepartmentModel3;
 import com.telemedicine.maulaji.model.DeptModel;
 import com.telemedicine.maulaji.model.DiseasesModel;
+import com.telemedicine.maulaji.model.DoctorDetailProfile;
 import com.telemedicine.maulaji.model.DoctorLoginModel;
 import com.telemedicine.maulaji.model.DoctorModel;
 import com.telemedicine.maulaji.model.DoctorModelRaw;
@@ -638,6 +639,44 @@ public class Api {
             @Override
             public void onFailure(@NonNull Call<List<DoctorModelRaw>> call, @NonNull Throwable t) {
                 listener.onAllDocDownloadFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public void get_doctor_profile(HashMap request, final ApiListener.RawDocProfileDownloadListener listener) {
+
+        ApiClientRawApi.getApiInterface().get_doctor_profile(request).enqueue(new Callback<DoctorDetailProfile>() {
+            @Override
+            public void onResponse(@NonNull Call<DoctorDetailProfile> call, @NonNull Response<DoctorDetailProfile> response) {
+                if (response != null && response.body() != null) {
+                    listener.onDocDownloadSuccess(response.body());
+                } else {
+                    listener.onADocDownloadFailed("" + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<DoctorDetailProfile> call, @NonNull Throwable t) {
+                listener.onADocDownloadFailed(t.getLocalizedMessage());
+            }
+        });
+    }
+
+    public void updateDocProfile(HashMap request) {
+
+        ApiClientRawApi.getApiInterface().updateDocProfile(request).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                if (response != null && response.body() != null) {
+                  //  listener.onDocDownloadSuccess(response.body());
+                } else {
+                    //listener.onADocDownloadFailed("" + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+              //  listener.onADocDownloadFailed(t.getLocalizedMessage());
             }
         });
     }

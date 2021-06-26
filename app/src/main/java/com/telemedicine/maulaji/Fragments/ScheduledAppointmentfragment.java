@@ -242,6 +242,7 @@ public class ScheduledAppointmentfragment extends Fragment {
 
                                     final Map<String, Object> data = (Map<String, Object>) response.get(pos);
                                     String doctor_id = data.get("doctor_id").toString();
+                                    String doctor_name = data.get("doctor_name").toString();
                                     String d_photo =data.get("img_url")!=null? data.get("img_url").toString():"";
                                     String patient_id = sessionManager.getUserId();
                                     String room =patient_id+"-"+doctor_id;
@@ -253,7 +254,7 @@ public class ScheduledAppointmentfragment extends Fragment {
                                             if(result){
                                                 Intent intent = new Intent(context, ChatActivityCommon.class);
                                                 intent.putExtra("partner_id", doctor_id);
-                                                intent.putExtra("partner_name", "doctor name");
+                                                intent.putExtra("partner_name",doctor_name );
                                                 intent.putExtra("partner_photo",  d_photo);
                                                 context.startActivity(intent);
                                             }}

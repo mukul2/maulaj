@@ -36,6 +36,8 @@ public class ProfileFragment extends Fragment {
 //    @BindView(R.id.linearLabForm)
 //    LinearLayout linearLabForm;
 
+    @BindView(R.id.linearLF)
+    LinearLayout linearLF;
     @BindView(R.id.linearPrescription)
     LinearLayout linearPrescription;
     @BindView(R.id.linearPrescriptionReview)
@@ -81,7 +83,21 @@ public class ProfileFragment extends Fragment {
         linearNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(context, PatientProfileInfoActivity.class));
+                Intent i = new Intent(context, PatientProfileInfoActivity.class);
+                i.putExtra("pos",0);
+
+                startActivity(i);
+              //  startActivity(new Intent(context, PatientProfileInfoActivity.class));
+            }
+        });
+        linearLF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, PatientProfileInfoActivity.class);
+                i.putExtra("pos",1);
+
+                startActivity(i);
+              //  startActivity(new Intent(context, PatientProfileInfoActivity.class));
             }
         });
 
@@ -111,7 +127,10 @@ public class ProfileFragment extends Fragment {
     public  void BillActivity(){
         //open document pager
 
-        startActivity(new Intent(context, PatientProfileInfoActivity.class));
+        Intent i = new Intent(context, PatientProfileInfoActivity.class);
+        i.putExtra("pos",2);
+
+        startActivity(i);
 
     }
 

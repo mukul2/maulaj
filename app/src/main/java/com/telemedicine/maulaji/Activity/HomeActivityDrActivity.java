@@ -27,6 +27,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.telemedicine.maulaji.Data.sharedPhotoListener;
 import com.telemedicine.maulaji.Fragments.CallGpHomefragmentDoctor;
+import com.telemedicine.maulaji.Fragments.DoctorProfileFragment;
 import com.telemedicine.maulaji.R;
 import com.telemedicine.maulaji.Utils.CustomDrawerButton;
 import com.telemedicine.maulaji.Utils.MyDialog;
@@ -221,7 +222,8 @@ public class HomeActivityDrActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 if (position == 0) {
                     bottom.getMenu().getItem(0).setChecked(true);
-                /*    bottom.getMenu().getItem(1).setChecked(false);
+                    bottom.getMenu().getItem(1).setChecked(false);
+                /*
                     bottom.getMenu().getItem(2).setChecked(false);
                     bottom.getMenu().getItem(3).setChecked(false);
                     bottom.getMenu().getItem(4).setChecked(false);
@@ -230,16 +232,20 @@ public class HomeActivityDrActivity extends AppCompatActivity {
 
                 }
 
-             /*
+
                 else if (position == 1) {
 
                     bottom.getMenu().getItem(0).setChecked(false);
                     bottom.getMenu().getItem(1).setChecked(true);
-                    bottom.getMenu().getItem(2).setChecked(false);
+                 /*   bottom.getMenu().getItem(2).setChecked(false);
                     bottom.getMenu().getItem(3).setChecked(false);
                     bottom.getMenu().getItem(4).setChecked(false);
 
-                } else if (position == 2) {
+                  */
+
+                }
+                  /*
+                else if (position == 2) {
                     bottom.getMenu().getItem(0).setChecked(false);
                     bottom.getMenu().getItem(1).setChecked(false);
                     bottom.getMenu().getItem(2).setChecked(true);
@@ -283,15 +289,18 @@ public class HomeActivityDrActivity extends AppCompatActivity {
 
                         return true;
                     }
-           /*         case R.id.notification: {
+
+                    case R.id.profile: {
+                        vpPager.setCurrentItem(1);
+                        return true;
+                    }
+            /*
+                     case R.id.notification: {
 
                         vpPager.setCurrentItem(1);
                         return true;
                     }
-                    case R.id.profile: {
-                        vpPager.setCurrentItem(2);
-                        return true;
-                    }
+
                     case R.id.blog: {
                         vpPager.setCurrentItem(3);
                         return true;
@@ -318,6 +327,7 @@ public class HomeActivityDrActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new CallGpHomefragmentDoctor(), "TWO");
+        adapter.addFragment(new DoctorProfileFragment(), "TWO");
      /*   adapter.addFragment(new CallGpHomefragmentDoctor(), "TWO");
         adapter.addFragment(new CallGpHomefragmentDoctor(), "TWO");
         adapter.addFragment(new CallGpHomefragmentDoctor(), "TWO");
